@@ -23,11 +23,7 @@ Overall, Pactify is designed to simplify the contract creation process, making i
 
 #### Q2: Who are your target users? (2-3 personas)
 
-YOUR ANSWER GOES HERE ...
-
- * Short (2-5 min' read max)
- * Be specific (e.g. )
- * You can create your personas as part of this Markdown file, or add a link to an external site (for example, [Xtensio](https://xtensio.com/user-persona/)), or add a pdf
+[Personas](doc/sprint0/personas.pdf)
 
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
 
