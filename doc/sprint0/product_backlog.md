@@ -12,7 +12,7 @@
 10. As a registered user, I want to be able to review and edit a contract after it is generated/modified so that I can correct any mistakes before sharing.
 11. As a registered user, I want to be able to delete any previously generated contracts so that I can clean up my account when I want to.
 12. As a registered user, I want to be given suggestions when I generate a contract so that I can improve its logistics.
-13. As a registered user, I want to be able to switch languages when I generate a contract so that non-english speaking clients can also understand its logistics.
+13. As a registered user, I want to be able to switch languages when I generate a contract so that non-English speaking clients can also understand its logistics.
 14. As a registered user, I want to export my contracts as a PDF/DOCX so that I can easily share them with others and keep a local copy for my records.
 15. As a small business owner, I want to create an NDA so that I can ensure my business information remains confidential when dealing with third parties.
 16. As a renter, I want to be able to create a renters agreement so that I can formalize the terms of the lease with my tenants.
