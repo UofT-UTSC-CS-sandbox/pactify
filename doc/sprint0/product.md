@@ -11,7 +11,7 @@ Overall, Pactify is designed to simplify the contract creation process, making i
 
 #### Q2: Who are your target users? (2-3 personas)
 
-
+[Personas](personas.pdf)
 
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
 
@@ -20,7 +20,6 @@ Users would choose Pactify because of its convenience, affordability, and speed 
 Today, people are having to go to a lawyer to get a legally binding contract, or draft it on their own. Compared to traditional contract creation, Pactify is an infinitely more convenient option, as you can access it online at any time, you never have to talk to another person, you can choose one of many preset templates we have, and it takes just minutes to get a finished contract, rather than waiting weeks or even months for a contract to be drawn up by a lawyer (since we use AI to generate a contract faster than you can say “amicus curiae”). You can also e-sign, export, edit, download, and view all your previously generated contracts all through Pactify.
 
 Most importantly, Pactify is free, representing a 100% savings over getting a lawyer (who charges hundreds of dollars per hour) to write your contract.
-
 
 #### Q4: What does "DONE" means to your Team 
 
@@ -63,16 +62,8 @@ Most importantly, Pactify is free, representing a 100% savings over getting a la
 -  Any issues found post-deployment have been resolved promptly. 
 
 
-----
-
-
-
 ### Highlights
 
-YOUR ANSWER GOES HERE ...
-
-Specify 3 - 5 key decisions and/or insights that came up during your meetings
-and/or collaborative process. Here are few questions that can guide you
  - There was much debate over which project we should choose for this assignment. We spoke with the owners of 2 BRIDGE projects and were initially debating between them. The first one was the creation of a WhatsApp bot, and although the project did seem feasible, we felt that the project did not align with the content that would be taught in this course. The other BRIDGE project seemed very promising, however since there were many other teams who were in contact with him, the owner thought that each team could work on a single component of the project without any direct communication betweeen teams. This solution did not appeal to us, as it would be difficult to coordinate with the other teams without direct communication, and the idea of the project is to design a complete app. Therfore we decided to move forward with our own project.
  
  
