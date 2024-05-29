@@ -9,18 +9,6 @@ Pactify is a website that anyone can use to create an AI generated draft of a co
 
 Overall, Pactify is designed to simplify the contract creation process, making it accessible to everyone, regardless of their legal expertise or budget. By leveraging the power of AI, Pactify ensures that users can quickly produce high-quality contracts that meet their specific needs, providing a valuable tool for individuals and businesses alike.
 
- * Short (2-5 min' read)
- * Start with a single sentence, high-level description of the product.
- * Be clear - Describe the problem you are solving in simple terms.
- * Be concrete. For example:
-    * What are you planning to build? Is it a website, mobile app,
-   browser extension, command-line app, etc.?      
-    * When describing the problem/need, give concrete examples of common use cases.
- * Focus on *what* your product does, and avoid discussing *how* you're going to implement it.      
-   For example: This is not the time or the place to talk about which programming language and/or framework you are planning to use.
- * **Feel free (and very much encouraged) to include useful diagrams, mock-ups and/or links**.
-
-
 #### Q2: Who are your target users? (2-3 personas)
 
 [Personas](personas.pdf)
@@ -31,22 +19,8 @@ Users would choose Pactify because of its convenience, affordability, and speed 
 
 While some other AI contract generation tools exist, they come with costs to access certain features. Many also do not let you view a history of your previously generated accounts, which can be useful if you want to revisit old documents or create several similar contracts. Pactify also presents a seamless and easy-to-use interface, making it approachable for people with no technical background.
 
- * Short (2-5 min' read max)
- * We want you to "connect the dots" for us - Why does your product (as described in your answer to Q1) fits the needs of your users (as described in your answer to Q2)?
- * Explain the benefits of your product explicitly & clearly. For example:
-    * Save users time (how much?)
-    * Allow users to discover new information (which information? And, why couldn't they discover it before?)
-    * Provide users with more accurate and/or informative data (what kind of data? Why is it useful to them?)
-
-
 #### Q4: What does "DONE" means to your Team 
- * The whole team needs to agree as to what ”done” means for the features you will
-   implement.
- * Definition of done applies to all userstories
-
 ----
-
-
 
 ### Highlights
 
