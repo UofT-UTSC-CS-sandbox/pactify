@@ -67,7 +67,11 @@ Most importantly, Pactify is free, representing a 100% savings over getting a la
 ### Highlights
 
  - There was much debate over which project we should choose for this assignment. We spoke with the owners of 2 BRIDGE projects and were initially debating between them. The first one was the creation of a WhatsApp bot, and although the project did seem feasible, we felt that the project did not align with the content that would be taught in this course. The other BRIDGE project seemed very promising, however since there were many other teams who were in contact with him, the owner thought that each team could work on a single component of the project without any direct communication between teams. This solution did not appeal to us, as it would be difficult to coordinate with the other teams without direct communication, and the idea of the project is to design a complete app. Therefore we decided to move forward with our own project.
- 
+
+
+### References
+
+Mooz, B., & Doyle, P. (2021, March 28). The cost of contract complexity. Legal Evolution. https://www.legalevolution.org/2021/03/the-cost-of-contract-complexity-228/
  
   
 
