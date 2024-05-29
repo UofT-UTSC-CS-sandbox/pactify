@@ -53,3 +53,14 @@ To edit your account, first log in to **Pactify**. Once you're logged in, simply
 ##### The Account Screen
 
 To delete your account, first log in to **Pactify**. Once you're logged in, simply click your profile in the top right and then click "Delete Account". Thanks for using **Pactify**!
+
+# Contributing to Pactify 
+
+## 1. Do you use git flow?
+
+## 2. What do you name your branches?
+
+## 3. Do you use github issues or another ticketing website?
+
+## 4. Do you use pull requests?Ω
+
