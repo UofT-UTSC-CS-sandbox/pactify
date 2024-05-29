@@ -4,7 +4,7 @@ Welcome to **Pactify**, a quick, easy, and affordable way to generate a contract
 
 ## Getting Started
 
-//TODO: insert images of website once completed
+![Image of the Pactify Landing Page](https://github.com/UofT-UTSC-CS-sandbox/final-term-project-the-algoholics/blob/759dcaed133f9196e12468d39f722ec1cfa80b79/Interface/Login.png)
 
 ##### The Pactify Login Screen
 
@@ -12,15 +12,19 @@ To get started, all you have to do is go to our website (URL HERE) and sign up. 
 
 ## Creating a New Contract
 
-//TODO: insert images of website once completed
+![Image of Creating a New Contract](https://github.com/UofT-UTSC-CS-sandbox/final-term-project-the-algoholics/blob/759dcaed133f9196e12468d39f722ec1cfa80b79/Interface/Generate.png)
 
 ##### The Contract Creation Screen
+
+![Image of Uploading a PDF](https://github.com/UofT-UTSC-CS-sandbox/final-term-project-the-algoholics/blob/759dcaed133f9196e12468d39f722ec1cfa80b79/Interface/UploadPDF.png)
+
+##### The PDF Upload Screen
 
 To create a contract, first log in to **Pactify**. Once you're logged in, simply click on the "Create New" button. From there, choose whether you want to create an all new contract or upload your existing contract!
 
 ## Updating an Existing Contract
 
-//TODO: insert images of website once completed
+![Image of Editing Contract](https://github.com/UofT-UTSC-CS-sandbox/final-term-project-the-algoholics/blob/759dcaed133f9196e12468d39f722ec1cfa80b79/Interface/FinalEdits.png)
 
 ##### The View/Edit Contract Screen
 
@@ -28,7 +32,7 @@ To update a contract, first log in to **Pactify**. Once you're logged in, simply
 
 ## Deleting a Contract
 
-//TODO: insert images of website once completed
+![Image of Home Screen](https://github.com/UofT-UTSC-CS-sandbox/final-term-project-the-algoholics/blob/759dcaed133f9196e12468d39f722ec1cfa80b79/Interface/HomeScreen.png)
 
 ##### The Home Screen
 
@@ -36,7 +40,7 @@ To delete a contract, first log in to **Pactify**. Once you're logged in, simply
 
 ## Editing your Account
 
-//TODO: insert images of website once completed
+![Image of Account Screen](https://github.com/UofT-UTSC-CS-sandbox/final-term-project-the-algoholics/blob/759dcaed133f9196e12468d39f722ec1cfa80b79/Interface/AccountInfo.png)
 
 ##### The Account Screen
 
@@ -44,7 +48,7 @@ To edit your account, first log in to **Pactify**. Once you're logged in, simply
 
 ## Deleting your Account
 
-//TODO: insert images of website once completed
+![Image of Account Screen](https://github.com/UofT-UTSC-CS-sandbox/final-term-project-the-algoholics/blob/759dcaed133f9196e12468d39f722ec1cfa80b79/Interface/AccountInfo.png)
 
 ##### The Account Screen
 
