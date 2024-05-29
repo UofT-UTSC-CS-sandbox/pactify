@@ -1,4 +1,4 @@
-| Full Name             | UtorId   | Student Id | Email                           | Best way to Connect | Slack User Name |
+| Full Name             | UtorId   | Student #  | Email                           | Best way to Connect | Slack User Name |
 |-----------------------|----------|------------|---------------------------------|---------------------|-----------------|
 | Joshua Yu             | yujoshu2 | 1009021425 | joshua.yu@mail.utoronto.ca      | 6472325929          | Joshua Yu       |
 | Sohil Chanana         | chanana7 | 1008231824 | sohil.chanana@mail.utoronto.ca  | 4163200307          | Sohil Chanana   |
