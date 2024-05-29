@@ -23,7 +23,7 @@ Overall, Pactify is designed to simplify the contract creation process, making i
 
 #### Q2: Who are your target users? (2-3 personas)
 
-[Personas](/personas.pdf)
+[Personas](personas.pdf)
 
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
 
