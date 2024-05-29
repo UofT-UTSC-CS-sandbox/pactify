@@ -1,4 +1,4 @@
-# Pactify/The Algoholics
+# Pactify by The Algoholics
 
 #### Q1: What are you planning to build?
 
