@@ -73,5 +73,25 @@ Release Branches: 'release/version-number'
 
 ### 3. Do you use github issues or another ticketing website?
 
+We will be using Jira for tracking tasks, bugs, and feature requests. Each issue is labeled appropriately and assigned to team members. Our labels include:
+
+bug: For bug reports.
+enhancement: For new features or improvements.
+documentation: For documentation-related tasks.
+question: For questions or clarifications.
+help wanted: For tasks where we need additional input or help.
+
 ### 4. Do you use pull requests?
+
+We will try to follow this pull request workflow: 
+
+Create a Branch: Start by creating a new branch based on the task or feature you are working on.
+Develop and Test: Implement your changes and **thoroughly** test said changes. 
+Open a Pull Request: Once the changes are ready, open a pull request against the develop branch. And then Provide a clear and descriptive title and description of the changes you have made.
+Code Review: Team members will review the code you wrote. And then provide feedback, and request changes if necessary.
+Merge: After two members from the group approve the changes they are then merged into the develop branch. If it’s a hotfix, it will be merged into the main branch after the **entire** group approves the reequest.
+
+Hopefully, by following these steps, we ensure that our project remains organized, collaborative, and of high quality.
+
+
 
