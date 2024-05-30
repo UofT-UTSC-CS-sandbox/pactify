@@ -66,9 +66,10 @@ Feature Branches: Feature branches are created from develop and used to work on 
 
 ### 2. What do you name your branches?
 
-We will be following a clear and descriptive naming conventions for our branches to make it easier to understand the purpose of each branch. The conventions will shall be following are as follows:
+We will be following a clear and descriptive naming conventions for our branches to make it easier to understand the purpose of each branch. The conventions we shall be following are as follows:
 
 Feature Branches: 'feature/short-description'
+
 Release Branches: 'release/version-number'
 
 ### 3. Do you use github issues or another ticketing website?
