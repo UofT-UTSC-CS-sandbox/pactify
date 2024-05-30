@@ -96,7 +96,7 @@ Create a Branch: Start by creating a new branch based on the task or feature you
 
 Develop and Test: Implement your changes and **thoroughly** test said changes. 
 
-Open a Pull Request: Once the changes are ready, open a pull request against the develop branch. And then Provide a clear and descriptive title and description of the changes you have made.
+Open a Pull Request: Once the changes are ready, open a pull request against the develop branch. And then provide a clear and descriptive title and description of the changes you have made.
 
 Code Review: Team members will review the code you wrote. And then provide feedback, and request changes if necessary.
 
