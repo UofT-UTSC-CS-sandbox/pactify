@@ -100,7 +100,7 @@ Open a Pull Request: Once the changes are ready, open a pull request against the
 
 Code Review: Team members will review the code you wrote. And then provide feedback, and request changes if necessary.
 
-Merge: After two members from the group approve the changes they are then merged into the develop branch. If it’s a hotfix, it will be merged into the main branch after the **entire** group approves the reequest.
+Merge: After two members from the group approve the changes they are then merged into the develop branch. If it’s a hotfix, it will be merged into the main branch after the **entire** group approves the request.
 
 Hopefully, by following these steps, we ensure that our project remains organized, collaborative, and of high quality.
 
