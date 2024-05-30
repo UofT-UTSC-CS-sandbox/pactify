@@ -60,18 +60,18 @@ To delete your account, first log in to **Pactify**. Once you're logged in, simp
 
 Yes, we use Git Flow for managing our branches and releases! In short, Git Flow should allow us to structure our workflow and maintain a clean, organized history of our codebase. Here’s a quick overview of our branching strategy:
 
-    Main: The main branch **ONLY** contains production-ready code. **ONLY** thoroughly tested and stable code is merged here.
-    Develop: The develop branch contains the latest delivered development changes for the next release. It’s where integration of features will occur.
-    Feature Branches: Feature branches are created from develop and used to work on new features. Only once the feature is complete and tested, it’s merged back into develop.
+Main: The main branch **ONLY** contains production-ready code. **ONLY** thoroughly tested and stable code is merged here.
+Develop: The develop branch contains the latest delivered development changes for the next release. It’s where integration of features will occur.
+Feature Branches: Feature branches are created from develop and used to work on new features. Only once the feature is complete and tested, it’s merged back into develop.
 
 ### 2. What do you name your branches?
 
-    We will be following a clear and descriptive naming conventions for our branches to make it easier to understand the purpose of each branch. The conventions will shall be following are as follows:
+We will be following a clear and descriptive naming conventions for our branches to make it easier to understand the purpose of each branch. The conventions will shall be following are as follows:
 
-    Feature Branches: 'feature/short-description'
-    Release Branches: 'release/version-number'
+Feature Branches: 'feature/short-description'
+Release Branches: 'release/version-number'
 
 ### 3. Do you use github issues or another ticketing website?
 
-### 4. Do you use pull requests?Ω
+### 4. Do you use pull requests?
 
