@@ -2,5 +2,3 @@
 doc/.DS_Store
 doc/sprint0/.DS_Store
 node_modules
-package-lock.json
-package.json
