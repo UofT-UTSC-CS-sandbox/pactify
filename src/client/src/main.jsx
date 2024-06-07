@@ -21,21 +21,21 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/create",
-    element: <App />,
-    children: [
-      {
-        path: "/create",
-        element: <Record />,
-      },
-    ],
-  },
-  {
     path: "/edit/:id",
     element: <App />,
     children: [
       {
         path: "/edit/:id",
+        element: <Record />,
+      },
+    ],
+  },
+  {
+    path: "/create",
+    element: <App />,
+    children: [
+      {
+        path: "/create",
         element: <Record />,
       },
     ],

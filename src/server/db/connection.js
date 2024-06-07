@@ -21,6 +21,6 @@ try {
   console.error(err);
 }
 
-let db = client.db("Pactify");
+let db = client.db("employees");
 
 export default db;
