@@ -1,11 +1,15 @@
 ### To Run Server
 
-cd server\n
-npm install\n
+cd server
+
+npm install
+
 npm start
 
 ### To Run Client
 
-cd client\n
-npm install\n
+cd client
+
+npm install
+
 npm run dev
