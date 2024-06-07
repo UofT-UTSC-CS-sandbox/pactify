@@ -1,11 +1,11 @@
 ### To Run Server
 
-cd server
-npm install
+cd server\n
+npm install\n
 npm start
 
 ### To Run Client
 
-cd client
-npm install
-node --env-file=config.env server
+cd client\n
+npm install\n
+npm run dev
