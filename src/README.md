@@ -4,11 +4,12 @@ cd server
 
 npm install
 
-npm start
+node --env-file=config.env server
 
 ### To Run Client
 
-cd client
+cd mern/client
 
 npm install
-node --env-file=config.env server
+
+npm run dev
