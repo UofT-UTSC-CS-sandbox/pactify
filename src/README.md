@@ -4,7 +4,7 @@ cd server
 
 npm install
 
-node --env-file=config.env server
+npm start
 
 ### To Run Client
 
