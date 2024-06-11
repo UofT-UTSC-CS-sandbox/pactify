@@ -1,4 +1,4 @@
-import LoginPage from './login.js';
+import LoginPage from './Components/login.js';
 
 function App(){
     return(

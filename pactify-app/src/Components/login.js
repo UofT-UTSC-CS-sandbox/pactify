@@ -13,11 +13,11 @@ function LoginPage(){
                 <button type="submit">login</button>
             </div>
             <p>
-                <a style={options} href="sign up page">Don't have an account? Sign up!</a>
+                <a style={options} href="signUp">Don't have an account? Sign up!</a>
                 {/*NEED TO CREATE A SIGN UP PAGE AND ADD LINK for href--*/}
             </p>
             <p>
-                <a style={options} href="forgot password page">Forgot your password?</a>
+                <a style={options} href="forgotPassword">Forgot your password?</a>
                 {/* NEED TO CREATE A FORGOT PASSWORD PAGE AND ADD LINK for href*/}
             </p>
         </section1>
