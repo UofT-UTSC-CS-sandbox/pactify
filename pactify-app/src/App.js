@@ -5,7 +5,7 @@ function App(){
     return(
         <div className='bg-violet-950'>
             <LoginPage/>
-            {/* <SignupPage/> */}
+            <SignupPage/>
         </div>
     )
 }
