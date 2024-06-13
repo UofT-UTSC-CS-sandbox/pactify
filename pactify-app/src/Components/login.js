@@ -2,7 +2,7 @@ import React from 'react';
 
 function LoginPage() {
     return (
-        <div className="min-h-screen flex flex-row justify-evenly place-content-start flex-wrap pt-40 bg-transparent">
+        <div className="min-h-screen flex flex-row justify-evenly place-content-start flex-wrap pt-40 bg-transparent bg-violet-950">
             <div>
                 <h1 className="text-4xl text-red-500 font-bold mb-2">Welcome to</h1>
                 <h1 className="text-9xl text-red-500 font-black mb-6">Pactify</h1>
