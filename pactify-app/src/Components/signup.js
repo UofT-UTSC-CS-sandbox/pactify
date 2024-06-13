@@ -35,7 +35,7 @@ function SignupPage() {
                     Create Account
                 </button>
                 <p className="text-center mt-4">
-                    <a href="login" className="text-black underline hover:text-gray-400">Already Have An Account? Sign In!</a>
+                    <a href="/" className="text-black underline hover:text-gray-400">Already Have An Account? Sign In!</a>
                 </p>
             </div>
         </div>
