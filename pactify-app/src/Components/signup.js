@@ -10,35 +10,40 @@ function SignupPage() {
                     <div className="space-y-4">
                         <input 
                             type="text" 
+                            id = "email"
                             placeholder="Email" 
                             className="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-red-500"
                         />
                         <input 
                             type="password" 
+                            id = "password1"
                             placeholder="Password" 
                             className="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-red-500"
                         />
                         <input 
                             type="password" 
+                            id = "password2"
                             placeholder="Re-enter Password" 
                             className="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-red-500"
                         />
                     </div>
+                    <p id="error" className="text-center mt-4 text-red-600"> </p>
                     <button 
                         type="submit" 
                         className="mt-6 w-full px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"
+                        onClick={verifyPassword}
                     >
                         Create Account
                     </button>
                     <p className="text-center mt-4">
-                        <a href="login" className="text-black underline hover:text-gray-400">Already Have An Account? Sign In!</a>
+                        <a href="/" className="text-black underline hover:text-gray-400">Already Have An Account? Sign In!</a>
                     </p>
                 </div>
             </div>
             <footer class=" rounded-lg shadow bg-gray-900">
                 <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
                     <div class="sm:flex sm:items-center sm:justify-between">
-                        <a href="https://flowbite.com/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+                        <a href="/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
                             <span class="self-center text-2xl  whitespace-nowrap text-red-500 font-black">Pactify</span>
                         </a>
                         <ul class="flex flex-wrap items-center mb-6 text-sm font-medium  sm:mb-0 text-gray-400">
@@ -60,5 +65,26 @@ function SignupPage() {
         </div>
     );
 }
+
+function verifyPassword(){
+    var pw1 = document.getElementById("password1").value;
+    var pw2 = document.getElementById("password2").value;
+    var email = document.getElementById("email").value;
+
+    if (pw1==="" || pw2==="" || email===""){
+        document.getElementById("error").innerHTML = "Please fill in all entries.";
+        return false;
+    }
+
+    if (pw1 !== pw2){
+        document.getElementById("error").innerHTML = "Re-entered password does not match."
+        return false;
+    }
+
+    else {  //removes previous error message during successful sign-up
+        document.getElementById("error").innerHTML = ""
+    }
+}
+
 
 export default SignupPage;
