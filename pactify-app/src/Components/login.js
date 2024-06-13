@@ -43,9 +43,6 @@ function LoginPage() {
                     </p>
                 </div>
             </div>
-            {/* <footer className="bg-black text-white text-center py-4">
-                <p>&copy; 2024 Pactify. All rights reserved.</p>
-            </footer> */}
             <footer class=" rounded-lg shadow bg-gray-900">
                 <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
                     <div class="sm:flex sm:items-center sm:justify-between">
