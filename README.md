@@ -4,7 +4,14 @@ Welcome to **Pactify**, a quick, easy, and affordable way to generate a contract
 
 ## Running the app
 
-Instructions to run the app (right now)
+Instructions to run the app
+
+1. Put the following two lines into a file called config.env in the pactify-server directory
+
+ATLAS_URI="mongodb+srv://username:algoholics24@pactify.ru1ugju.mongodb.net/Pactify?retryWrites=true&w=majority&appName=Pactify"
+PORT=5050
+
+2. In a shell, run the following:
 
 cd pactify-server
 
