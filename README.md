@@ -2,6 +2,24 @@
 
 Welcome to **Pactify**, a quick, easy, and affordable way to generate a contract, or update an existing contract. With our AI-powered contract generation, users can choose from one of our predefined templates or upload their own PDF, give us some additional information, and **Pactify** will do the rest. After generating your contract, you can freely edit, download, share, and save your contract to your account.
 
+## Running the app
+
+Instructions to run the app (right now)
+
+cd pactify-server
+
+npm install
+
+npm start
+
+cd ..
+
+cd pactify-app
+
+npm install
+
+npm start
+
 ## Getting Started
 
 ![Image of the Pactify Landing Page](https://github.com/UofT-UTSC-CS-sandbox/final-term-project-the-algoholics/blob/759dcaed133f9196e12468d39f722ec1cfa80b79/Interface/Login.png)
