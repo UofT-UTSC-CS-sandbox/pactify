@@ -10,6 +10,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  }
 //   picture: {
 //     type: mongoose.Schema.Types.Mixed,
 //     default: null

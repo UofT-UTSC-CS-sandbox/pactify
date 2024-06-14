@@ -11,8 +11,10 @@ function SignupPage() {
         var pw1 = document.getElementById("password1").value;
         var pw2 = document.getElementById("password2").value;
         var email = document.getElementById("email").value;
+        var firstName = document.getElementById("firstName").value;
+        var lastName = document.getElementById("lastName").value;
     
-        if (pw1==="" || pw2==="" || email===""){
+        if (pw1==="" || pw2==="" || email==="" || firstName==="" || lastName===""){
             document.getElementById("error").innerHTML = "Please fill in all fields.";
             return false;
         }
@@ -29,8 +31,10 @@ function SignupPage() {
                 method: 'post',
                 url: 'http://localhost:5050/users/',
                 data: {
-                  username: email,
-                  password: pw1
+                    username: email,
+                    password: pw1,
+                    firstName: firstName,
+                    lastName: lastName
                 }
             });
             navigate(".."); // back to login page
@@ -45,6 +49,18 @@ function SignupPage() {
                     <h2 className="text-3xl font-bold text-center mb-2">Create An Account</h2>
                     <p className="text-center mb-6">Enter your information in the fields below</p>
                     <div className="space-y-4">
+                        <input 
+                            type="text" 
+                            id = "firstName"
+                            placeholder="First Name" 
+                            className="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-red-500"
+                        />
+                        <input 
+                            type="text" 
+                            id = "lastName"
+                            placeholder="Last Name" 
+                            className="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-red-500"
+                        />
                         <input 
                             type="text" 
                             id = "email"

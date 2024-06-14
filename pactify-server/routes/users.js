@@ -8,7 +8,7 @@ import db from "../db/connection.js";
 import { ObjectId } from "mongodb";
 
 // User schema defined in models/User.js
-import User from "../models/user.js"
+import User from "../models/User.js"
 
 // router is an instance of the express router.
 // We use it to define our routes.

@@ -1,5 +1,5 @@
 
-import Footer from './footer.js';
+import Footer from './footer.jsx';
 import NavBar from './navBar.jsx'
 
 function HomePage(){
