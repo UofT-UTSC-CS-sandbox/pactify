@@ -1,4 +1,5 @@
 
+import Footer from './footer.js';
 import NavBar from './navBar.js'
 
 function HomePage(){
@@ -9,6 +10,7 @@ function HomePage(){
                 <div className="flex flex-row justify-evenly place-content-start flex-wrap pt-40">
                     <h1 className="text-4xl text-black font-bold mb-2">This is the HOME page</h1>
                 </div>
+                <Footer />
             </div>
         </div>
     );
