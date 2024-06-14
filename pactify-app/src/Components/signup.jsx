@@ -23,7 +23,7 @@ function SignupPage() {
     
         else {  //removes previous error message during successful sign-up
             document.getElementById("error").innerHTML = ""
-            // add user to database, TODO: check if username already exists before adding
+            // add user to database, TODO: check if username already exists before adding, put into seperate function
             axios({
                 method: 'post',
                 url: 'http://localhost:5050/users/',
