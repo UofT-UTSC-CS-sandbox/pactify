@@ -1,4 +1,4 @@
-import NavBar from './navBar.js'
+import NavBar from './navBar.jsx'
 
 function AccountInfoPage(){
     return (
