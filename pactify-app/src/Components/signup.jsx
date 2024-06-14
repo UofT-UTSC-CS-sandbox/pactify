@@ -1,6 +1,42 @@
 import React from 'react';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
 
 function SignupPage() {
+    const navigate = useNavigate(); // to navigate back to home page
+
+    function handleSubmit(){
+        var pw1 = document.getElementById("password1").value;
+        var pw2 = document.getElementById("password2").value;
+        var email = document.getElementById("email").value;
+    
+        if (pw1==="" || pw2==="" || email===""){
+            document.getElementById("error").innerHTML = "Please fill in all fields.";
+            return false;
+        }
+    
+        if (pw1 !== pw2){
+            document.getElementById("error").innerHTML = "Passwords do not match."
+            return false;
+        }
+    
+        else {  //removes previous error message during successful sign-up
+            document.getElementById("error").innerHTML = ""
+            // add user to database, TODO: check if username already exists before adding
+            axios({
+                method: 'post',
+                url: 'http://localhost:5050/users/',
+                data: {
+                  username: email,
+                  password: pw1
+                }
+            });
+            navigate(".."); // back to login page
+            return true;
+        }
+    }
+
     return (
         <div className="min-h-screen flex flex-col justify-between bg-violet-950">
             <div className="flex items-center justify-center flex-grow">
@@ -31,7 +67,7 @@ function SignupPage() {
                     <button 
                         type="submit" 
                         className="mt-6 w-full px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"
-                        onClick={verifyPassword}
+                        onClick={handleSubmit}
                     >
                         Create Account
                     </button>
@@ -65,26 +101,5 @@ function SignupPage() {
         </div>
     );
 }
-
-function verifyPassword(){
-    var pw1 = document.getElementById("password1").value;
-    var pw2 = document.getElementById("password2").value;
-    var email = document.getElementById("email").value;
-
-    if (pw1==="" || pw2==="" || email===""){
-        document.getElementById("error").innerHTML = "Please fill in all entries.";
-        return false;
-    }
-
-    if (pw1 !== pw2){
-        document.getElementById("error").innerHTML = "Re-entered password does not match."
-        return false;
-    }
-
-    else {  //removes previous error message during successful sign-up
-        document.getElementById("error").innerHTML = ""
-    }
-}
-
 
 export default SignupPage;
