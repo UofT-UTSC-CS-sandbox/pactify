@@ -45,7 +45,7 @@ function SignupPage() {
     return (
         <div className="min-h-screen flex flex-col justify-between bg-violet-950">
             <div className="flex items-center justify-center flex-grow">
-                <div className="bg-amber-50 rounded-3xl shadow-lg p-8 w-full max-w-md">
+                <div className="bg-amber-50 rounded-3xl shadow-lg p-8 w-full max-w-md m-16">
                     <h2 className="text-3xl font-bold text-center mb-2">Create An Account</h2>
                     <p className="text-center mb-6">Enter your information in the fields below</p>
                     <div className="space-y-4">

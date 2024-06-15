@@ -1,10 +1,11 @@
 import React from 'react';
 import Footer from './footer';
+import AboutUs from './aboutUs';
 
 function LoginPage() {
     return (
         <div className="min-h-screen flex flex-col justify-between bg-violet-950">
-            <div className="flex flex-row justify-evenly place-content-start flex-wrap pt-40">
+            <div className="flex flex-row justify-evenly place-content-center flex-wrap p-20">
                 <div>
                     <h1 className="text-4xl text-red-500 font-bold mb-2">Welcome to</h1>
                     <h1 className="text-9xl text-red-500 font-black mb-6">Pactify</h1>
@@ -45,6 +46,7 @@ function LoginPage() {
                     </p>
                 </div>
             </div>
+            <AboutUs />
             <Footer />
         </div>
     );
