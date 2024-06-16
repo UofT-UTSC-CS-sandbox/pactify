@@ -32,7 +32,12 @@ const contractSchema = new mongoose.Schema({
         type: String
       }
     }
-  ]
+  ],
+
+  thumbnail: {
+    type: String,
+    default: 'https://via.placeholder.com/200'
+  }
 }, {
   timestamps: true
 });

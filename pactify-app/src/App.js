@@ -5,18 +5,24 @@ import ForgotPasswordPage from './Components/forgotPassword.jsx'
 import HomePage from './Components/home.jsx'
 import AccountInfoPage from './Components/accountInfo.jsx';
 import NameChangeForm from './Components/accountForms.jsx';
+import NotFoundPage from './Components/notFound.jsx';
+import { UserProvider } from './UserContext.js';
 
 
 function App(){
     return (
-        <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/signUp" element={<SignupPage />} />
-            <Route path="/forgotPassword" element={<ForgotPasswordPage/>} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/accountInfo" element={<AccountInfoPage />} />
-            <Route path="/nameChange" element={<NameChangeForm />} />
-        </Routes>
+    
+        <UserProvider>
+            <Routes>
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/signUp" element={<SignupPage />} />
+                <Route path="/forgotPassword" element={<ForgotPasswordPage/>} />
+                <Route path="/home" element={<HomePage />} />
+                <Route path="/accountInfo" element={<AccountInfoPage />} />
+                <Route path="/nameChange" element={<NameChangeForm />} />
+                <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+        </UserProvider>
     );
 }
 
