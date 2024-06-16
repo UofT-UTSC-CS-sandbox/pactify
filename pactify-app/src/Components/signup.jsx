@@ -39,12 +39,13 @@ function SignupPage() {
             axios({
                 method: "post",
                 url: "http://localhost:5050/api/auth/register",
+                withCredentials: true,
                 data: {
                     email: email,
                     password: pw1,
                     firstName: firstName,
                     lastName: lastName,
-                },
+                }
             })
                 .then((res) => {
                     document.getElementById("error").innerHTML = "Success!";

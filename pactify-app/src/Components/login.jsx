@@ -2,6 +2,7 @@ import React from "react";
 import Footer from "./footer";
 import AboutUs from "./aboutUs";
 import axios from "axios";
+import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
@@ -10,6 +11,7 @@ function LoginPage() {
     function handleLogin() {
         var email = document.getElementById("email-id").value;
         var pw = document.getElementById("password-id").value;
+        const cookies = new Cookies(null, {path: "/"});
         axios({
             method: "post",
             url: "http://localhost:5050/api/auth/login",
@@ -18,7 +20,11 @@ function LoginPage() {
                 password: pw,
             },
         })
-            .then(() => navigate("/home"))
+            .then((res) => {
+                cookies.set('jwt', res.data.token); // set cookie
+                console.log(res.data.token);
+                navigate("/home");
+            })
             .catch(function (error) {
                 if (error.response) {
                     // The request was made and the server responded with a status code

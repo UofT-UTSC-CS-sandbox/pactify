@@ -18,4 +18,6 @@ router.route("/login").post(login);
 // set /api/auth/deleteUser to deleteUser func in auth.js
 router.route("/deleteUser").delete(deleteUser);
 
+
+
 export default router;

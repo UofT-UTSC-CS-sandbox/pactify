@@ -2,7 +2,8 @@ import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import "dotenv/config.js";
-const JWT_SECRET = "934a9c82fb55edf39a8fd98fa2f0686e9ab8819fadc064d31f623fbd26349a26a85af0"; // secret string
+const JWT_SECRET =
+    "934a9c82fb55edf39a8fd98fa2f0686e9ab8819fadc064d31f623fbd26349a26a85af0"; // secret string
 
 const register = async (req, res, next) => {
     const { email, password, firstName, lastName } = req.body;
@@ -10,10 +11,9 @@ const register = async (req, res, next) => {
         return res
             .status(400)
             .json({ message: "Password less than 6 characters." });
-    } if (await User.exists({ email: email })) {
-        return res
-            .status(400)
-            .json({ message: "Email already in use!" });
+    }
+    if (await User.exists({ email: email })) {
+        return res.status(400).json({ message: "Email already in use!" });
     }
     bcrypt.hash(password, 10).then(async (hash) => {
         await User.create({
@@ -66,13 +66,10 @@ const login = async (req, res, next) => {
                             expiresIn: maxAge, // 3hrs in sec
                         }
                     );
-                    res.cookie("jwt", token, {
-                        httpOnly: true,
-                        maxAge: maxAge * 1000, // 3hrs in ms
-                    });
                     res.status(201).json({
                         message: "User successfully logged in",
                         user: user._id,
+                        token: token
                     });
                 } else {
                     res.status(400).json({ message: "Login not successful" });
@@ -101,6 +98,7 @@ const deleteUser = async (req, res, next) => {
         );
 };
 
+// authorize tokens
 const userAuth = (req, res, next) => {
     const token = req.cookies.jwt;
     if (token) {
