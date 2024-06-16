@@ -23,8 +23,7 @@ app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
 });
 
-// close the server if there's an unexpected error
+// if there's an unexpected error
 process.on("unhandledRejection", (err) => {
     console.log(`An error occurred: ${err.message}`);
-    server.close(() => process.exit(1));
 });

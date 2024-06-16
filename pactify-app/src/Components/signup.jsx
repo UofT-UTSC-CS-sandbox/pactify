@@ -46,12 +46,17 @@ function SignupPage() {
                     lastName: lastName,
                 },
             })
-                .then(() => navigate("/"))
+                .then((res) => {
+                    document.getElementById("error").innerHTML = "Success!";
+                    navigate("/");
+                })
                 .catch(function (error) {
                     if (error.response) {
                         // The request was made and the server responded with a status code
                         // that falls out of the range of 2xx
                         // TODO: Add visual indicator
+                        document.getElementById("error").innerHTML =
+                            error.response.data.message;
                         console.log(error.response.data);
                         console.log(error.response.status);
                         console.log(error.response.headers);
@@ -65,7 +70,6 @@ function SignupPage() {
                         console.log("Error", error.message);
                     }
                 });
-            document.getElementById("error").innerHTML = "Success!";
         }
         // back to login page
         return true;

@@ -1,14 +1,19 @@
 import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-const JWT_SECRET = process.env.JWT_SECRET; // secret string
+import "dotenv/config.js";
+const JWT_SECRET = "934a9c82fb55edf39a8fd98fa2f0686e9ab8819fadc064d31f623fbd26349a26a85af0"; // secret string
 
 const register = async (req, res, next) => {
     const { email, password, firstName, lastName } = req.body;
     if (password.length < 6) {
         return res
             .status(400)
-            .json({ message: "Password less than 6 characters" });
+            .json({ message: "Password less than 6 characters." });
+    } if (await User.find({email: email})) {
+        return res
+            .status(400)
+            .json({ message: "Email already in use!" });
     }
     bcrypt.hash(password, 10).then(async (hash) => {
         await User.create({
