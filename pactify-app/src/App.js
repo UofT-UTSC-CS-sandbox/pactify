@@ -4,6 +4,7 @@ import SignupPage from './Components/signup.jsx';
 import ForgotPasswordPage from './Components/forgotPassword.jsx'
 import HomePage from './Components/home.jsx'
 import AccountInfoPage from './Components/accountInfo.jsx';
+import NameChangeForm from './Components/accountForms.jsx';
 
 
 function App(){
@@ -14,6 +15,7 @@ function App(){
             <Route path="/forgotPassword" element={<ForgotPasswordPage/>} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/accountInfo" element={<AccountInfoPage />} />
+            <Route path="/nameChange" element={<NameChangeForm />} />
         </Routes>
     );
 }
