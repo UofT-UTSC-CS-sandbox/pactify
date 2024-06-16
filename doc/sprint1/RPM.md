@@ -10,11 +10,13 @@ The goal of this release is to develop and deliver core functionalities for the 
 2. **Contract Management**: Allow users to view their previously generated contracts.
 3. **Account Management**: Enable users to edit their account details.
 
-### Participants
+<!-- ### Participants
 - **Product Owner**: [Name]
 - **Scrum Master**: [Name]
 - **Development Team**: [Names]
-- **Stakeholders**: [Names]
+- **Stakeholders**: [Names] -->
+
+<!-- NOT NEEDED, RIGHT? -->
 
 ## Sprint 1
 
