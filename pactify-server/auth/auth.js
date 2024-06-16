@@ -10,7 +10,7 @@ const register = async (req, res, next) => {
         return res
             .status(400)
             .json({ message: "Password less than 6 characters." });
-    } if (await User.find({email: email}).exec()) {
+    } if (await User.exists({ email: email })) {
         return res
             .status(400)
             .json({ message: "Email already in use!" });
