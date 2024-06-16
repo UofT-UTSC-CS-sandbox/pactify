@@ -2,7 +2,7 @@
 import express from "express";
 
 // auth functions from auth.js
-import { register, login, deleteUser } from "./auth.js";
+import { register, login, deleteUser, userAuth } from "./auth.js";
 
 // router is an instance of the express router.
 // We use it to define our routes.
@@ -17,5 +17,7 @@ router.route("/login").post(login);
 
 // set /api/auth/deleteUser to deleteUser func in auth.js
 router.route("/deleteUser").delete(deleteUser);
+
+router.route("/authenticate", userAuth, (req, res) => {});
 
 export default router;

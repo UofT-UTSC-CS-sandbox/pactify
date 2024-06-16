@@ -72,7 +72,7 @@ const login = async (req, res, next) => {
                     });
                     res.status(201).json({
                         message: "User successfully logged in",
-                        user: user._id,
+                        user: user._id
                     });
                 } else {
                     res.status(400).json({ message: "Login not successful" });

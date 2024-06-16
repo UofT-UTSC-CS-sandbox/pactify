@@ -1,12 +1,13 @@
-import React from "react";
+import React , { useContext } from "react";
 import Footer from "./footer";
 import AboutUs from "./aboutUs";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { UserContext } from "../UserContext";
 function LoginPage() {
+    axios.defaults.withCredentials = true;
     const navigate = useNavigate();
-
+    const { setUser } = useContext(UserContext);
     function handleLogin() {
         var email = document.getElementById("email-id").value;
         var pw = document.getElementById("password-id").value;
@@ -18,7 +19,12 @@ function LoginPage() {
                 password: pw,
             },
         })
-            .then(() => navigate("/home"))
+            .then((response) => {
+                setUser(response.data.user);
+                console.log(response.data);
+                console.log("hi");
+                navigate("/home");
+            })
             .catch(function (error) {
                 if (error.response) {
                     // The request was made and the server responded with a status code
