@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
     return (
-        <footer class=" rounded-lg shadow bg-gray-900">
+        <footer class=" shadow bg-gray-900">
             <div class="w-full max-w-screen-xl mx-auto p-2">
                 <div class="sm:flex sm:items-center sm:justify-between">
                     <a href="/" class="flex items-center mb-2 sm:mb-0 space-x-3 rtl:space-x-reverse">
