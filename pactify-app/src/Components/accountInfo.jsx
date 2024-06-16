@@ -1,7 +1,24 @@
 import NavBar from './navBar.jsx';
 import Footer from './footer.jsx';
+import axios from "axios";
+import React, { useEffect } from "react"; 
 
 function AccountInfoPage(){
+    // function loadUserData() {
+    //     axios({
+    //         method: "post",
+    //         url: "http://localhost:5050/api/user/getAccountInfo",
+    //         data: {
+    //             email: email,
+    //             password: pw,
+    //         }
+    //     }).then()
+    // }
+
+    // useEffect(() => {
+    //     loadUserData();
+    // })
+
     return (
         <div>
             <NavBar />
@@ -64,7 +81,7 @@ function AccountInfoPage(){
                     </div>
                     <hr class="my-4 sm:mx-auto border-black lg:my-4" />
                     <button className="w-4/12 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center transition duration-300 hover:scale-105">
-                        <a>Log Out</a>
+                        Log Out
                     </button>
                     <button className="w-4/12 mt-4 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center transition duration-300 hover:scale-105">
                         Delete Account
