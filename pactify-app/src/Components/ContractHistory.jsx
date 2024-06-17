@@ -38,8 +38,6 @@ export default function ContractHistory(){
       fetchContracts();
     }, [user]);
 
-
-
       return (
         <div className="container mx-auto">
           <div className="flex justify-center">
