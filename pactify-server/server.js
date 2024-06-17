@@ -32,6 +32,7 @@ app.get("/user/*", userAuth, (req, res) => res.send("User Route"));
 app.use("/api/contracts", contractRouters);
 app.use('/', homeRoutes);
 
+
 // start the Express server
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);

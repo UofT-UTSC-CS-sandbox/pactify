@@ -65,12 +65,21 @@ const login = async (req, res, next) => {
                         {
                             expiresIn: maxAge, // 3hrs in sec
                         }
+
+            
                     );
+                    
+                    
+                    
                     res.status(201).json({
                         message: "User successfully logged in",
                         user: user._id,
                         token: token
                     });
+
+
+
+
                 } else {
                     res.status(400).json({ message: "Login not successful" });
                 }
@@ -99,25 +108,26 @@ const deleteUser = async (req, res, next) => {
 };
 
 // authorize tokens
-const userAuth = (req, res, next) => {
+const userAuth = async (req, res, next) => {
     const token = req.cookies.jwt;
-    if (token) {
-        jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
-            if (err) {
-                return res.status(401).json({ message: "Not authorized" });
-            } else {
-                if (decodedToken.role !== "Basic") {
-                    return res.status(401).json({ message: "Not authorized" });
-                } else {
-                    next();
-                }
-            }
-        });
-    } else {
-        return res
-            .status(401)
-            .json({ message: "Not authorized, token not available" });
+  
+    if (!token) {
+      return res.status(401).json({ message: "Not authorized, token not available" });
     }
-};
+  
+    try {
+      const decodedToken = jwt.verify(token, JWT_SECRET);
+      const user = await User.findById(decodedToken.id).select('-password');
+      
+      if (!user) {
+        return res.status(401).json({ message: "User not found" });
+      }
+  
+      req.user = user;
+      next();
+    } catch (error) {
+      return res.status(401).json({ message: "Not authorized", error: error.message });
+    }
+  };
 
 export { register, login, deleteUser, userAuth };

@@ -13,7 +13,7 @@ function LoginPage() {
     function handleLogin() {
         var email = document.getElementById("email-id").value;
         var pw = document.getElementById("password-id").value;
-        const cookies = new Cookies(null, {path: "/"});
+        const cookies = new Cookies();
         axios({
             method: "post",
             url: "http://localhost:5050/api/auth/login",
@@ -23,9 +23,9 @@ function LoginPage() {
             },
         })
             .then((res) => {
-                cookies.set('jwt', res.data.token); // set cookie
-                console.log(res.data.token);
-                console.log(res.data);
+                cookies.set('jwt', res.data.token, {path: "/"}); // set cookie
+                console.log(res);
+                setUser(res.data.user)
                 navigate("/home");
             })
             .catch(function (error) {

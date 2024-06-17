@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Contract from '../models/Contract.js';
 
 const uri = process.env.ATLAS_URI || "";
 console.log('uri = %s\n', uri);
@@ -16,6 +17,9 @@ mongoose.connect(uri, options)
   });
 
 const db = mongoose.connection;
+
+
+
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
