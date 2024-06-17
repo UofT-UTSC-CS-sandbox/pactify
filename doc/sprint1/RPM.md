@@ -28,12 +28,17 @@ The goal of this release is to develop and deliver core functionalities for Pact
      - Ticket: SCRUM-4
      - Status: Done
 
-2. **Contract Management**
+2. **User Registration**
+   - As an unregistered user, I want to be able to create an account so that I can use Pactify.
+     - Ticker: SCRUM-2
+     - Status: Done
+
+3. **Contract Management**
    - As a registered user, I want to be able to view all my previously generated contracts so that I can review them at any time.
      - Ticket: SCRUM-3
      - Status: Done
 
-3. **Account Management**
+4. **Account Management**
    - As a registered user, I want to be able to edit my account details so that I can update my information if I need to.
      - Ticket: SCRUM-5
      - Status: Done
