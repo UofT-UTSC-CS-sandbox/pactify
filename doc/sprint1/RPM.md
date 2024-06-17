@@ -9,6 +9,7 @@ The goal of this release is to develop and deliver core functionalities for Pact
 1. **User Authentication**: Implement user login functionality.
 2. **Contract Management**: Allow users to view their previously generated contracts.
 3. **Account Management**: Enable users to edit their account details.
+4. **Account Creation**: Allow unregistered user to create an account.
 
 <!-- ### Participants
 - **Product Owner**: [Name]
@@ -36,7 +37,11 @@ The goal of this release is to develop and deliver core functionalities for Pact
    - As a registered user, I want to be able to edit my account details so that I can update my information if I need to.
      - Ticket: SCRUM-5
      - Status: Done
-
+  
+4. **Account Creation**
+    - As an unregistered user, I want to be able to create an account so that I can use Pactify.
+      - Ticket: SCRUM-2
+      - Status: Done
 
 
 ## Future Sprints
