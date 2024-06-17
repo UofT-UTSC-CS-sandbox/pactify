@@ -39,7 +39,7 @@ function NameChangeForm(){
     );
 }
 
-export default NameChangeForm;
+export default NameChangeForm
 
 function verifyName(){
     var firstName = document.getElementById("fName").value;

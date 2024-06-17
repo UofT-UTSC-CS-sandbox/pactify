@@ -4,7 +4,7 @@ import SignupPage from './Components/signup.jsx';
 import ForgotPasswordPage from './Components/forgotPassword.jsx'
 import HomePage from './Components/home.jsx'
 import AccountInfoPage from './Components/accountInfo.jsx';
-import NameChangeForm from './Components/accountForms.jsx';
+import NameChangeForm from './Components/nameChangeForm.jsx';
 import NotFoundPage from './Components/notFound.jsx';
 import { UserProvider } from './UserContext.js';
 

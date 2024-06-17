@@ -50,7 +50,9 @@ export default function ContractHistory(){
                   contract={contract}/>
                 ))
               ) : (
-                <p>You have no posts yet!</p>
+                <p className=' text-3xl font-bold'>
+                  You have no posts yet!
+                </p>
               )}
               </div>
           </div>
