@@ -42,12 +42,6 @@ The goal of this release is to develop and deliver core functionalities for Pact
    - As a registered user, I want to be able to edit my account details so that I can update my information if I need to.
      - Ticket: SCRUM-5
      - Status: Done
-  
-4. **Account Creation**
-    - As an unregistered user, I want to be able to create an account so that I can use Pactify.
-      - Ticket: SCRUM-2
-      - Status: Done
-
 
 ## Future Sprints
 Future sprints will focus on adding more features such as contract creation and improving existing contracts. 
