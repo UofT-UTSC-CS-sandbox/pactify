@@ -73,4 +73,26 @@ const updateUserName = async (req, res) => {
     }
 };
 
-export { userAuth, getUserData, updateUserName };
+//Update user email
+const updateUserEmail = async (req, res) => {
+    try {
+        const userId = req.user.id; // Assuming the user ID is available in req.user.id
+        const { email } = req.body;
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { email },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        res.status(500).json({ message: "Error updating user data", error: error.message });
+    }
+};
+
+export { userAuth, getUserData, updateUserName, updateUserEmail };
