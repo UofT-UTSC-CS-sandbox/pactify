@@ -66,7 +66,6 @@ function AccountInfoPage() {
                             <input
                                 id="name"
                                 type="text"
-                                value="" //TODO: Add name with cookies
                                 readOnly
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm"
                             />
@@ -98,7 +97,6 @@ function AccountInfoPage() {
                             <input
                                 id="email"
                                 type="email"
-                                value="" //TODO: Add email with cookies
                                 readOnly
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm"
                             />
@@ -130,7 +128,6 @@ function AccountInfoPage() {
                             <input
                                 id="password"
                                 type="password"
-                                value="" //TODO: Add password with cookies
                                 readOnly
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm"
                             />
