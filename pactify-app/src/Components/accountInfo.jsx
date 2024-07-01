@@ -3,11 +3,20 @@ import Footer from "./footer.jsx";
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Cookies from "universal-cookie";
 
 function AccountInfoPage() {
     const navigate = useNavigate();
+    const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
 
+    const openLogOutModal = () => {
+        setIsLogOutModalOpen(true);
+    }
+
+    const closeLogOutModal = () => {
+        setIsLogOutModalOpen(false);
+    }
     function loadUserData() {
         axios({
             method: "get",
@@ -152,15 +161,40 @@ function AccountInfoPage() {
                         </div>
                     </div>
                     <hr class="my-4 sm:mx-auto border-black lg:my-4" />
-                    <a className='w-4/12 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105' href='/'>
+                    <button className='w-4/12 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105' onClick={openLogOutModal}>
                             Log Out
-                    </a>
+                    </button>
                     <a className="w-4/12 mt-4 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" href='/'>
                         Delete Account
                     </a>
                 </div>
             </div>
             <Footer />
+            {/* Log Out Modal */}
+            {isLogOutModalOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-violet-950 rounded-lg shadow-lg w-1/4 ">
+                        <div className="flex justify-between items-center p-4 border-b">
+                            <h2 className="text-xl font-semibold text-white">
+                                Are you sure you want to log out?
+                            </h2>
+                            <button onClick={closeLogOutModal} className="text-gray-500 hover:text-gray-700 text-4xl font-black">
+                                &times;
+                            </button>
+                        </div>
+                        <div className="p-4">
+                            {/* Modal content */}
+                            <div className="grid grid-cols-2 gap-4">
+                                <button className=" bg-gray-400 text-white py-2 rounded-lg shadow-md hover:bg-gray-700 self-center text-center transition duration-300 hover:scale-105" onClick={closeLogOutModal}>
+                                    Cancel</button>
+                                <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={handleLogout}>
+                                    Log Out
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

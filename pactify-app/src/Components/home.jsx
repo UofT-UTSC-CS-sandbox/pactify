@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../UserContext.js';
 import Footer from './footer.jsx';
 import NavBar from './navBar.jsx'
@@ -8,6 +9,7 @@ function HomePage() {
 
     const { user } = useContext(UserContext);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate();
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -15,6 +17,10 @@ function HomePage() {
 
     const closeModal = () => {
         setIsModalOpen(false);
+    }
+
+    const selectOther = () => {
+        navigate("/otherContract");
     }
     return (
         <div>
@@ -52,7 +58,9 @@ function HomePage() {
                                 <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105">NDA</button>
                                 <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105">Employment Contract</button>
                                 <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105">Rental Agreement</button>
-                                <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105">Other</button>
+                                <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={selectOther}>
+                                    Other
+                                </button>
                             </div>
                         </div>
                     </div>
