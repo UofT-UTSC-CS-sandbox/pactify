@@ -80,12 +80,12 @@ function AccountInfoPage(){
                         </div>
                     </div>
                     <hr class="my-4 sm:mx-auto border-black lg:my-4" />
-                    <button className="w-4/12 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center transition duration-300 hover:scale-105">
-                        Log Out
-                    </button>
-                    <button className="w-4/12 mt-4 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center transition duration-300 hover:scale-105">
+                    <a className='w-4/12 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105' href='/'>
+                            Log Out
+                    </a>
+                    <a className="w-4/12 mt-4 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" href='/'>
                         Delete Account
-                    </button>
+                    </a>
                 </div>
             </div>
             <Footer />

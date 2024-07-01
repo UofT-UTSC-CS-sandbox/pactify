@@ -13,7 +13,7 @@ function HomePage(){
 
             <div className="min-h-screen flex flex-col justify-between bg-orange-100">
                 <div className="flex flex-col items-center pt-40">
-                            <ContractHistory/>
+                     <ContractHistory/>
                 </div>  
             </div>
             <Footer />
