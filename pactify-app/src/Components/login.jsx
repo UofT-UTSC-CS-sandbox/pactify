@@ -25,7 +25,7 @@ function LoginPage() {
             .then((res) => {
                 cookies.set('jwt', res.data.token, {path: "/"}); // set cookie
                 console.log(res);
-                setUser(res.data.user)
+                setUser(res.data.user);
                 navigate("/home");
             })
             .catch(function (error) {

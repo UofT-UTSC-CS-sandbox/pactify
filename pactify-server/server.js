@@ -2,8 +2,8 @@
 
 import express from "express";
 import cors from "cors";
-import auth from "./auth/authroute.js";
-import { userAuth } from "./auth/auth.js";
+import authRouter from "./routes/auth/authroute.js";
+import userRouter from "./routes/user/userrouter.js"
 import cookieParser from "cookie-parser";
 import dotenv from 'dotenv';
 import contractRouters from './routes/contract.route.js';
@@ -23,10 +23,9 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser()); // parse cookie to authenticate user
 
-app.use("/api/auth", auth); // assign the "auth" router to any path that begins with /api/auth
+app.use("/api/auth", authRouter); // assign the "auth" router to any path that begins with /api/auth
 
-// protect /user http path with userAuth function
-app.get("/user/*", userAuth, (req, res) => res.send("User Route"));
+app.use("/api/user/", userRouter);
 
 
 app.use("/api/contracts", contractRouters);
