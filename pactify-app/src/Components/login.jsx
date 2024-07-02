@@ -32,10 +32,11 @@ function LoginPage() {
                 if (error.response) {
                     // The request was made and the server responded with a status code
                     // that falls out of the range of 2xx
-                    // TODO: Add visual indicator
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
+                    document.getElementById("error").innerHTML = `${error.response.data.message}`;
+
                 } else if (error.request) {
                     // The request was made but no response was received
                     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -78,6 +79,9 @@ function LoginPage() {
                             className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-4 focus:ring-red-500 w-auto min-w-full flex-grow"
                         />
                     </div>
+                    <p id="error" className="text-center text-red-600 my-4">
+                        {" "}
+                    </p>
                     <div className="mb-4">
                         <button
                             type="submit"

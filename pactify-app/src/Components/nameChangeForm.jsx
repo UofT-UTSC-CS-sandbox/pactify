@@ -45,10 +45,10 @@ function NameChangeForm() {
                     if (error.response) {
                         // The request was made and the server responded with a status code
                         // that falls out of the range of 2xx
-                        // TODO: Add visual indicator
                         console.log(error.response.data);
                         console.log(error.response.status);
                         console.log(error.response.headers);
+                        document.getElementById("error").innerHTML = "Something went wrong. Please try again later.";
                     } else if (error.request) {
                         // The request was made but no response was received
                         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
