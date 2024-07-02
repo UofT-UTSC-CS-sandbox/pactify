@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
     const { message, context, conversation = [] } = req.body;
 
     //Create context message
-    const contextMessage = createMesage(context, USER_TYPESPES.SYSTEM);
+    const contextMessage = createMesage(context, USER_TYPES.SYSTEM);
 
     //Add user message to the conversation
     addMessageToConversation(message, conversation, USER_TYPES.USER);
