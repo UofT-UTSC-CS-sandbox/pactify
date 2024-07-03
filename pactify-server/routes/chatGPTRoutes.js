@@ -1,9 +1,12 @@
 import express from "express";
 import { isValidRequest, addMessageToConversation, createMesage, postChatGPTMessage } from "./chatGPTUtil.js";
 import { USER_TYPES } from "./chatGPTRoles.js";
+import { userAuth } from "./user/user.js"
 // const { USER_TYPES } = require('./chatGPTRoles');
 
 const router = express.Router();
+
+router.use(userAuth);
 
 router.post('/', async (req, res) => {
     // Validate the request object

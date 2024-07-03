@@ -95,4 +95,17 @@ const updateUserEmail = async (req, res) => {
     }
 };
 
-export { userAuth, getUserData, updateUserName, updateUserEmail };
+const deleteUser = async (req, res, next) => {
+    await User.findById(req.user.id)
+        .then((user) => user.deleteOne())
+        .then((user) =>
+            res.status(201).json({ message: "User successfully deleted", user })
+        )
+        .catch((error) =>
+            res
+                .status(400)
+                .json({ message: "An error occurred", error: error.message })
+        );
+};
+
+export { userAuth, getUserData, updateUserName, updateUserEmail, deleteUser };

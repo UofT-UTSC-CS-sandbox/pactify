@@ -77,10 +77,3 @@ export const addMessageToConversation = (message, conversation, role) => {
 };
 
 
-
-// module.exports = {
-//     isValidRequest,
-//     addMessageToConversation,
-//     createMesage,
-//     postChatGPTMessage
-// };

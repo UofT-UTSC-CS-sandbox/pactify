@@ -9,6 +9,7 @@ import Cookies from "universal-cookie";
 function AccountInfoPage() {
     const navigate = useNavigate();
     const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
+    const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
     const openLogOutModal = () => {
         setIsLogOutModalOpen(true);
@@ -17,6 +18,15 @@ function AccountInfoPage() {
     const closeLogOutModal = () => {
         setIsLogOutModalOpen(false);
     }
+
+    const openDeleteModal = () => {
+        setDeleteModalOpen(true);
+    }
+
+    const closeDeleteModal = () => {
+        setDeleteModalOpen(false);
+    }
+
     function loadUserData() {
         axios({
             method: "get",
@@ -55,6 +65,36 @@ function AccountInfoPage() {
         const cookies = new Cookies();
         cookies.set('jwt', '', { path: "/", expires: new Date(0) });
         navigate("/");
+    }
+
+    function handleDelete() {
+        axios({
+            method: "delete",
+            url: "http://localhost:5050/api/user/deleteUser",
+            withCredentials: true,
+        })
+            .then(function (res) {
+                handleLogout();
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    // TODO: Add visual indicator
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // http.ClientRequest in node.js
+                    console.log(error.request);
+                    console.log(document.cookie);
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log("Error", error.message);
+                }
+            });
     }
 
     useEffect(() => {
@@ -160,13 +200,13 @@ function AccountInfoPage() {
                             </button>
                         </div>
                     </div>
-                    <hr class="my-4 sm:mx-auto border-black lg:my-4" />
+                    <hr className="my-4 sm:mx-auto border-black lg:my-4" />
                     <button className='w-4/12 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105' onClick={openLogOutModal}>
                             Log Out
                     </button>
-                    <a className="w-4/12 mt-4 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" href='/'>
+                    <button className="w-4/12 mt-4 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={openDeleteModal}>
                         Delete Account
-                    </a>
+                    </button>
                 </div>
             </div>
             <Footer />
@@ -189,6 +229,31 @@ function AccountInfoPage() {
                                     Cancel</button>
                                 <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={handleLogout}>
                                     Log Out
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {/* Delete Account Modal */}
+            {isDeleteModalOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-violet-950 rounded-lg shadow-lg w-1/4 ">
+                        <div className="flex justify-between items-center p-4 border-b">
+                            <h2 className="text-xl font-semibold text-white">
+                                Are you sure you want to delete your account?
+                            </h2>
+                            <button onClick={closeDeleteModal} className="text-gray-500 hover:text-gray-700 text-4xl font-black">
+                                &times;
+                            </button>
+                        </div>
+                        <div className="p-4">
+                            {/* Modal content */}
+                            <div className="grid grid-cols-2 gap-4">
+                                <button className=" bg-gray-400 text-white py-2 rounded-lg shadow-md hover:bg-gray-700 self-center text-center transition duration-300 hover:scale-105" onClick={closeDeleteModal}>
+                                    Cancel</button>
+                                <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={handleDelete}>
+                                    Delete
                                 </button>
                             </div>
                         </div>
