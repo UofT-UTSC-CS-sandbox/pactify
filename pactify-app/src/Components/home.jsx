@@ -22,6 +22,11 @@ function HomePage() {
     const selectOther = () => {
         navigate("/otherContract");
     }
+
+    const selectNDA = () => {
+        navigate("/ndaContract");
+    }
+
     return (
         <div>
             <NavBar />
@@ -55,7 +60,9 @@ function HomePage() {
                         <div className="p-4">
                             {/* Modal content */}
                             <div className="grid grid-cols-2 gap-4">
-                                <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105">NDA</button>
+                                <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={selectNDA}>
+                                    NDA
+                                </button>
                                 <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105">Employment Contract</button>
                                 <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105">Rental Agreement</button>
                                 <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={selectOther}>
