@@ -3,9 +3,12 @@ import { UserContext } from '../UserContext.js';
 import Footer from './footer.jsx';
 import NavBar from './navBar.jsx'
 import ContractHistory from './ContractHistory.jsx';
+import Cookies from 'universal-cookie';
+
 function HomePage(){
 
-    const { user } = useContext(UserContext);
+
+    // const { user } = useContext(UserContext);
 
     return (
         <div>

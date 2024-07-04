@@ -4,39 +4,37 @@ import { set } from 'mongoose';
 import ContractCard from './ContractCard.jsx';
 import { UserContext } from '../UserContext.js';
 import React, { useContext } from 'react';
+import Cookies from 'universal-cookie';
+import axios from 'axios';
 
+const cookies = new Cookies();
 
 export default function ContractHistory(){
-    const { user } = useContext(UserContext);
+
+  // 
     const [userContracts, setUserContracts] = useState([]);
     const [showMore, setShowMore] = useState(true);
     const [showModal, setShowModal] = useState(false);
     
+
+    function loadUserContracts(){
+      axios({
+        method: "get",
+        url: "http://localhost:5050/api/user/getUserContracts",
+        withCredentials: true,
+      })
+        .then(function(res){
+          setUserContracts(res.data.contracts);
+        })
+
+
+    }
+
+
+
     useEffect(() => {
-      const fetchContracts = async () => {
-        try {
-          const res = await fetch(`http://localhost:5050/api/contracts/getcontracts?userId=${user}`, {
-            method: "GET",
-            headers: {
-              "Accept": "application/json",
-              "Content-Type": "application/json",
-            },
-          });
-            const data = await res.json();
-            if (res.ok) {
-              setUserContracts(data.contracts);
-              if (data.contracts.length < 9) {
-                setShowMore(false);
-              }
-            } else {
-              console.log("Server error:", data);
-            }
-        } catch (error) {
-          console.log(error.message);
-        }
-      };
-      fetchContracts();
-    }, [user]);
+      loadUserContracts();
+    }, []);
 
       return (
         <div className="container mx-auto">
