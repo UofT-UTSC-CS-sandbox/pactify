@@ -121,6 +121,8 @@ List/describe the artifacts you will produce in order to present your project id
    For example: "Build the website" is not precise at all, but "Build a static home page and upload it somewhere, so that it is publicly accessible" is much clearer.
 
 Create mock contracts to show the potential output of our service
+
 With thorough research on contract components and necessary fields for specific contracts
+
 Build a system design document to detail the tech stack of our project
 
