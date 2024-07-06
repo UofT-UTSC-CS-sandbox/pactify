@@ -23,8 +23,10 @@ List the most significant changes you made to your process (if any).
  * Ideally, for each change, you will define a clear success metric (i.e. something you can measure at the end of the iteration to determine whether the change you made was successful)
 
 We started going on call before we started merging branches together.
-We started using Gitflow.
-We started communicating with the TA more readily on Slack. 
+
+We started using the JIRA to track tickets and story points.
+
+We started communicating with the TA more readily on Slack.
 
  > *Note:* If you are not making any changes to your process, it means that you are happy with all of the decisions you made in the previous iterations.
  > In this case, list what you consider to be the most significant process decisions your team made. For each decision, explain why you consider it successful, and what success metric you are using (or could use) to assert that the decision is successful.
