@@ -24,7 +24,9 @@ List the most significant changes you made to your process (if any).
 
 We started going on call before we started merging branches together.
 
-We started using the JIRA to track tickets and story points.
+We started using the JIRA to assign tickets (with story points).
+
+We also added acceptance criteria and priorities for each ticket.
 
 We started communicating with the TA more readily on Slack.
 
