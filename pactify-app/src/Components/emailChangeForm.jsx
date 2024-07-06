@@ -7,35 +7,43 @@ import { useNavigate } from "react-router-dom";
 function NameChangeForm() {
     const navigate = useNavigate();
 
-    function verifyName() {
-        var firstName = document.getElementById("fName").value;
-        var lastName = document.getElementById("lName").value;
+    function validateEmail(email) {
+        // Regular expression to validate the email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    function verifyEmail() {
+        var email1 = document.getElementById("email").value;
+        var email2 = document.getElementById("reenterEmail").value;
     
-        if (firstName === "" || lastName === "") {
+        //Checks if emails are empty
+        if (email1 === "" || email2 === "") {
             document.getElementById("error").innerHTML =
                 "Please fill in all entries.";
             return false;
         }
-    
-        if (firstName.length > 50 || lastName.length > 50) {
-            document.getElementById("error").innerHTML = "Name is too long.";
+
+        //Checks if emails match
+        if (email1 !== email2) {
+            document.getElementById("error").innerHTML =
+                "Emails do not match.";
             return false;
         }
     
-        if (!/^[a-zA-Z\s]*$/.test(firstName) || !/^[a-zA-Z\s]*$/.test(lastName)) {
+        if (!validateEmail(email1)) {
             document.getElementById("error").innerHTML =
-                "Name can only contain letters and spaces.";
+                "Please Enter a valid email address.";
             return false;
         } else {
             //removes previous error message during successful name change
             document.getElementById("error").innerHTML = "";
             axios({
                 method: "patch",
-                url: "http://localhost:5050/api/user/updateUserName",
+                url: "http://localhost:5050/api/user/updateUserEmail",
                 withCredentials: true,
                 data: {
-                    firstName: firstName,
-                    lastName: lastName,
+                    email: email1
                 },
             })
                 .then((res) => {
@@ -69,7 +77,7 @@ function NameChangeForm() {
             <div className="flex items-between justify-center flex-grow">
                 <div className="bg-orange-100 rounded-3xl p-8 w-full max-w-md m-16">
                     <h2 className="text-3xl font-bold text-center mb-2">
-                        Change Your Name
+                        Change Your Email
                     </h2>
                     <p className="text-center mb-6">
                         Enter your information in the fields below
@@ -77,14 +85,14 @@ function NameChangeForm() {
                     <div className="space-y-4">
                         <input
                             type="text"
-                            id="fName"
-                            placeholder="First Name"
+                            id="email"
+                            placeholder="Enter New Email"
                             className="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-red-500"
                         />
                         <input
                             type="text"
-                            id="lName"
-                            placeholder="Last Name"
+                            id="reenterEmail"
+                            placeholder="Re-enter New Email"
                             className="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-red-500"
                         />
                     </div>
@@ -94,7 +102,7 @@ function NameChangeForm() {
                     <button
                         type="submit"
                         className="mt-6 w-full px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"
-                        onClick={verifyName}
+                        onClick={verifyEmail}
                     >
                         Done
                     </button>
