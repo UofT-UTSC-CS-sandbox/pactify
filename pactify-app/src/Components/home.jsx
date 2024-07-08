@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../UserContext.js';
 import Footer from './footer.jsx';
 import NavBar from './navBar.jsx'
 import ContractHistory from './ContractHistory.jsx';
+import axios from "axios";
+
 function HomePage() {
 
     const { user } = useContext(UserContext);
@@ -27,13 +30,49 @@ function HomePage() {
         navigate("/ndaContract");
     }
 
+    function loadUserData() {
+        axios({
+            method: "get",
+            url: "http://localhost:5050/api/user/getUserData",
+            withCredentials: true,
+        })
+            .then(function (res) {
+                document.getElementById("welcome").innerText = `Hi ${res.data.firstName}...`
+                console.log(res.data);
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    // TODO: Add visual indicator
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // http.ClientRequest in node.js
+                    console.log(error.request);
+                    console.log(document.cookie);
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log("Error", error.message);
+                }
+            });
+    }
+
+    useEffect(() => {
+        loadUserData();
+    });
+
+
     return (
         <div>
             <NavBar />
             <div className="min-h-screen flex flex-col justify-between place-items-center bg-orange-100 p-8">
                 <div className="flex flex-col bg-beige-100 w-4/12 p-8 rounded-lg mt-20">
                     <div className=" text-left mb-8">
-                        <h1 className="text-3xl font-bold">Hi there...</h1>
+                        <h1 className="text-3xl font-bold" id="welcome">Hi there...</h1>
                         <button onClick={openModal} className="mt-4 inline-block bg-red-500 text-white py-2 px-4 rounded-full font-bold hover:bg-red-700 transition duration-300 hover:scale-105">
                             CREATE NEW +
                         </button>
