@@ -2,7 +2,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 import axios from 'axios';
 import Yup from 'yup';
-// const Yup = require('yup');
 
 
 // Define constants
@@ -11,6 +10,7 @@ const CHATGPT_MODEL_35 = "gpt-3.5-turbo";
 
 const config = {
     headers: {
+        'Content-Type': "application/json",
         Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
     },
 };
