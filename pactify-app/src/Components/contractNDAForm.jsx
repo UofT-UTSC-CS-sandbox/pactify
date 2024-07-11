@@ -132,6 +132,7 @@ function ContractNDAForm() {
                         <label className="block text-base font-medium text-gray-700 mb-2">
                             Provider:
                         </label>
+                        
                         <div className="flex items-center">
                             <input
                                 id="provider"
@@ -167,21 +168,6 @@ function ContractNDAForm() {
                         </DatePicker>
                     </div>
 
-                    <div className="mb-4">
-                        <label className="block text-base font-medium text-gray-700 mb-2">
-                            Definition of Confidentiality:
-                        </label>
-                        <div className="flex items-center">
-                            <textarea
-                                id="confidential-info"
-                                type="text"
-                                rows={4}
-                                placeholder="Specify the confidential information"
-                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                            ></textarea>
-                        </div>
-                    </div>
-
                     <div className="mb-4" >
                         <label className="block text-base font-medium text-gray-700 mb-2">
                             Duration of Agreement:
@@ -208,11 +194,33 @@ function ContractNDAForm() {
                         </div>
 
                     </div>
+                    
+                    <div className="mb-4">
+                        <label className="block text-base font-medium text-gray-700">
+                            Definition of Confidentiality:
+                        </label>
+                        <div className="font-small text-slate-600 mb-2">
+                            What information is considered confidential? What is not?
+                        </div>
+                        <div className="flex items-center">
+                            <textarea
+                                id="confidential-info"
+                                type="text"
+                                rows={4}
+                                placeholder="Specify the confidential information"
+                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                            ></textarea>
+                        </div>
+                    </div>
+
 
                     <div className="mb-4">
-                        <label className="block text-base font-medium text-gray-700 mb-2">
+                        <label className="block text-base font-medium text-gray-700">
                             Handling a Breach in Confidentiality:
                         </label>
+                        <div className="font-small text-slate-600 mb-2">
+                            What happens if the contract is breached?
+                        </div>
                         <div className="flex items-center">
                             <textarea
                                 id="breach"
