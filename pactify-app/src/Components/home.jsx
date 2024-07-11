@@ -73,7 +73,7 @@ function HomePage() {
             <div className="min-h-screen flex flex-col justify-between place-items-center bg-orange-100 p-8">
                 <div className="flex flex-col bg-beige-100 w-5/12 p-8 rounded-lg mt-20">
                     <div className="mb-8">
-                        <h1 className="text-3xl font-bold" id="welcome">Hi there...</h1>
+                        <h1 className="text-3xl font-bold" id="welcome"> </h1>
                         <button onClick={openModal} className=" w-5/12 mt-4 inline-block bg-red-500 text-white py-2 px-4 rounded-full font-bold hover:bg-red-700 transition duration-300 hover:scale-105">
                             CREATE NEW +
                         </button>
@@ -88,7 +88,7 @@ function HomePage() {
             {/* Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-violet-950 rounded-lg shadow-lg w-1/4 ">
+                    <div className="bg-violet-950 rounded-lg shadow-lg w-1/3 ">
                         <div className="flex justify-between items-center p-4 border-b">
                             <h2 className="text-3xl font-semibold text-white">
                                 Select Contract Type

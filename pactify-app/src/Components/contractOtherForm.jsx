@@ -11,6 +11,9 @@ function ContractOtherForm() {
     const [response, setResponse] = useState('');
     const [isloading, setLoading] = useState(false);
 
+    const goBack = () => {
+        navigate("/home");
+    }
 
     function generateContract() {
         let style = document.getElementById("style").value;
@@ -78,7 +81,10 @@ function ContractOtherForm() {
             <NavBar />
             <div className="min-h-screen flex flex-col justify-between place-items-center bg-orange-100 p-8">
                 <div className="flex flex-col w-5/12 p-8 rounded-lg mt-10">
-                    <h1 className="text-5xl font-bold mb-10">Custom Contract</h1>
+                    <button onClick={goBack} className="mb-4 w-1/6 mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-bold hover:bg-red-700 transition duration-300 hover:scale-105">
+                        ← Back
+                    </button>
+                    <h1 className="text-5xl font-bold mb-2">Custom Contract</h1>
                     <h2 className="text-3xl font-bold mb-6">Enter Information</h2>
                     <div className="mb-4">
                         <label className="block text-lg font-medium text-gray-700 mb-2" htmlFor="style">

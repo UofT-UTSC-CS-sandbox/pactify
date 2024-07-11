@@ -18,19 +18,23 @@ function ContractNDAForm() {
 
     const handleStartChange = (date) => {
         setDate(date);
-        if (!startDate){
+        if (!startDate) {
             setStartDate(date);
         }
     };
 
+    const goBack = () => {
+        navigate("/home");
+    }
+
     function generateContract() {
         let style = document.getElementById("style").value;
         let provider = document.getElementById("provider").value;
-        let recipient= document.getElementById("recipient").value;
+        let recipient = document.getElementById("recipient").value;
         let agreementDate = document.getElementById("date-of-agreement").value;
         let confidentialInfo = document.getElementById("confidential-info").value;
         let startDuration = document.getElementById("start-date").value;
-        let endDuration= document.getElementById("end-date").value;
+        let endDuration = document.getElementById("end-date").value;
         let instructions = document.getElementById("instructions").value;
         // Provider
         // Receiver
@@ -103,7 +107,10 @@ function ContractNDAForm() {
             <NavBar />
             <div className="min-h-screen flex flex-col justify-between place-items-center bg-orange-100 p-8">
                 <div className="flex flex-col w-5/12 p-8 rounded-lg mt-10">
-                    <h1 className="text-4xl font-bold mb-6">Non-Disclosure Agreement</h1>
+                    <button onClick={goBack} className="mb-4 w-1/6 mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-bold hover:bg-red-700 transition duration-300 hover:scale-105">
+                    ← Back
+                    </button>
+                    <h1 className="text-4xl font-bold mb-2">Non-Disclosure Agreement</h1>
                     <h2 className="text-2xl font-bold mb-6">Enter Information</h2>
                     <div className="mb-4">
                         <label className="block text-lg font-medium text-gray-700 mb-2" htmlFor="style">
@@ -120,7 +127,7 @@ function ContractNDAForm() {
                             </select>
                         </div>
                     </div>
-                
+
                     <div className="mb-4">
                         <label className="block text-base font-medium text-gray-700 mb-2">
                             Provider:
@@ -153,11 +160,11 @@ function ContractNDAForm() {
                         <label className="block text-base font-medium text-gray-700 mb-2">
                             Date of Agreement:
                         </label>
-                            <DatePicker
-                                id="date-of-agreement"
-                                selected={date} onChange={handleStartChange}
-                                label="Select Date">
-                            </DatePicker>
+                        <DatePicker
+                            id="date-of-agreement"
+                            selected={date} onChange={handleStartChange}
+                            label="Select Date">
+                        </DatePicker>
                     </div>
 
                     <div className="mb-4">
@@ -196,10 +203,10 @@ function ContractNDAForm() {
                             minDate={startDate}
                             placeholderText="End Date"
                         />
-                        <div className = "font-small text-slate-500 mb-2">
+                        <div className="font-small text-slate-500 mb-2">
                             You may leave the 'End Date' blank if the duration is indefinite
                         </div>
-                            
+
                     </div>
 
                     <div className="mb-4">
@@ -231,7 +238,7 @@ function ContractNDAForm() {
                             ></textarea>
                         </div>
                     </div>
-                    
+
                     <p id="error" className="text-center my-4 text-red-600"></p>
                     <button
                         type="submit"
