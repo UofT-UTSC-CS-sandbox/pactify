@@ -1,6 +1,8 @@
 import User from "../../models/user.js";
 import jwt from "jsonwebtoken";
 import "dotenv/config.js";
+import Contract from "../../models/Contract.js";
+import mongoose from "mongoose";
 const JWT_SECRET =
     "934a9c82fb55edf39a8fd98fa2f0686e9ab8819fadc064d31f623fbd26349a26a85af0"; // secret string
 
@@ -31,6 +33,31 @@ const userAuth = async (req, res, next) => {
             .json({ message: "Not authorized", error: error.message });
     }
 };
+
+
+const getUserContracts = async (req, res, next) => {
+        try {
+          // Fetch all contracts
+          const startIndex = parseInt(req.query.startIndex) || 0;
+          const limit = parseInt(req.query.limit) || 9;
+      
+          // Ensure userId is properly formatted and valid
+    
+          // Query contracts by userId
+          const contracts = await Contract.find({'userId' : new mongoose.Types.ObjectId(req.user.id)})
+            .skip(startIndex)
+            .limit(limit);
+      
+          // Respond with the contracts
+          console.log(contracts);
+          res.status(200).json({ contracts });
+      
+        } catch (error) {
+          console.error('Error fetching contracts:', error);
+          res.status(500).json({ message: error.message });
+        }
+    };
+
 
 const getUserData = async (req, res) => {
     try {
@@ -108,4 +135,4 @@ const deleteUser = async (req, res, next) => {
         );
 };
 
-export { userAuth, getUserData, updateUserName, updateUserEmail, deleteUser };
+export { userAuth, getUserData, updateUserName, updateUserEmail, deleteUser, getUserContracts };
