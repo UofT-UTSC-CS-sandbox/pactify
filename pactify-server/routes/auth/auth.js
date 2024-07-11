@@ -42,7 +42,7 @@ const login = async (req, res, next) => {
     // Check if email and password is provided
     if (!email || !password) {
         return res.status(400).json({
-            message: "Email or password not present",
+            message: "Email or password missing",
         });
     }
     // Try to find user in database
@@ -50,7 +50,7 @@ const login = async (req, res, next) => {
         const user = await User.findOne({ email });
         if (!user) {
             res.status(400).json({
-                message: "Login not successful",
+                message: "Login failed, incorrect credentials",
                 error: "User not found",
             });
         } else {
@@ -73,7 +73,10 @@ const login = async (req, res, next) => {
                         token: token,
                     });
                 } else {
-                    res.status(400).json({ message: "Login not successful" });
+                    res.status(400).json({ 
+                        message: "Login failed, incorrect credentials",
+                        error: "Password not found"
+                     });
                 }
             });
         }
@@ -85,20 +88,4 @@ const login = async (req, res, next) => {
     }
 };
 
-const deleteUser = async (req, res, next) => {
-    const { id } = req.body;
-    await User.findById(id)
-        .then((user) => user.deleteOne())
-        .then((user) =>
-            res.status(201).json({ message: "User successfully deleted", user })
-        )
-        .catch((error) =>
-            res
-                .status(400)
-                .json({ message: "An error occurred", error: error.message })
-        );
-};
-
-
-
-export { register, login, deleteUser };
+export { register, login };

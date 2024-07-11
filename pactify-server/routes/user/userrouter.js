@@ -2,7 +2,7 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 // auth functions from auth.js
-import { userAuth, getUserData, updateUserName, getUserContracts } from "./user.js";
+import { userAuth, getUserData, updateUserName, updateUserEmail, deleteUser, getUserContracts } from "./user.js";
 
 // router is an instance of the express router.
 // We use it to define our routes.
@@ -18,5 +18,8 @@ router.get("/getUserData", getUserData);
 router.patch("/updateUserName", updateUserName);
 
 router.get("/getUserContracts", getUserContracts);
+router.patch("/updateUserEmail", updateUserEmail);
+
+router.delete("/deleteUser", deleteUser);
 
 export default router;

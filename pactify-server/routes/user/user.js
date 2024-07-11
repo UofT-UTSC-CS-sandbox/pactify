@@ -100,4 +100,39 @@ const updateUserName = async (req, res) => {
     }
 };
 
-export { userAuth, getUserData, updateUserName, getUserContracts };
+//Update user email
+const updateUserEmail = async (req, res) => {
+    try {
+        const userId = req.user.id; // Assuming the user ID is available in req.user.id
+        const { email } = req.body;
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { email },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        res.status(500).json({ message: "Error updating user data", error: error.message });
+    }
+};
+
+const deleteUser = async (req, res, next) => {
+    await User.findById(req.user.id)
+        .then((user) => user.deleteOne())
+        .then((user) =>
+            res.status(201).json({ message: "User successfully deleted", user })
+        )
+        .catch((error) =>
+            res
+                .status(400)
+                .json({ message: "An error occurred", error: error.message })
+        );
+};
+
+export { userAuth, getUserData, updateUserName, updateUserEmail, deleteUser };
