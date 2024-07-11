@@ -9,47 +9,45 @@ import axios from 'axios';
 
 const cookies = new Cookies();
 
-export default function ContractHistory(){
+export default function ContractHistory() {
 
   // 
-    const [userContracts, setUserContracts] = useState([]);
-    const [showMore, setShowMore] = useState(true);
-    const [showModal, setShowModal] = useState(false);
-    
+  const [userContracts, setUserContracts] = useState([]);
+  const [showMore, setShowMore] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
-    function loadUserContracts(){
-      axios({
-        method: "get",
-        url: "http://localhost:5050/api/user/getUserContracts",
-        withCredentials: true,
+
+  function loadUserContracts() {
+    axios({
+      method: "get",
+      url: "http://localhost:5050/api/user/getUserContracts",
+      withCredentials: true,
+    })
+      .then(function (res) {
+        setUserContracts(res.data.contracts);
       })
-        .then(function(res){
-          setUserContracts(res.data.contracts);
-        })
 
 
-    }
+  }
 
 
 
-    useEffect(() => {
-      loadUserContracts();
-    }, []);
+  useEffect(() => {
+    loadUserContracts();
+  }, []);
 
-      return (
-        <div className="container mx-auto">
-          <div className="flex justify-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
-              {userContracts.length > 0 ? (
-                userContracts.map((contract) => (
-                  <ContractCard
-                  contract={contract}/>
-                ))
-              ) : (
-                <p>You have no posts yet!</p>
-              )}
-              </div>
-          </div>
-        </div>
-    );
+  return (
+    <div className="flex">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
+        {userContracts.length > 0 ? (
+          userContracts.map((contract) => (
+            <ContractCard
+              contract={contract} />
+          ))
+        ) : (
+          <p className='flex self-start'>You have no posts yet!</p>
+        )}
+      </div>
+    </div>
+  );
 }
