@@ -27,6 +27,10 @@ function ContractNDAForm() {
         navigate("/home");
     }
 
+    const goSign = () => {
+        navigate("/signature");
+    }
+
     function generateContract() {
         let style = document.getElementById("style").value;
         let provider = document.getElementById("provider").value;
@@ -239,6 +243,12 @@ function ContractNDAForm() {
                         </div>
                     </div>
 
+                    <button 
+                        type="submit" 
+                        className="w-1/2 self-center px-4 py-2 bg-gray-500 text-white font-medium rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 hover:scale-105" 
+                        onClick={goSign}>
+                        Signature
+                    </button>
                     <p id="error" className="text-center my-4 text-red-600"></p>
                     <button
                         type="submit"

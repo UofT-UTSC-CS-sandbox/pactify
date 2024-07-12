@@ -9,6 +9,7 @@ import EmailChangeForm from './Components/emailChangeForm.jsx';
 import ContractOtherForm from './Components/contractOtherForm.jsx';
 import ContractNDAForm from './Components/contractNDAForm.jsx';
 import NotFoundPage from './Components/notFound.jsx';
+import SignaturePad from './Components/signaturePad.jsx';
 import { UserProvider } from './UserContext.js';
 
 
@@ -26,6 +27,7 @@ function App(){
                 <Route path="/emailChange" element={<EmailChangeForm />} />
                 <Route path="/otherContract" element={<ContractOtherForm />} />
                 <Route path="/ndaContract" element={<ContractNDAForm />} />
+                <Route path="/signature" element={<SignaturePad />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </UserProvider>
