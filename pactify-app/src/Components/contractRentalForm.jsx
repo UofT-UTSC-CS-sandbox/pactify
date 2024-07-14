@@ -108,7 +108,7 @@ function ContractRentalForm() {
             <div className="min-h-screen flex flex-col justify-between place-items-center bg-orange-100 p-8">
                 <div className="flex flex-col w-5/12 p-8 rounded-lg mt-10">
                     <button onClick={goBack} className="mb-4 w-1/6 mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-bold hover:bg-red-700 transition duration-300 hover:scale-105">
-                    ← Back
+                        ← Back
                     </button>
                     <h1 className="text-4xl font-bold mb-2">Rental Agreement</h1>
                     <h2 className="text-2xl font-bold mb-6">Enter Information</h2>
@@ -139,6 +139,35 @@ function ContractRentalForm() {
                                 placeholder="Name"
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                             ></input>
+                        </div>
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-base font-medium text-gray-700 mb-2">
+                            Landlord Contact Information
+                        </label>
+                        <div className="flex flex-row place-content-start flex-wrap gap-4">
+                            <div className="flex flex-col">
+                                <label className="block text-base font-normal text-gray-700 mb-2">
+                                    Phone Number:
+                                </label>
+                                <input
+                                    id="landlordPhone"
+                                    type="text"
+                                    placeholder="Eg. 123-456-7890"
+                                    className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                ></input>
+                            </div>
+                            <div className="flex flex-col">
+                                <label className="block text-base font-normal text-gray-700 mb-2">
+                                    Email:
+                                </label>
+                                <input
+                                    id="landlordEmail"
+                                    type="text"
+                                    className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                ></input>
+                            </div>
+
                         </div>
                     </div>
 
@@ -190,51 +219,202 @@ function ContractRentalForm() {
                             placeholderText="End Date"
                         />
                         <div className="font-small text-slate-500 mb-2">
-                            You may leave the 'End Date' blank if the duration is indefinite
+                            Leave the 'End Date' blank if the duration is indefinite
                         </div>
-
                     </div>
 
                     <div className="mb-4">
                         <label className="block text-base font-medium text-gray-700 mb-2">
-                            Definition of Confidentiality:
+                            Location of Rental Property
                         </label>
+                        <div className="flex flex-row place-content-start flex-wrap gap-4">
+                            <div className="flex flex-col">
+                                <label className="block text-base font-normal text-gray-700 mb-2">
+                                    Address:
+                                </label>
+                                <input
+                                    id="address"
+                                    type="text"
+                                    placeholder="Eg. 123 Main St"
+                                    className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                ></input>
+                            </div>
+                            <div className="flex flex-col">
+                                <label className="block text-base font-normal text-gray-700 mb-2">
+                                    City:
+                                </label>
+                                <input
+                                    id="city"
+                                    type="text"
+                                    placeholder="Eg. Toronto"
+                                    className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                ></input>
+                            </div>
+                            <div className="flex flex-col">
+                                <label className="block text-base font-normal text-gray-700 mb-2">
+                                    Province:
+                                </label>
+                                <input
+                                    id="province"
+                                    type="text"
+                                    placeholder="Eg. Ontario"
+                                    className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                ></input>
+                            </div>
+                            <div className="flex flex-col">
+                                <label className="block text-base font-normal text-gray-700 mb-2">
+                                    Zip Code:
+                                </label>
+                                <input
+                                    id="zipCode"
+                                    type="text"
+                                    placeholder="Eg. A1B 2C3"
+                                    className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                ></input>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-base font-medium text-gray-700 mb-2">
+                            Rent
+                        </label>
+                        <div className="flex flex-row flex-wrap place-content-start gap-4">
+                            <div className="flex flex-col w-1/4">
+                                <label className="block text-base font-normal text-gray-700 mb-2">
+                                    Amount:
+                                </label>
+                                <div className="relative">
+                                    <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">$</span>
+                                    <input
+                                        type="number"
+                                        id="rentAmount"
+                                        step="1"
+                                        min="0"
+                                        className="pl-8 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 w-full"
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex flex-col w-56">
+                                <label className="block text-base font-normal text-gray-700 mb-2">
+                                    Payment Interval:
+                                </label>
+                                <div className="relative">
+                                    <select
+                                        id="paymentInterval"
+                                        className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
+                                    >
+                                        <option className="text-gray-500" value="">Select an option</option>
+                                        <option value="Day">Day</option>
+                                        <option value="Week">Week</option>
+                                        <option value="Month">Month</option>
+                                        <option value="Year">Year</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-base font-medium text-gray-700">
+                            Security Desposit:
+                        </label>
+                        <div className="font-small text-slate-600 mb-2">
+                            Leave blank if not applicable
+                        </div>
+                        <div className="relative">
+                            <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">$</span>
+                            <input
+                                type="number"
+                                id="securityDeposit"
+                                step="1"
+                                min="0"
+                                className="pl-8 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 w-1/4"
+                            />
+                        </div>
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-base font-medium text-gray-700">
+                            Other Financial Information:
+                        </label>
+                        <div className="font-small text-slate-600 mb-2">
+                            List any additional financial information, such as due dates, late fees, accepted payment methods, etc.
+                        </div>
                         <div className="flex items-center">
                             <textarea
-                                id="confidential-info"
+                                id="financialInfo"
                                 type="text"
                                 rows={4}
-                                placeholder="Specify the confidential information"
+                                placeholder="Eg. Due on the 1st of every month, $50 late fee, etc."
+                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-base font-medium text-gray-700">
+                            Landlord Rights:
+                        </label>
+                        <div className="font-small text-slate-600 mb-2">
+                            List the rights that the landlord has over the property, such as inspection rights, eviction rights, etc.
+                        </div>
+                        <div className="flex items-center">
+                            <textarea
+                                id="landlordRights"
+                                type="text"
+                                rows={4}
+                                placeholder="Eg. Inspection rights, eviction rights, etc."
+                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-base font-medium text-gray-700">
+                            Utilities:
+                        </label>
+                        <div className="font-small text-slate-600 mb-2">
+                            List the utilities that are included in the rental agreement
+                        </div>
+                        <div className="flex items-center">
+                            <textarea
+                                id="utilities"
+                                type="text"
+                                rows={4}
+                                placeholder="Eg. Water, Electricity, Gas, etc."
+                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-base font-medium text-gray-700">
+                            Facilities and Amenities:
+                        </label>
+                        <div className="font-small text-slate-600 mb-2">
+                            List the facilities and amenities that are included in the rental agreement
+                        </div>
+                        <div className="flex items-center">
+                            <textarea
+                                id="facilities"
+                                type="text"
+                                rows={4}
+                                placeholder="Eg. Pool, Gym, Laundry, etc."
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                             ></textarea>
                         </div>
                     </div>
 
-                    <div className="mb-4">
-                        <label className="block text-base font-medium text-gray-700 mb-2">
-                            Handling a Breach in Confidentiality:
-                        </label>
-                        <div className="flex items-center">
-                            <textarea
-                                id="breach"
-                                type="text"
-                                rows={4}
-                                placeholder="Specify the confidential information"
-                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                            ></textarea>
-                        </div>
-                    </div>
 
                     <div className="mb-4">
-                        <label className="block text-base font-medium text-gray-700 mb-2">
-                            Other specific instructions
+                        <label className="block text-base font-medium text-gray-700">
+                            Any additional rules or specifications:
                         </label>
+                        <div className="font-small text-slate-600 mb-2">
+                            List any additional rules or specifications that the tenant must follow. For example, occupancy limts, pet policy, etc. Leave blank if not applicable.
+                        </div>
                         <div className="flex items-center">
                             <textarea
-                                id="instructions"
+                                id="additionalRules"
                                 type="text"
                                 rows={4}
-                                placeholder="Enter instructions here"
+                                placeholder="Eg. Maximum 10 people allowed, no pets, etc."
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                             ></textarea>
                         </div>
@@ -248,7 +428,7 @@ function ContractRentalForm() {
                     >
                         Generate
                     </button>
-                    {isloading && (<div class="border-gray-300 my-4 h-14 w-14 animate-spin rounded-full border-8 border-t-red-500 self-center" />)}
+                    {isloading && (<div className="border-gray-300 my-4 h-14 w-14 animate-spin rounded-full border-8 border-t-red-500 self-center" />)}
                     {isResponseVisible && (
                         <div className="mt-10 flex flex-col">
                             <label className="block text-lg font-medium text-gray-700 mb-2" htmlFor="style">

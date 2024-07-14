@@ -26,6 +26,9 @@ function AccountInfoPage() {
     const closeDeleteModal = () => {
         setDeleteModalOpen(false);
     }
+    const goBack = () => {
+        navigate("/home");
+    }
 
     function loadUserData() {
         axios({
@@ -106,6 +109,9 @@ function AccountInfoPage() {
             <NavBar />
             <div className="min-h-screen flex flex-col justify-between place-items-center bg-orange-100 p-8">
                 <div className="flex flex-col bg-beige-100 w-4/12 p-8 rounded-lg mt-20">
+                    <button onClick={goBack} className="mb-4 w-1/6 mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-bold hover:bg-red-700 transition duration-300 hover:scale-105">
+                        ← Back
+                    </button>
                     <h2 className="text-3xl font-bold mb-6">My Account</h2>
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-700">
@@ -118,7 +124,7 @@ function AccountInfoPage() {
                                 readOnly
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm"
                             />
-                            <button className="ml-2 text-red-500 hover:text-blue-red transition duration-300 hover:scale-125">
+                            <button className="ml-2 text-red-500 hover:text-red-700 transition duration-300 hover:scale-125">
                                 <a href="nameChange">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +132,7 @@ function AccountInfoPage() {
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="size-6"
+                                        className="size-6 text-red-500 hover:text-red-700"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -157,7 +163,7 @@ function AccountInfoPage() {
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="size-6"
+                                        className="size-6 text-red-500 hover:text-red-700"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -188,7 +194,7 @@ function AccountInfoPage() {
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="size-6"
+                                        className="size-6 text-red-500 hover:text-red-700"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -202,7 +208,7 @@ function AccountInfoPage() {
                     </div>
                     <hr className="my-4 sm:mx-auto border-black lg:my-4" />
                     <button className='w-4/12 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105' onClick={openLogOutModal}>
-                            Log Out
+                        Log Out
                     </button>
                     <button className="w-4/12 mt-4 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={openDeleteModal}>
                         Delete Account

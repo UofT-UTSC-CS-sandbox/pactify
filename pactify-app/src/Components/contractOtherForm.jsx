@@ -124,7 +124,7 @@ function ContractOtherForm() {
                     >
                         Generate
                     </button>
-                    {isloading && (<div class="border-gray-300 my-4 h-14 w-14 animate-spin rounded-full border-8 border-t-red-500 self-center" />)}
+                    {isloading && (<div className="border-gray-300 my-4 h-14 w-14 animate-spin rounded-full border-8 border-t-red-500 self-center" />)}
                     {isResponseVisible && (
                         <div className="mt-10 flex flex-col">
                             <label className="block text-lg font-medium text-gray-700 mb-2" htmlFor="style">
