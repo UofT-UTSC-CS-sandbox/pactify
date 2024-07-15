@@ -9,6 +9,10 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function ContractRentalForm() {
     const navigate = useNavigate();
+    const [landlordPhone, setLandlordPhone] = useState('');
+    const [isValidLandlordPhone, setIsValidLandlordPhone] = useState(true);
+    const [renterPhone, setRenterPhone] = useState('');
+    const [isValidRenterPhone, setIsValidRenterPhone] = useState(true);
     const [isResponseVisible, setIsResponseVisible] = useState(false);
     const [response, setResponse] = useState('');
     const [isloading, setLoading] = useState(false);
@@ -27,36 +31,46 @@ function ContractRentalForm() {
         navigate("/home");
     }
 
+
+
     function generateContract() {
-        let style = document.getElementById("style").value;
-        let provider = document.getElementById("provider").value;
-        let recipient = document.getElementById("recipient").value;
-        let agreementDate = document.getElementById("date-of-agreement").value;
-        let confidentialInfo = document.getElementById("confidential-info").value;
-        let startDuration = document.getElementById("start-date").value;
-        let endDuration = document.getElementById("end-date").value;
-        let instructions = document.getElementById("instructions").value;
-        // Provider
-        // Receiver
-        // Date of Agreement
-        // Definition of Confidentiality (What information is considered confidential, what's not)
-        // Obligations of parties
-        // Duration of Confidentiality/Agreement
-        // Handling Breach in confidentiality
-        // Other specifications
-        // Signatures
+        let style = document.getElementById("style").value; //Formal or Informal
+        let landlord = document.getElementById("landlord").value; //Landlord's name
+        let landlordPhone = document.getElementById("landlordPhone").value; //Landlord's phone number
+        let landlordEmail = document.getElementById("landlordEmail").value; //Landlord's email
+        let renter = document.getElementById("renter").value; //Renter's name
+        let renterPhone = document.getElementById("renterPhone").value; //Renter's phone number
+        let renterEmail = document.getElementById("renterEmail").value; //Renter's email
+        let agreementDate = document.getElementById("date-of-agreement").value; //Date of agreement
+        let startDuration = document.getElementById("start-date").value; //Start date of duration of contract
+        let endDuration = document.getElementById("end-date").value; //End date of duration of contract
+        let address = document.getElementById("address").value; //Address of rental property
+        let city = document.getElementById("city").value; //City of rental property
+        let province = document.getElementById("province").value;  //Province of rental property
+        let zipCode = document.getElementById("zipCode").value; //Zip code of rental property
+        let rentAmount = document.getElementById("rentAmount").value; //Amount of rent
+        let paymentInterval = document.getElementById("paymentInterval").value; //Payment interval
+        let securityDeposit = document.getElementById("securityDeposit").value; //Security deposit
+        let financialInfo = document.getElementById("financialInfo").value; //Other financial information
+        let landlordRights = document.getElementById("landlordRights").value; //Landlord rights
+        let utilities = document.getElementById("utilities").value; //Utilities
+        let additionalRules = document.getElementById("additionalRules").value; //Additional rules or specifications
+
 
         //If style or instructions are empty, display error message
-        if (style === "" || provider === "" || recipient === "" || agreementDate === "" || confidentialInfo === "") {
+        if (style === "" || landlord === "" || landlordPhone === "" || landlordEmail === "" || renter === "" || renterPhone === "" || renterEmail === "" || agreementDate === "" || startDuration === "" || address === "" || city === "" || province === "" || zipCode === "" || rentAmount === "" || paymentInterval === "" || financialInfo === "" || landlordRights === "" || utilities === "") {
             document.getElementById("error").innerHTML = "Please fill in all necessary entries.";
             return false;
         }
         else {
             let styleString = "";
             if (style === "Formal") {
-                styleString = "This is a formal contract, meaning that it should be written in a professional manner. It should be used for business purposes.";
+                styleString = "This is a formal contract. It should be written in a professional manner. It should be used for business purposes. \
+                                Legal language and formatting should be used. There should be a clear section for signatures at the bottom. \
+                                Include sections 'Parties', 'Consideration', 'Term', 'Premises', 'Use and Occupancy', 'Costs and Payment', 'Termination', \
+                                'Right to enter', 'Dispute Resolution', 'Governing Law', 'Severability', 'Amendments'. Be sure to include other regular boilerplate clauses/sections such that are necessary for a formal rental agreemnt contract.";
             } else if (style === "Informal") {
-                styleString = "This is an informal contract, meaning that it should be written in a casual manner. It should be used for personal purposes.";
+                styleString = "This is an informal contract. It should be used for personal purposes.";
             }
             //removes previous error message during successful contract generation
             document.getElementById("error").innerHTML = "";
@@ -67,8 +81,23 @@ function ContractRentalForm() {
                 withCredentials: true,
                 data:
                 {
-                    "context": `You are an AI contract generator. You are tasked with generating a non-disclosure agreement contract based on the user's instructions. ${styleString}. Use markdown formatting for the contract.`,
-                    "message": `Provider: ${provider}, Recipient: ${recipient},  Agreement date: ${agreementDate}, Confidential Info: ${confidentialInfo}, Start date of duration of contract: ${startDuration}, End date of duration of contract: ${endDuration} (if no end date specified, then it's an indefinite contract), Other instructions for the contract made by user: ${instructions}`,
+                    "context": `You are an AI contract generator. You are tasked with generating a rental agreement contract based on the given information. The given information should be naturally weaved into a standard rental agreement format. ${styleString}. Use markdown formatting for the contract.`,
+                    "message": `Landlord Name: ${landlord}, 
+                                Landlord Phone Number: ${landlordPhone},  
+                                Landlord Email: ${landlordEmail}, 
+                                Renter Name: ${renter}, 
+                                Renter Phone Number: ${renterPhone},
+                                Renter Email: ${renterEmail},
+                                Date of Agreement: ${agreementDate}, 
+                                Start date of duration of contract: ${startDuration}, 
+                                End date of duration of contract: ${endDuration} (if no end date specified, it's an indefinite contract), 
+                                Property Location: "${address}, ${city}, ${province} ${zipCode}", 
+                                Rent Amount: $${rentAmount} per ${paymentInterval}, 
+                                Security Deposit: $${securityDeposit} (if no value specified, there is no secrity deposit), 
+                                Other Financial Information: ${financialInfo}, 
+                                Landlord Rights: ${landlordRights}, 
+                                Utilities: ${utilities}, 
+                                Additional Rules or Specifications: ${additionalRules}`,
                 },
             }) //
                 .then((res) => {
@@ -128,23 +157,22 @@ function ContractRentalForm() {
                         </div>
                     </div>
 
-                    <div className="mb-4">
+                    <div className="mb-2">
                         <label className="block text-base font-medium text-gray-700 mb-2">
-                            Landlord:
+                            Landlord Information
+                        </label>
+                        <label className="block text-base font-normal text-gray-700 mb-2">
+                            Full Name:
                         </label>
                         <div className="flex items-center">
                             <input
                                 id="landlord"
                                 type="text"
-                                placeholder="Name"
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                             ></input>
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label className="block text-base font-medium text-gray-700 mb-2">
-                            Landlord Contact Information
-                        </label>
                         <div className="flex flex-row place-content-start flex-wrap gap-4">
                             <div className="flex flex-col">
                                 <label className="block text-base font-normal text-gray-700 mb-2">
@@ -153,9 +181,22 @@ function ContractRentalForm() {
                                 <input
                                     id="landlordPhone"
                                     type="text"
-                                    placeholder="Eg. 123-456-7890"
-                                    className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                    placeholder="Eg. 1234567890"
+                                    className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                    value={landlordPhone}
+                                    onChange={(e) => {
+                                        const value = e.target.value;
+                                        const numericValue = value.replace(/\D/g, ''); // Remove all non-numeric characters
+                                        setLandlordPhone(numericValue);
+                                        if (e.target.value.length !== 10) {
+                                            setIsValidLandlordPhone(false);
+                                        } else {
+                                            setIsValidLandlordPhone(true);
+                                        }
+                                    }
+                                    }
                                 ></input>
+                                {!isValidLandlordPhone && <p className="text-red-600">Please enter a valid phone number</p>}
                             </div>
                             <div className="flex flex-col">
                                 <label className="block text-base font-normal text-gray-700 mb-2">
@@ -164,24 +205,65 @@ function ContractRentalForm() {
                                 <input
                                     id="landlordEmail"
                                     type="text"
-                                    className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                    className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                                 ></input>
                             </div>
 
                         </div>
                     </div>
 
-                    <div className="mb-4">
+                    <div className="mb-2">
                         <label className="block text-base font-medium text-gray-700 mb-2">
-                            Renter:
+                            Renter Information
+                        </label>
+                        <label className="block text-base font-normal text-gray-700 mb-2">
+                            Full Name:
                         </label>
                         <div className="flex items-center">
                             <input
                                 id="renter"
                                 type="text"
-                                placeholder="Name"
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                             ></input>
+                        </div>
+                    </div>
+                    <div className="mb-4">
+                        <div className="flex flex-row place-content-start flex-wrap gap-4">
+                            <div className="flex flex-col">
+                                <label className="block text-base font-normal text-gray-700 mb-2">
+                                    Phone Number:
+                                </label>
+                                <input
+                                    id="renterPhone"
+                                    type="text"
+                                    placeholder="Eg. 1234567890"
+                                    className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                    value={renterPhone}
+                                    onChange={(e) => {
+                                        const value = e.target.value;
+                                        const numericValue = value.replace(/\D/g, ''); // Remove all non-numeric characters
+                                        setRenterPhone(numericValue);
+                                        if (e.target.value.length !== 10) {
+                                            setIsValidRenterPhone(false);
+                                        } else {
+                                            setIsValidRenterPhone(true);
+                                        }
+                                    }
+                                    }
+                                ></input>
+                                {!isValidRenterPhone && <p className="text-red-600">Please enter a valid phone number</p>}
+                            </div>
+                            <div className="flex flex-col">
+                                <label className="block text-base font-normal text-gray-700 mb-2">
+                                    Email:
+                                </label>
+                                <input
+                                    id="renterEmail"
+                                    type="text"
+                                    className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                ></input>
+                            </div>
+
                         </div>
                     </div>
 
@@ -254,12 +336,27 @@ function ContractRentalForm() {
                                 <label className="block text-base font-normal text-gray-700 mb-2">
                                     Province:
                                 </label>
-                                <input
-                                    id="province"
-                                    type="text"
-                                    placeholder="Eg. Ontario"
-                                    className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                                ></input>
+                                <div className="relative">
+                                    <select
+                                        id="province"
+                                        className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
+                                    >
+                                        <option className="text-gray-500" value="">Select an option</option>
+                                        <option value="AB">Alberta</option>
+                                        <option value="BC">British Columbia</option>
+                                        <option value="MB">Manitoba</option>
+                                        <option value="NB">New Brunswick</option>
+                                        <option value="NL">Newfoundland and Labrador</option>
+                                        <option value="NS">Nova Scotia</option>
+                                        <option value="ON">Ontario</option>
+                                        <option value="PE">Prince Edward Island</option>
+                                        <option value="QC">Quebec</option>
+                                        <option value="SK">Saskatchewan</option>
+                                        <option value="NT">Northwest Territories</option>
+                                        <option value="NU">Nunavut</option>
+                                        <option value="YT">Yukon</option>
+                                    </select>
+                                </div>
                             </div>
                             <div className="flex flex-col">
                                 <label className="block text-base font-normal text-gray-700 mb-2">
@@ -379,23 +476,6 @@ function ContractRentalForm() {
                                 type="text"
                                 rows={4}
                                 placeholder="Eg. Water, Electricity, Gas, etc."
-                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                            ></textarea>
-                        </div>
-                    </div>
-                    <div className="mb-4">
-                        <label className="block text-base font-medium text-gray-700">
-                            Facilities and Amenities:
-                        </label>
-                        <div className="font-small text-slate-600 mb-2">
-                            List the facilities and amenities that are included in the rental agreement
-                        </div>
-                        <div className="flex items-center">
-                            <textarea
-                                id="facilities"
-                                type="text"
-                                rows={4}
-                                placeholder="Eg. Pool, Gym, Laundry, etc."
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                             ></textarea>
                         </div>

@@ -105,9 +105,9 @@ function HomePage() {
                             {/* Modal content */}
                             <div className="grid grid-cols-2 gap-4">
                                 <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={selectNDA}>
-                                    NDA
+                                    Non-Disclosure Agreement
                                 </button>
-                                <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105">Employment Contract</button>
+                                <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105">Prenuptual Agreement</button>
                                 <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={selectRental}>
                                     Rental Agreement
                                 </button>
