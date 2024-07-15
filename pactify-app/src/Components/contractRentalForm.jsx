@@ -271,7 +271,7 @@ function ContractRentalForm() {
 
                     <div className="mb-4" >
                         <label className="block text-base font-medium text-gray-700 mb-2">
-                            Date of Agreement:
+                            Date of Agreement (MM/DD/YYYY):
                         </label>
                         <DatePicker
                             id="date-of-agreement"
@@ -283,7 +283,7 @@ function ContractRentalForm() {
 
                     <div className="mb-4" >
                         <label className="block text-base font-medium text-gray-700 mb-2">
-                            Duration of Rental:
+                            Duration of Rental (MM/DD/YYYY):
                         </label>
                         <DatePicker
                             id="start-date"

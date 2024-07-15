@@ -31,6 +31,7 @@ function ContractNDAForm() {
         let style = document.getElementById("style").value;
         let provider = document.getElementById("provider").value;
         let recipient = document.getElementById("recipient").value;
+        let province = document.getElementById("province").value;
         let agreementDate = document.getElementById("date-of-agreement").value;
         let confidentialInfo = document.getElementById("confidential-info").value;
         let startDuration = document.getElementById("start-date").value;
@@ -47,16 +48,19 @@ function ContractNDAForm() {
         // Signatures
 
         //If style or instructions are empty, display error message
-        if (style === "" || provider === "" || recipient === "" || agreementDate === "" || confidentialInfo === "") {
+        if (style === "" || provider === "" || recipient === "" || agreementDate === "" || confidentialInfo === "" || startDuration === "" || province === "") {
             document.getElementById("error").innerHTML = "Please fill in all necessary entries.";
             return false;
         }
         else {
             let styleString = "";
             if (style === "Formal") {
-                styleString = "This is a formal contract, meaning that it should be written in a professional manner. It should be used for business purposes.";
+                styleString = "This is a formal contract, meaning that it should be written in a professional manner. It should be used for business purposes.\
+                               Legal language and formatting should be used. There should be a clear section for signatures at the bottom. \
+                               Include sections 'Parties', 'Confidential Information', 'Return of Information', 'Duration of Agreement', 'Ownership', 'Governing Law'. \
+                               Be sure to include other regular boilerplate clauses/sections such that are necessary for a formal Non-Disclosure agreemnt contract.";
             } else if (style === "Informal") {
-                styleString = "This is an informal contract, meaning that it should be written in a casual manner. It should be used for personal purposes.";
+                styleString = "This is an informal contract. It should be used for personal purposes.";
             }
             //removes previous error message during successful contract generation
             document.getElementById("error").innerHTML = "";
@@ -67,8 +71,15 @@ function ContractNDAForm() {
                 withCredentials: true,
                 data:
                 {
-                    "context": `You are an AI contract generator. You are tasked with generating a non-disclosure agreement contract based on the user's instructions. ${styleString}. Use markdown formatting for the contract.`,
-                    "message": `Provider: ${provider}, Recipient: ${recipient},  Agreement date: ${agreementDate}, Confidential Info: ${confidentialInfo}, Start date of duration of contract: ${startDuration}, End date of duration of contract: ${endDuration} (if no end date specified, then it's an indefinite contract), Other instructions for the contract made by user: ${instructions}`,
+                    "context": `You are an AI contract generator. You are tasked with generating a non-disclosure agreement contract based on the user's instructions. The given information should be naturally weaved into a standard rental agreement format. ${styleString}. Use markdown formatting for the contract.`,
+                    "message": `Provider: ${provider}, 
+                    Recipient: ${recipient},
+                    Province: ${province},
+                    Agreement date: ${agreementDate}, 
+                    Confidential Info: ${confidentialInfo}, 
+                    Start date of duration of contract: ${startDuration}, 
+                    End date of duration of contract: ${endDuration} (if no end date specified, then it's an indefinite contract), 
+                    Other instructions for the contract made by user: ${instructions}`,
                 },
             }) //
                 .then((res) => {
@@ -131,10 +142,12 @@ function ContractNDAForm() {
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-base font-medium text-gray-700 mb-2">
+                        <label className="block text-base font-medium text-gray-700">
                             Provider:
                         </label>
-
+                        <div className="font-small text-slate-600 mb-2">
+                            The party disclosing the information
+                        </div>
                         <div className="flex items-center">
                             <input
                                 id="provider"
@@ -146,9 +159,12 @@ function ContractNDAForm() {
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-base font-medium text-gray-700 mb-2">
+                        <label className="block text-base font-medium text-gray-700">
                             Recipient:
                         </label>
+                        <div className="font-small text-slate-600 mb-2">
+                            The party receiving the information
+                        </div>
                         <div className="flex items-center">
                             <input
                                 id="recipient"
@@ -158,10 +174,35 @@ function ContractNDAForm() {
                             ></input>
                         </div>
                     </div>
-
+                    <div className="flex flex-col mb-4">
+                        <label className="block text-base font-normal text-gray-700 mb-2">
+                            Province:
+                        </label>
+                        <div className="relative">
+                            <select
+                                id="province"
+                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
+                            >
+                                <option className="text-gray-500" value="">Select an option</option>
+                                <option value="AB">Alberta</option>
+                                <option value="BC">British Columbia</option>
+                                <option value="MB">Manitoba</option>
+                                <option value="NB">New Brunswick</option>
+                                <option value="NL">Newfoundland and Labrador</option>
+                                <option value="NS">Nova Scotia</option>
+                                <option value="ON">Ontario</option>
+                                <option value="PE">Prince Edward Island</option>
+                                <option value="QC">Quebec</option>
+                                <option value="SK">Saskatchewan</option>
+                                <option value="NT">Northwest Territories</option>
+                                <option value="NU">Nunavut</option>
+                                <option value="YT">Yukon</option>
+                            </select>
+                        </div>
+                    </div>
                     <div className="mb-4" >
                         <label className="block text-base font-medium text-gray-700 mb-2">
-                            Date of Agreement:
+                            Date of Agreement (MM/DD/YYYY):
                         </label>
                         <DatePicker
                             id="date-of-agreement"
@@ -172,7 +213,7 @@ function ContractNDAForm() {
 
                     <div className="mb-4" >
                         <label className="block text-base font-medium text-gray-700 mb-2">
-                            Duration of Agreement:
+                            Duration of Agreement (MM/DD/YYYY):
                         </label>
                         <DatePicker
                             id="start-date"
