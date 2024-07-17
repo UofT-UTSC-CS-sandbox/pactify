@@ -1,4 +1,5 @@
 **/.DS_Store
-node_modules
+.vscode
+node_modules/
 .prettierrc
 pactify-server/config.env
