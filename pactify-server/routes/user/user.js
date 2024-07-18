@@ -135,4 +135,41 @@ const deleteUser = async (req, res, next) => {
         );
 };
 
-export { userAuth, getUserData, updateUserName, updateUserEmail, deleteUser, getUserContracts };
+const getUserSignature = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const user = await User.findById(userId).select('signature');
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        return res.status(200).json({ signature: user.signature });
+    } catch (error) {
+        return res.status(500).json({ message: 'Server error', error });
+    }
+}
+
+const updateUserSignature = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { signature } = req.body;
+
+        const user = await User.findByIdAndUpdate(
+            userId,
+            { signature },
+            { new: true, runValidators: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        return res.status(200).json({ message: 'Signature updated successfully', signature: user.signature });
+    } catch (error) {
+        return res.status(500).json({ message: 'Server error', error });
+    }
+}
+
+
+export { userAuth, getUserData, updateUserName, updateUserEmail, deleteUser, getUserContracts, getUserSignature, updateUserSignature };

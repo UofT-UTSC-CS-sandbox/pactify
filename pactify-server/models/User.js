@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
   lastName: {
     type: String,
     required: true
+  },
+  signature: {
+    type: String,
+    required: false
   }
 //   picture: {
 //     type: mongoose.Schema.Types.Mixed,
