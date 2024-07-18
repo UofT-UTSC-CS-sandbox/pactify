@@ -15,21 +15,20 @@ import { UserProvider } from './UserContext.js';
 
 function App(){
     return (
-    
         <UserProvider>
-            <Routes>
-                <Route path="/" element={<LoginPage />} />
-                <Route path="/signUp" element={<SignupPage />} />
-                <Route path="/forgotPassword" element={<ForgotPasswordPage/>} />
-                <Route path="/home" element={<HomePage />} />
-                <Route path="/accountInfo" element={<AccountInfoPage />} />
-                <Route path="/nameChange" element={<NameChangeForm />} />
-                <Route path="/emailChange" element={<EmailChangeForm />} />
-                <Route path="/otherContract" element={<ContractOtherForm />} />
-                <Route path="/ndaContract" element={<ContractNDAForm />} />
-                <Route path="/signature" element={<SignaturePad />} />
-                <Route path="*" element={<NotFoundPage />} />
-            </Routes>
+                <Routes>
+                    <Route path="/" element={<LoginPage />} />
+                    <Route path="/signUp" element={<SignupPage />} />
+                    <Route path="/forgotPassword" element={<ForgotPasswordPage/>} />
+                    <Route path="/home" element={<HomePage />} />
+                    <Route path="/accountInfo" element={<AccountInfoPage />} />
+                    <Route path="/nameChange" element={<NameChangeForm />} />
+                    <Route path="/emailChange" element={<EmailChangeForm />} />
+                    <Route path="/otherContract" element={<ContractOtherForm />} />
+                    <Route path="/ndaContract" element={<ContractNDAForm />} />
+                    <Route path="/signature" element={<SignaturePad />} />
+                    <Route path="*" element={<NotFoundPage />} />
+                </Routes>
         </UserProvider>
     );
 }
