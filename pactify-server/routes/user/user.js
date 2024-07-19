@@ -154,7 +154,6 @@ const updateUserSignature = async (req, res) => {
     try {
         const userId = req.user.id;
         const { signature } = req.body;
-
         const user = await User.findByIdAndUpdate(
             userId,
             { signature },
@@ -163,6 +162,10 @@ const updateUserSignature = async (req, res) => {
 
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
+        }
+
+        if (!signature || typeof signature !== 'string') {
+            return res.status(400).json({ message: 'Invalid signature data' });
         }
 
         return res.status(200).json({ message: 'Signature updated successfully', signature: user.signature });

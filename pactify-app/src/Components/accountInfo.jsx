@@ -11,6 +11,8 @@ function AccountInfoPage() {
     const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
     const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
+    const [imageURL, setImageURL] = useState("");
+
     const openLogOutModal = () => {
         setIsLogOutModalOpen(true);
     }
@@ -37,6 +39,37 @@ function AccountInfoPage() {
                 document.getElementById("name").value = `${res.data.firstName} ${res.data.lastName}`
                 document.getElementById("email").value = res.data.email;
                 document.getElementById("password").value = "placehold";
+                console.log(res.data);
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    // TODO: Add visual indicator
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // http.ClientRequest in node.js
+                    console.log(error.request);
+                    console.log(document.cookie);
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log("Error", error.message);
+                }
+            });
+    }
+
+    function loadSignature() {
+        axios({
+            method: "get",
+            url: "http://localhost:5050/api/user/getUserSignature",
+            withCredentials: true,
+        })
+            .then(function (res) {
+                setImageURL(`${res.data.signature}`);
                 console.log(res.data);
             })
             .catch(function (error) {
@@ -99,6 +132,7 @@ function AccountInfoPage() {
 
     useEffect(() => {
         loadUserData();
+        loadSignature();
     });
 
     return (
@@ -198,6 +232,21 @@ function AccountInfoPage() {
                                     </svg>
                                 </a>
                             </button>
+                        </div>
+                    </div>
+                    <div className="mb-6">
+                        <label className="block text-sm font-medium text-gray-700">
+                            Signature
+                        </label>
+                        <div className="flex items-center">
+                            <input
+                                id="signature"
+                                type="image"
+                                alt="No signature saved"
+                                src={imageURL}
+                                readOnly
+                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm"
+                            />
                         </div>
                     </div>
                     <hr className="my-4 sm:mx-auto border-black lg:my-4" />
