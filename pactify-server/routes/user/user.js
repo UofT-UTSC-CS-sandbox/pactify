@@ -59,6 +59,22 @@ const getUserContracts = async (req, res, next) => {
         }
     };
 
+const uploadContractUser = async(req, res) => {
+    try{
+
+        const userId = req.user.id;
+        const key = '${userId}/';
+        const contract = await Contract.create({
+                'userId' : new mongoose.Types.ObjectId(req.user.id),
+                'title' : "filler",
+                'thumbnail' : "https://via.placeholder.com/200"
+            });
+    } catch (error){
+        console.error('Error uploading file to DB', error);
+        res.status(500).json({message: error.message});
+    }
+}
+
 
 const getUserData = async (req, res) => {
     try {

@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
+    "buffer": "^6.0.3",
     "flowbite": "^2.3.0",
     "flowbite-react": "^0.9.0",
     "mongoose": "^8.4.1",

@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { set } from "mongoose";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {Buffer} from "buffer";
+import Saveform  from "./Save";
 
 function ContractNDAForm() {
     const navigate = useNavigate();
@@ -15,6 +17,34 @@ function ContractNDAForm() {
     const [date, setDate] = useState('');
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
+    const [isSaveOpen, setIsSaveOpen] = useState(false);
+
+    const handleOpenSave = () => {
+        setIsSaveOpen(true);
+    };
+
+    const handleCloseSave = () => {
+        setIsSaveOpen(false);
+    };
+
+    const handleSubmit = async (name) => {
+        try{
+            const upload = await axios({
+                method: "post",
+                url: "http://localhost:5050/api/uploadFile",
+                withCredentials: true,
+                data:
+                {
+                    "fileName": name,
+                    "content": response
+                },
+            })
+            setIsSaveOpen(false);
+            navigate('/home');
+        }catch(error){
+            console.error('Error saving file:', error);
+        }
+    };
 
     const handleStartChange = (date) => {
         setDate(date);
@@ -22,6 +52,8 @@ function ContractNDAForm() {
             setStartDate(date);
         }
     };
+
+ 
 
     const goBack = () => {
         navigate("/home");
@@ -111,6 +143,19 @@ function ContractNDAForm() {
                 }
                 );
         }
+    }
+
+
+    function saveAndDirect(){
+        const contractContent = Buffer.from(response, 'utf8');
+        axios({
+            method: "post",
+            url: "http://localhost:5050/api/uploadFile",
+            withCredentials: true,
+            data: {"content": contractContent, "name": "filler"}
+        }).then((res) => {
+            navigate("/home");
+        })
     }
 
     return (
@@ -310,9 +355,17 @@ function ContractNDAForm() {
                                 rows={20}
                                 value={response}
                                 onChange={(e) => setResponse(e.target.value)}
-                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                className="w-full mb-4 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                             ></textarea>
-                        </div>
+                            <button
+                                onClick={handleOpenSave}
+                                className="px-4 py-2 bg-blue-500 text-white rounded"
+                            >
+                                Save
+                            </button>
+                            {isSaveOpen && <Saveform handleClose={handleCloseSave}
+                                                     handleSubmit={handleSubmit}/>}
+                            </div>
                     )}
 
                     <hr className="my-4 sm:mx-auto border-black lg:my-4" />
