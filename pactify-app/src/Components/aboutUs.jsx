@@ -3,7 +3,7 @@ import img from "../business_people.png";
 
 function AboutUs () {
     return (
-        <div className="flex flex-row justify-evenly bg-orange-100 p-8 mt-8">
+        <div className="flex flex-row justify-evenly bg-slate-100 p-8 mt-8">
             <div className="flex justify-center">
                     <img
                     src={img}

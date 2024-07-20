@@ -10,10 +10,6 @@ const contractSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  content: {
-    type: String,
-    required: true
-  },
   status: {
     type: String,
     enum: ['draft', 'completed', 'signed'],

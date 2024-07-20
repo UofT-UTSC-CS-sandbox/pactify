@@ -18,6 +18,7 @@ router.get("/getUserData", getUserData);
 router.patch("/updateUserName", updateUserName);
 
 router.get("/getUserContracts", getUserContracts);
+
 router.patch("/updateUserEmail", updateUserEmail);
 
 router.delete("/deleteUser", deleteUser);

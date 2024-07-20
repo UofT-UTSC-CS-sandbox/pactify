@@ -13,10 +13,14 @@ function NameChangeForm() {
         return emailRegex.test(email);
     }
 
+    function goBack() {
+        navigate("/accountInfo");
+    }
+
     function verifyEmail() {
         var email1 = document.getElementById("email").value;
         var email2 = document.getElementById("reenterEmail").value;
-    
+
         //Checks if emails are empty
         if (email1 === "" || email2 === "") {
             document.getElementById("error").innerHTML =
@@ -30,7 +34,7 @@ function NameChangeForm() {
                 "Emails do not match.";
             return false;
         }
-    
+
         if (!validateEmail(email1)) {
             document.getElementById("error").innerHTML =
                 "Please Enter a valid email address.";
@@ -70,16 +74,21 @@ function NameChangeForm() {
                 });
         }
     }
-    
+
     return (
-        <div className="min-h-screen flex flex-col justify-between bg-orange-100">
+        <div className="min-h-screen flex flex-col justify-between bg-slate-100">
             <NavBar />
             <div className="flex items-between justify-center flex-grow">
-                <div className="bg-orange-100 rounded-3xl p-8 w-full max-w-md m-16">
-                    <h2 className="text-3xl font-bold text-center mb-2">
+                <div className="bg-slate-100 rounded-3xl p-8 w-full max-w-md m-16">
+                    <button onClick={goBack} className="mb-4 w-min mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-black hover:bg-red-700 transition duration-300 hover:scale-105">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                        </svg>
+                    </button>
+                    <h2 className="text-3xl font-bold mb-2">
                         Change Your Email
                     </h2>
-                    <p className="text-center mb-6">
+                    <p className="mb-6">
                         Enter your information in the fields below
                     </p>
                     <div className="space-y-4">

@@ -79,10 +79,12 @@ function ContractOtherForm() {
     return (
         <div>
             <NavBar />
-            <div className="min-h-screen flex flex-col justify-between place-items-center bg-orange-100 p-8">
+            <div className="min-h-screen flex flex-col justify-between place-items-center bg-slate-100 p-8">
                 <div className="flex flex-col w-5/12 p-8 rounded-lg mt-10">
-                    <button onClick={goBack} className="mb-4 w-1/6 mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-bold hover:bg-red-700 transition duration-300 hover:scale-105">
-                        ← Back
+                    <button onClick={goBack} className="mb-4 w-min mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-black hover:bg-red-700 transition duration-300 hover:scale-105">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                        </svg>
                     </button>
                     <h1 className="text-5xl font-bold mb-2">Custom Contract</h1>
                     <h2 className="text-3xl font-bold mb-6">Enter Information</h2>
@@ -124,7 +126,7 @@ function ContractOtherForm() {
                     >
                         Generate
                     </button>
-                    {isloading && (<div class="border-gray-300 my-4 h-14 w-14 animate-spin rounded-full border-8 border-t-red-500 self-center" />)}
+                    {isloading && (<div className="border-gray-300 my-4 h-14 w-14 animate-spin rounded-full border-8 border-t-red-500 self-center" />)}
                     {isResponseVisible && (
                         <div className="mt-10 flex flex-col">
                             <label className="block text-lg font-medium text-gray-700 mb-2" htmlFor="style">

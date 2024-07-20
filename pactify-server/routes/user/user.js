@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import "dotenv/config.js";
 import Contract from "../../models/Contract.js";
 import mongoose from "mongoose";
+import { response } from "express";
 const JWT_SECRET =
     "934a9c82fb55edf39a8fd98fa2f0686e9ab8819fadc064d31f623fbd26349a26a85af0"; // secret string
 
@@ -57,6 +58,22 @@ const getUserContracts = async (req, res, next) => {
           res.status(500).json({ message: error.message });
         }
     };
+
+const uploadContractUser = async(req, res) => {
+    try{
+
+        const userId = req.user.id;
+        const key = '${userId}/';
+        const contract = await Contract.create({
+                'userId' : new mongoose.Types.ObjectId(req.user.id),
+                'title' : "filler",
+                'thumbnail' : "https://via.placeholder.com/200"
+            });
+    } catch (error){
+        console.error('Error uploading file to DB', error);
+        res.status(500).json({message: error.message});
+    }
+}
 
 
 const getUserData = async (req, res) => {
@@ -126,11 +143,11 @@ const deleteUser = async (req, res, next) => {
     await User.findById(req.user.id)
         .then((user) => user.deleteOne())
         .then((user) =>
-            res.status(201).json({ message: "User successfully deleted", user })
+            res.status(200).json({ message: "User successfully deleted", id: req.user.id }),
         )
         .catch((error) =>
             res
-                .status(400)
+                .status(500)
                 .json({ message: "An error occurred", error: error.message })
         );
 };
