@@ -7,12 +7,8 @@ import Yup from 'yup';
 // Define constants
 const CHATGPT_END_POINT = "https://api.openai.com/v1/chat/completions";
 const CHATGPT_MODEL_35 = "gpt-3.5-turbo";
-<<<<<<< HEAD
 const CHATGPT_MODEL_4o_MINI = "gpt-4o-mini";
 
-=======
-
->>>>>>> origin/feature/storage
 const config = {
     headers: {
         'Content-Type': "application/json",
