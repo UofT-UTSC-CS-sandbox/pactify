@@ -7,7 +7,7 @@ import Yup from 'yup';
 // Define constants
 const CHATGPT_END_POINT = "https://api.openai.com/v1/chat/completions";
 const CHATGPT_MODEL_35 = "gpt-3.5-turbo";
-
+console.log(process.env.OPENAI_API_KEY);
 const config = {
     headers: {
         'Content-Type': "application/json",
