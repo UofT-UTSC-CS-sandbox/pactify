@@ -82,4 +82,4 @@ Going into the next iteration, our main insights are:
 
 Finish Contract Generation API: Finishing the API for our contract generation will allow us to implement generating the different types of contracts.
 
-Tie Everything Together: We have all the bits of our final project now working, we simply just have to integrate all out features together and create a final project that we would be confident in presenting. 
+Tie Everything Together: We have all the bits of our final project now working, we simply just have to integrate all out features together and create a final project that we would be confident in presenting.
