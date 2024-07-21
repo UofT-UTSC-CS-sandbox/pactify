@@ -48,7 +48,7 @@ function LoginPage() {
     }
 
     return (
-        <div className="min-h-screen flex flex-col justify-between bg-violet-950">
+        <div className="min-h-screen flex flex-col flex-grow bg-violet-950">
             <div className="flex flex-row justify-evenly place-content-center flex-wrap p-20">
                 <div>
                     <h1 className="text-4xl text-red-500 font-bold mb-2">

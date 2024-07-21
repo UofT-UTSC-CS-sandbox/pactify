@@ -10,6 +10,7 @@ import ContractOtherForm from './Components/contractOtherForm.jsx';
 import ContractNDAForm from './Components/contractNDAForm.jsx';
 import NotFoundPage from './Components/notFound.jsx';
 import ContractRentalForm from './Components/contractRentalForm.jsx';
+import ContractPrenupForm from './Components/contractPrenupForm.jsx';
 import { UserProvider } from './UserContext.js';
 
 
@@ -28,6 +29,7 @@ function App(){
                 <Route path="/otherContract" element={<ContractOtherForm />} />
                 <Route path="/ndaContract" element={<ContractNDAForm />} />
                 <Route path="/rentalContract" element={<ContractRentalForm />} />
+                <Route path="/prenupContract" element={<ContractPrenupForm />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </UserProvider>

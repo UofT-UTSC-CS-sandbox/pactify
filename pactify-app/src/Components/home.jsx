@@ -35,6 +35,10 @@ function HomePage() {
         navigate("/rentalContract");
     }
 
+    const selectPrenup = () => {
+        navigate("/prenupContract");
+    }
+
     function loadUserData() {
         axios({
             method: "get",
@@ -107,7 +111,9 @@ function HomePage() {
                                 <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={selectNDA}>
                                     Non-Disclosure Agreement
                                 </button>
-                                <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105">Prenuptual Agreement</button>
+                                <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={selectPrenup}>
+                                    Prenuptual Agreement
+                                </button>
                                 <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={selectRental}>
                                     Rental Agreement
                                 </button>
