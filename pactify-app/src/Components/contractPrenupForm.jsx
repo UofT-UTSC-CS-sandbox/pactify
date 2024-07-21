@@ -9,10 +9,10 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function ContractPrenupForm() {
     const navigate = useNavigate();
-    const [landlordPhone, setLandlordPhone] = useState('');
-    const [isValidLandlordPhone, setIsValidLandlordPhone] = useState(true);
-    const [renterPhone, setRenterPhone] = useState('');
-    const [isValidRenterPhone, setIsValidRenterPhone] = useState(true);
+    const [party1Phone, setParty1Phone] = useState('');
+    const [isValidParty1Phone, setIsValidParty1Phone] = useState(true);
+    const [party2Phone, setRenterPhone] = useState('');
+    const [isValidParty2Phone, setIsValidParty2Phone] = useState(true);
     const [isResponseVisible, setIsResponseVisible] = useState(false);
     const [response, setResponse] = useState('');
     const [isloading, setLoading] = useState(false);
@@ -141,7 +141,7 @@ function ContractPrenupForm() {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                         </svg>
                     </button>
-                    <h1 className="text-4xl font-bold mb-2">Rental Agreement</h1>
+                    <h1 className="text-4xl font-bold mb-2">Prenuptual Agreement</h1>
                     <h2 className="text-2xl font-bold mb-6">Enter Information</h2>
                     <div className="mb-4">
                         <label className="block text-lg font-medium text-gray-700 mb-2" htmlFor="style">
@@ -161,14 +161,14 @@ function ContractPrenupForm() {
 
                     <div className="mb-2">
                         <label className="block text-base font-medium text-gray-700 mb-2">
-                            Landlord Information
+                            Party A Information
                         </label>
                         <label className="block text-base font-normal text-gray-700 mb-2">
                             Full Name:
                         </label>
                         <div className="flex items-center">
                             <input
-                                id="landlord"
+                                id="party1"
                                 type="text"
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                             ></input>
@@ -181,31 +181,31 @@ function ContractPrenupForm() {
                                     Phone Number:
                                 </label>
                                 <input
-                                    id="landlordPhone"
+                                    id="party1Phone"
                                     type="text"
                                     placeholder="Eg. 1234567890"
                                     className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                                    value={landlordPhone}
+                                    value={party1Phone}
                                     onChange={(e) => {
                                         const value = e.target.value;
                                         const numericValue = value.replace(/\D/g, ''); // Remove all non-numeric characters
-                                        setLandlordPhone(numericValue);
+                                        setParty1Phone(numericValue);
                                         if (e.target.value.length !== 10) {
-                                            setIsValidLandlordPhone(false);
+                                            setIsValidParty1Phone(false);
                                         } else {
-                                            setIsValidLandlordPhone(true);
+                                            setIsValidParty1Phone(true);
                                         }
                                     }
                                     }
                                 ></input>
-                                {!isValidLandlordPhone && <p className="text-red-600">Please enter a valid phone number</p>}
+                                {!isValidParty1Phone && <p className="text-red-600">Please enter a valid phone number</p>}
                             </div>
                             <div className="flex flex-col">
                                 <label className="block text-base font-normal text-gray-700 mb-2">
                                     Email:
                                 </label>
                                 <input
-                                    id="landlordEmail"
+                                    id="party1Email"
                                     type="text"
                                     className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                                 ></input>
@@ -216,14 +216,14 @@ function ContractPrenupForm() {
 
                     <div className="mb-2">
                         <label className="block text-base font-medium text-gray-700 mb-2">
-                            Renter Information
+                            Party B Information
                         </label>
                         <label className="block text-base font-normal text-gray-700 mb-2">
                             Full Name:
                         </label>
                         <div className="flex items-center">
                             <input
-                                id="renter"
+                                id="party2"
                                 type="text"
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                             ></input>
@@ -236,31 +236,31 @@ function ContractPrenupForm() {
                                     Phone Number:
                                 </label>
                                 <input
-                                    id="renterPhone"
+                                    id="party2Phone"
                                     type="text"
                                     placeholder="Eg. 1234567890"
                                     className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                                    value={renterPhone}
+                                    value={party2Phone}
                                     onChange={(e) => {
                                         const value = e.target.value;
                                         const numericValue = value.replace(/\D/g, ''); // Remove all non-numeric characters
                                         setRenterPhone(numericValue);
                                         if (e.target.value.length !== 10) {
-                                            setIsValidRenterPhone(false);
+                                            setIsValidParty2Phone(false);
                                         } else {
-                                            setIsValidRenterPhone(true);
+                                            setIsValidParty2Phone(true);
                                         }
                                     }
                                     }
                                 ></input>
-                                {!isValidRenterPhone && <p className="text-red-600">Please enter a valid phone number</p>}
+                                {!isValidParty2Phone && <p className="text-red-600">Please enter a valid phone number</p>}
                             </div>
                             <div className="flex flex-col">
                                 <label className="block text-base font-normal text-gray-700 mb-2">
                                     Email:
                                 </label>
                                 <input
-                                    id="renterEmail"
+                                    id="party2Email"
                                     type="text"
                                     className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                                 ></input>
@@ -280,32 +280,42 @@ function ContractPrenupForm() {
                         </DatePicker>
                     </div>
 
-
-                    <div className="mb-4" >
-                        <label className="block text-base font-medium text-gray-700 mb-2">
-                            Duration of Rental (MM/DD/YYYY):
+                    <div className="mb-4">
+                        <label className="block text-base font-medium text-gray-700">
+                            Party A Financial Information:
                         </label>
-                        <DatePicker
-                            id="start-date"
-                            selected={startDate} onChange={(date) => setStartDate(date)}
-                            startDate={startDate}
-                            placeholderText="Start Date"
-                            className="mr-4"
-                        />
-                        –
-                        <DatePicker
-                            id="end-date"
-                            className="ml-4"
-                            selected={endDate} onChange={(date) => setEndDate(date)}
-                            endDate={endDate}
-                            startDate={startDate}
-                            minDate={startDate}
-                            placeholderText="End Date"
-                        />
-                        <div className="font-small text-slate-500 mb-2">
-                            Leave the 'End Date' blank if the duration is indefinite
+                        <div className="font-small text-slate-600 mb-2">
+                            List any financial information that is relevant to Party A. This includes net worth, assests, income, holdings, liabilities, and debts.
+                        </div>
+                        <div className="flex items-center">
+                            <textarea
+                                id="party1FinancialInfo"
+                                type="text"
+                                rows={4}
+                                placeholder="Enter Information Here"
+                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                            ></textarea>
                         </div>
                     </div>
+
+                    <div className="mb-4">
+                        <label className="block text-base font-medium text-gray-700">
+                            Party B Financial Information:
+                        </label>
+                        <div className="font-small text-slate-600 mb-2">
+                            List any financial information that is relevant to Party A. This includes net worth, assests, income, holdings, liabilities, and debts.
+                        </div>
+                        <div className="flex items-center">
+                            <textarea
+                                id="party2FinancialInfo"
+                                type="text"
+                                rows={4}
+                                placeholder="Enter Information Here"
+                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                            ></textarea>
+                        </div>
+                    </div>
+
 
                     <div className="mb-4">
                         <label className="block text-base font-medium text-gray-700 mb-2">
