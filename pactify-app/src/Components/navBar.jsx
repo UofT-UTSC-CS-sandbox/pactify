@@ -34,7 +34,7 @@ function NavBar(){
                 </a>
                 <div className="flex items-center space-x-4 -translate-x-10">
                 <NavDropdown
-                    id="nav-dropdown-dark-example"
+                    id="nav-dropdown"
                     className="flex items-center -translate-x-10"
                     title={<div className="relative w-10 h-10 overflow-hidden bg-gray-300 rounded-full dark:bg-gray-700 flex items-center translate-y-3 translate-x-12">
                                 <a>

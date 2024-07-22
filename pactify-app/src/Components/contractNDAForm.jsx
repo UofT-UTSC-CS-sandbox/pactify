@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRef } from "react";
 import Footer from "./footer";
 import NavBar from "./navBar";
 import axios from "axios";
@@ -8,6 +9,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {Buffer} from "buffer";
 import Saveform  from "./Save";
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import SignatureCanvas from 'react-signature-canvas';
+import { ReactNotifications, Store } from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import SignaturePad from "./signaturePad";
+
 
 function ContractNDAForm() {
     const navigate = useNavigate();
@@ -46,6 +55,7 @@ function ContractNDAForm() {
         }
     };
 
+
     const handleStartChange = (date) => {
         setDate(date);
         if (!startDate) {
@@ -58,6 +68,13 @@ function ContractNDAForm() {
     const goBack = () => {
         navigate("/home");
     }
+
+    const goSign = () => {
+        navigate("/signature");
+    }
+
+    
+
 
     function generateContract() {
         let style = document.getElementById("style").value;
@@ -161,7 +178,8 @@ function ContractNDAForm() {
     return (
         <div>
             <NavBar />
-            <div className="min-h-screen flex flex-col justify-between place-items-center bg-slate-100 p-8">
+            <ReactNotifications />
+            <div className="min-h-screen flex flex-col justify-between place-items-center bg-orange-100 p-10">
                 <div className="flex flex-col w-5/12 p-8 rounded-lg mt-10">
                     <button onClick={goBack} className="mb-4 w-min mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-black hover:bg-red-700 transition duration-300 hover:scale-105">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -334,11 +352,11 @@ function ContractNDAForm() {
                             ></textarea>
                         </div>
                     </div>
-
+                    <SignaturePad />
                     <p id="error" className="text-center my-4 text-red-600"></p>
                     <button
                         type="submit"
-                        className="w-1/2 self-center px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"
+                        className="relative w-1/2 mb-10 self-center px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"
                         onClick={generateContract}
                     >
                         Generate
