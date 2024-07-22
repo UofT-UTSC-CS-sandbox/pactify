@@ -441,23 +441,7 @@ function ContractPrenupForm() {
                             />
                         </div>
                     </div>
-                    <div className="mb-4">
-                        <label className="block text-base font-medium text-gray-700">
-                            Other Financial Information:
-                        </label>
-                        <div className="font-small text-slate-600 mb-2">
-                            List any additional financial information, such as due dates, late fees, accepted payment methods, etc.
-                        </div>
-                        <div className="flex items-center">
-                            <textarea
-                                id="financialInfo"
-                                type="text"
-                                rows={4}
-                                placeholder="Eg. Due on the 1st of every month, $50 late fee, etc."
-                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                            ></textarea>
-                        </div>
-                    </div>
+                    
                     <div className="mb-4">
                         <label className="block text-base font-medium text-gray-700">
                             Landlord Rights:
