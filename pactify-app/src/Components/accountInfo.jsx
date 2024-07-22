@@ -11,6 +11,8 @@ function AccountInfoPage() {
     const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
     const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
+    const [imageURL, setImageURL] = useState("");
+
     const openLogOutModal = () => {
         setIsLogOutModalOpen(true);
     }
@@ -26,9 +28,6 @@ function AccountInfoPage() {
     const closeDeleteModal = () => {
         setDeleteModalOpen(false);
     }
-    const goBack = () => {
-        navigate("/home");
-    }
 
     function loadUserData() {
         axios({
@@ -40,6 +39,37 @@ function AccountInfoPage() {
                 document.getElementById("name").value = `${res.data.firstName} ${res.data.lastName}`
                 document.getElementById("email").value = res.data.email;
                 document.getElementById("password").value = "placehold";
+                console.log(res.data);
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    // TODO: Add visual indicator
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // http.ClientRequest in node.js
+                    console.log(error.request);
+                    console.log(document.cookie);
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log("Error", error.message);
+                }
+            });
+    }
+
+    function loadSignature() {
+        axios({
+            method: "get",
+            url: "http://localhost:5050/api/user/getUserSignature",
+            withCredentials: true,
+        })
+            .then(function (res) {
+                setImageURL(`${res.data.signature}`);
                 console.log(res.data);
             })
             .catch(function (error) {
@@ -102,18 +132,14 @@ function AccountInfoPage() {
 
     useEffect(() => {
         loadUserData();
+        loadSignature();
     });
 
     return (
         <div>
             <NavBar />
             <div className="min-h-screen flex flex-col justify-between place-items-center bg-orange-100 p-8">
-                <div className="flex flex-col w-4/12 p-8 rounded-lg mt-10">
-                    <button onClick={goBack} className="mb-4 w-min mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-black hover:bg-red-700 transition duration-300 hover:scale-105">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-                        </svg>
-                    </button>
+                <div className="flex flex-col bg-beige-100 w-4/12 p-8 rounded-lg mt-20">
                     <h2 className="text-3xl font-bold mb-6">My Account</h2>
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-700">
@@ -126,7 +152,7 @@ function AccountInfoPage() {
                                 readOnly
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm"
                             />
-                            <button className="ml-2 text-red-500 hover:text-red-700 transition duration-300 hover:scale-125">
+                            <button className="ml-2 text-red-500 hover:text-blue-red transition duration-300 hover:scale-125">
                                 <a href="nameChange">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -134,7 +160,7 @@ function AccountInfoPage() {
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="size-6 text-red-500 hover:text-red-700"
+                                        className="size-6"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -165,7 +191,7 @@ function AccountInfoPage() {
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="size-6 text-red-500 hover:text-red-700"
+                                        className="size-6"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -196,7 +222,7 @@ function AccountInfoPage() {
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="size-6 text-red-500 hover:text-red-700"
+                                        className="size-6"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -208,9 +234,24 @@ function AccountInfoPage() {
                             </button>
                         </div>
                     </div>
+                    <div className="mb-6">
+                        <label className="block text-sm font-medium text-gray-700">
+                            Signature
+                        </label>
+                        <div className="flex items-center">
+                            <input
+                                id="signature"
+                                type="image"
+                                alt="No signature saved"
+                                src={imageURL}
+                                readOnly
+                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm"
+                            />
+                        </div>
+                    </div>
                     <hr className="my-4 sm:mx-auto border-black lg:my-4" />
                     <button className='w-4/12 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105' onClick={openLogOutModal}>
-                        Log Out
+                            Log Out
                     </button>
                     <button className="w-4/12 mt-4 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={openDeleteModal}>
                         Delete Account
