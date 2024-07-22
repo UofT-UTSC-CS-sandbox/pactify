@@ -6,6 +6,7 @@ import { UserContext } from '../UserContext.js';
 import Footer from './footer.jsx';
 import NavBar from './navBar.jsx'
 import ContractHistory from './ContractHistory.jsx';
+import Cookies from 'universal-cookie';
 import axios from "axios";
 
 function HomePage() {
@@ -28,6 +29,14 @@ function HomePage() {
 
     const selectNDA = () => {
         navigate("/ndaContract");
+    }
+
+    const selectRental = () => {
+        navigate("/rentalContract");
+    }
+
+    const selectPrenup = () => {
+        navigate("/prenupContract");
     }
 
     function loadUserData() {
@@ -70,10 +79,10 @@ function HomePage() {
         <div>
             <NavBar />
             <div className="min-h-screen flex flex-col justify-between place-items-center bg-orange-100 p-8">
-                <div className="flex flex-col bg-beige-100 w-4/12 p-8 rounded-lg mt-20">
-                    <div className=" text-left mb-8">
-                        <h1 className="text-3xl font-bold" id="welcome">Hi there...</h1>
-                        <button onClick={openModal} className="mt-4 inline-block bg-red-500 text-white py-2 px-4 rounded-full font-bold hover:bg-red-700 transition duration-300 hover:scale-105">
+                <div className="flex flex-col bg-beige-100 w-5/12 p-8 rounded-lg mt-20">
+                    <div className="mb-8">
+                        <h1 className="text-3xl font-bold" id="welcome"> </h1>
+                        <button onClick={openModal} className=" w-5/12 mt-4 inline-block bg-red-500 text-white py-2 px-4 rounded-full font-bold hover:bg-red-700 transition duration-300 hover:scale-105">
                             CREATE NEW +
                         </button>
                     </div>
@@ -87,7 +96,7 @@ function HomePage() {
             {/* Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-violet-950 rounded-lg shadow-lg w-1/4 ">
+                    <div className="bg-violet-950 rounded-lg shadow-lg w-1/3 ">
                         <div className="flex justify-between items-center p-4 border-b">
                             <h2 className="text-3xl font-semibold text-white">
                                 Select Contract Type
@@ -100,10 +109,14 @@ function HomePage() {
                             {/* Modal content */}
                             <div className="grid grid-cols-2 gap-4">
                                 <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={selectNDA}>
-                                    NDA
+                                    Non-Disclosure Agreement
                                 </button>
-                                <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105">Employment Contract</button>
-                                <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105">Rental Agreement</button>
+                                <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={selectPrenup}>
+                                    Prenuptual Agreement
+                                </button>
+                                <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={selectRental}>
+                                    Rental Agreement
+                                </button>
                                 <button className=" bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={selectOther}>
                                     Other
                                 </button>

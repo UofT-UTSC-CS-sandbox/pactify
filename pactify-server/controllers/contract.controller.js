@@ -1,6 +1,7 @@
 import Contract from '../models/Contract.js';
 import mongoose from 'mongoose';
 
+
 export const getcontracts = async (req, res, next) => {
   try {
     // Fetch all contracts
@@ -9,7 +10,7 @@ export const getcontracts = async (req, res, next) => {
 
     // Ensure userId is properly formatted and valid
 
-
+    console.log(req.query.userId);
     // Query contracts by userId
     const contracts = await Contract.find({'userId' : new mongoose.Types.ObjectId(req.query.userId)})
       .skip(startIndex)

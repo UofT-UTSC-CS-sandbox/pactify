@@ -4,12 +4,11 @@ import AboutUs from "./aboutUs";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../UserContext";
 
 function LoginPage() {
     axios.defaults.withCredentials = true;
     const navigate = useNavigate();
-    const { setUser } = useContext(UserContext);
+    //const { setUser } = useContext(UserContext);
     function handleLogin() {
         var email = document.getElementById("email-id").value;
         var pw = document.getElementById("password-id").value;
@@ -24,8 +23,7 @@ function LoginPage() {
         })
             .then((res) => {
                 cookies.set('jwt', res.data.token, {path: "/"}); // set cookie
-                console.log(res);
-                setUser(res.data.user);
+                //setUser(res.data.user);
                 navigate("/home");
             })
             .catch(function (error) {
@@ -50,7 +48,7 @@ function LoginPage() {
     }
 
     return (
-        <div className="min-h-screen flex flex-col justify-between bg-violet-950">
+        <div className="min-h-screen flex flex-col flex-grow bg-violet-950">
             <div className="flex flex-row justify-evenly place-content-center flex-wrap p-20">
                 <div>
                     <h1 className="text-4xl text-red-500 font-bold mb-2">

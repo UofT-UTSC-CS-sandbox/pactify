@@ -10,7 +10,11 @@ import contractRouters from './routes/contract.route.js';
 import axios from 'axios';
 import homeRoutes from './routes/homeRoutes.js';
 import chatGPTRouter from './routes/chatGPTRoutes.js';
-import db from "./db/connection.js"
+import db from './db/connection.js'
+import process from 'process';
+import uploadFile from './routes/uploadFile.js';
+
+
 
 axios.defaults.withCredentials = true;
 dotenv.config();
@@ -30,8 +34,10 @@ app.use("/api/user/", userRouter);
 
 app.use("/api/chatGPT", chatGPTRouter);
 
-
 app.use("/api/contracts", contractRouters);
+
+app.use("/api/uploadFile", uploadFile);
+
 app.use('/', homeRoutes);
 
 app.use((err, req, res, next) => {

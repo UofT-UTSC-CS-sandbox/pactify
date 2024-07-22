@@ -2,15 +2,16 @@ import dotenv from 'dotenv';
 dotenv.config();
 import axios from 'axios';
 import Yup from 'yup';
-// const Yup = require('yup');
 
 
 // Define constants
 const CHATGPT_END_POINT = "https://api.openai.com/v1/chat/completions";
 const CHATGPT_MODEL_35 = "gpt-3.5-turbo";
+const CHATGPT_MODEL_4o_MINI = "gpt-4o-mini";
 
 const config = {
     headers: {
+        'Content-Type': "application/json",
         Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
     },
 };
@@ -24,7 +25,7 @@ const buildConversation = (contextMessage, conversation) => {
 export const postChatGPTMessage = async (contextMessage, conversation) => {
     const messages = buildConversation(contextMessage, conversation);
     const chatGPTData = {
-        model: CHATGPT_MODEL_35,
+        model: CHATGPT_MODEL_4o_MINI,
         messages: messages,
     };
 

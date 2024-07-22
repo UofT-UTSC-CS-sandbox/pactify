@@ -7,7 +7,7 @@ import { set } from "mongoose";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-function ContractRentalForm() {
+function ContractPrenupForm() {
     const navigate = useNavigate();
     const [landlordPhone, setLandlordPhone] = useState('');
     const [isValidLandlordPhone, setIsValidLandlordPhone] = useState(true);
@@ -535,4 +535,4 @@ function ContractRentalForm() {
     );
 }
 
-export default ContractRentalForm;
+export default ContractPrenupForm;
