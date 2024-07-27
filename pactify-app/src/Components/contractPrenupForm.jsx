@@ -9,10 +9,12 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function ContractPrenupForm() {
     const navigate = useNavigate();
-    const [party1Phone, setParty1Phone] = useState('');
-    const [isValidParty1Phone, setIsValidParty1Phone] = useState(true);
-    const [party2Phone, setRenterPhone] = useState('');
-    const [isValidParty2Phone, setIsValidParty2Phone] = useState(true);
+    const [partyA_Phone, setPartyA_Phone] = useState('');
+    const [isValidPartyA_Phone, setIsValidPartyA_Phone] = useState(true);
+    const [partyB_Phone, setPartyB_Phone] = useState('');
+    const [isValidPartyB_Phone, setIsValidPartyB_Phone] = useState(true);
+    const [partyA_MaritalSplit, setPartyA_MaritalSplit] = useState(50);
+    const [partyB_MaritalSplit, setPartyB_MaritalSplit] = useState(50);
     const [isResponseVisible, setIsResponseVisible] = useState(false);
     const [response, setResponse] = useState('');
     const [isloading, setLoading] = useState(false);
@@ -30,6 +32,25 @@ function ContractPrenupForm() {
     const goBack = () => {
         navigate("/home");
     }
+
+    const handleMaritalSplitChangeA = (e) => {
+        let value = parseInt(e.target.value);
+        if (isNaN(value)) value = 0;
+        if (value > 100) value = 100;
+        if (value < 0) value = 0;
+        setPartyA_MaritalSplit(value);
+        setPartyB_MaritalSplit(100 - value);
+    }
+
+    const handleMaritalSplitChangeB = (e) => {
+        let value = parseInt(e.target.value);
+        if (isNaN(value)) value = 0;
+        if (value > 100) value = 100;
+        if (value < 0) value = 0;
+        setPartyB_MaritalSplit(value);
+        setPartyA_MaritalSplit(100 - value);
+    }
+
 
 
 
@@ -168,7 +189,7 @@ function ContractPrenupForm() {
                         </label>
                         <div className="flex items-center">
                             <input
-                                id="party1"
+                                id="partyA"
                                 type="text"
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                             ></input>
@@ -181,31 +202,31 @@ function ContractPrenupForm() {
                                     Phone Number:
                                 </label>
                                 <input
-                                    id="party1Phone"
+                                    id="partyA_Phone"
                                     type="text"
                                     placeholder="Eg. 1234567890"
                                     className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                                    value={party1Phone}
+                                    value={partyA_Phone}
                                     onChange={(e) => {
                                         const value = e.target.value;
                                         const numericValue = value.replace(/\D/g, ''); // Remove all non-numeric characters
-                                        setParty1Phone(numericValue);
+                                        setPartyA_Phone(numericValue);
                                         if (e.target.value.length !== 10) {
-                                            setIsValidParty1Phone(false);
+                                            setIsValidPartyA_Phone(false);
                                         } else {
-                                            setIsValidParty1Phone(true);
+                                            setIsValidPartyA_Phone(true);
                                         }
                                     }
                                     }
                                 ></input>
-                                {!isValidParty1Phone && <p className="text-red-600">Please enter a valid phone number</p>}
+                                {!isValidPartyA_Phone && <p className="text-red-600">Please enter a valid phone number</p>}
                             </div>
                             <div className="flex flex-col">
                                 <label className="block text-base font-normal text-gray-700 mb-2">
                                     Email:
                                 </label>
                                 <input
-                                    id="party1Email"
+                                    id="partyA_Email"
                                     type="text"
                                     className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                                 ></input>
@@ -223,7 +244,7 @@ function ContractPrenupForm() {
                         </label>
                         <div className="flex items-center">
                             <input
-                                id="party2"
+                                id="partyB"
                                 type="text"
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                             ></input>
@@ -236,31 +257,31 @@ function ContractPrenupForm() {
                                     Phone Number:
                                 </label>
                                 <input
-                                    id="party2Phone"
+                                    id="partyB_Phone"
                                     type="text"
                                     placeholder="Eg. 1234567890"
                                     className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                                    value={party2Phone}
+                                    value={partyB_Phone}
                                     onChange={(e) => {
                                         const value = e.target.value;
                                         const numericValue = value.replace(/\D/g, ''); // Remove all non-numeric characters
-                                        setRenterPhone(numericValue);
+                                        setPartyB_Phone(numericValue);
                                         if (e.target.value.length !== 10) {
-                                            setIsValidParty2Phone(false);
+                                            setIsValidPartyB_Phone(false);
                                         } else {
-                                            setIsValidParty2Phone(true);
+                                            setIsValidPartyB_Phone(true);
                                         }
                                     }
                                     }
                                 ></input>
-                                {!isValidParty2Phone && <p className="text-red-600">Please enter a valid phone number</p>}
+                                {!isValidPartyB_Phone && <p className="text-red-600">Please enter a valid phone number</p>}
                             </div>
                             <div className="flex flex-col">
                                 <label className="block text-base font-normal text-gray-700 mb-2">
                                     Email:
                                 </label>
                                 <input
-                                    id="party2Email"
+                                    id="partyB_Email"
                                     type="text"
                                     className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                                 ></input>
@@ -289,7 +310,7 @@ function ContractPrenupForm() {
                         </div>
                         <div className="flex items-center">
                             <textarea
-                                id="party1FinancialInfo"
+                                id="partyA_FinancialInfo"
                                 type="text"
                                 rows={4}
                                 placeholder="Enter Information Here"
@@ -307,7 +328,7 @@ function ContractPrenupForm() {
                         </div>
                         <div className="flex items-center">
                             <textarea
-                                id="party2FinancialInfo"
+                                id="partyB_FinancialInfo"
                                 type="text"
                                 rows={4}
                                 placeholder="Enter Information Here"
@@ -315,7 +336,94 @@ function ContractPrenupForm() {
                             ></textarea>
                         </div>
                     </div>
+                    <div className="">
+                        <label className="block text-base font-medium text-gray-700 mb-2">
+                            Marital Property Split
+                        </label>
+                    </div>
+                    <div className="mb-4">
+                        <div className="flex flex-row place-content-start flex-wrap gap-4">
+                            <div className="flex flex-col">
+                                <label className="block text-base font-normal text-gray-700 mb-2">
+                                    Party A Split (%):
+                                </label>
+                                <input
+                                    id="partyA_MaritalSplit"
+                                    type="number"
+                                    placeholder="Eg. 50"
+                                    className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                    value={partyA_MaritalSplit}
+                                    onChange={handleMaritalSplitChangeA}
+                                    min={0}
+                                    max={100}
+                                ></input>
+                            </div>
+                            <div className="flex flex-col">
+                                <label className="block text-base font-normal text-gray-700 mb-2">
+                                    Party B Split (%):
+                                </label>
+                                <input
+                                    id="partyB_MaritalSplit"
+                                    type="number"
+                                    placeholder="Eg. 50"
+                                    className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                    value={partyB_MaritalSplit}
+                                    onChange={handleMaritalSplitChangeB}
+                                    min={0}
+                                    max={100}
+                                ></input>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div className="">
+                        <label className="block text-base font-medium text-gray-700 mb-2">
+                            Spousal Support
+                        </label>
+                    </div>
+                    <div className="mb-4">
+                        <div className="flex flex-row place-content-start flex-wrap gap-4">
+                            <div className="relative">
+                                <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">$</span>
+                                <input
+                                    type="number"
+                                    id="supportAmount"
+                                    step="1"
+                                    min="0"
+                                    className="pl-8 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 w-full"
+                                />
+                            </div>
+                            <label className="block text-base font-normal text-gray-700 mb-2 self-center">
+                                from
+                            </label>
+                            <div className="relative">
+                                <select
+                                    id="supportFrom"
+                                    className="w-44 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
+                                >
+                                    <option className="text-gray-500" value="">Select an option</option>
+                                    <option value="Party A to Party B">Party A to Party B</option>
+                                    <option value="party B to Party A">Party B to Party A</option>
+                                </select>
+                            </div>
+                            <label className="block text-base font-normal text-gray-700 mb-2 self-center">
+                                every
+                            </label>
+                            <div className="relative">
+                                <select
+                                    id="spousalPaymentInterval"
+                                    className="w-44 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
+                                >
+                                    <option className="text-gray-500" value="">Select an option</option>
+                                    <option value="Week">Week</option>
+                                    <option value="Month">Month</option>
+                                    <option value="Year">Year</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    
 
                     <div className="mb-4">
                         <label className="block text-base font-medium text-gray-700 mb-2">
@@ -441,7 +549,7 @@ function ContractPrenupForm() {
                             />
                         </div>
                     </div>
-                    
+
                     <div className="mb-4">
                         <label className="block text-base font-medium text-gray-700">
                             Landlord Rights:
