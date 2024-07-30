@@ -9,56 +9,148 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function ContractPrenupForm() {
     const navigate = useNavigate();
-    const [landlordPhone, setLandlordPhone] = useState('');
-    const [isValidLandlordPhone, setIsValidLandlordPhone] = useState(true);
-    const [renterPhone, setRenterPhone] = useState('');
-    const [isValidRenterPhone, setIsValidRenterPhone] = useState(true);
+    const [partyA_Phone, setPartyA_Phone] = useState('');
+    const [isValidPartyA_Phone, setIsValidPartyA_Phone] = useState(true);
+    const [partyB_Phone, setPartyB_Phone] = useState('');
+    const [isValidPartyB_Phone, setIsValidPartyB_Phone] = useState(true);
+    const [partyA_MaritalSplit, setPartyA_MaritalSplit] = useState(50);
+    const [partyB_MaritalSplit, setPartyB_MaritalSplit] = useState(50);
+    const [partyA_children, setPartyA_children] = useState([{ name: '', birthday: '' }]);
+    const [partyB_children, setPartyB_children] = useState([{ name: '', birthday: '' }]);
+    const [partyAB_children, setPartyAB_children] = useState([{ name: '', birthday: '' }]);
     const [isResponseVisible, setIsResponseVisible] = useState(false);
     const [response, setResponse] = useState('');
     const [isloading, setLoading] = useState(false);
     const [date, setDate] = useState('');
-    const [startDate, setStartDate] = useState();
-    const [endDate, setEndDate] = useState();
-
-    const handleStartChange = (date) => {
-        setDate(date);
-        if (!startDate) {
-            setStartDate(date);
-        }
-    };
 
     const goBack = () => {
         navigate("/home");
     }
 
+    const handleAddPartyAChild = () => {
+        setPartyA_children([...partyA_children, { name: '', birthday: '' }]);
+    };
+
+    const handleAddPartyBChild = () => {
+        setPartyB_children([...partyB_children, { name: '', birthday: '' }]);
+    };
+
+    const handleAddPartyABChild = () => {
+        setPartyAB_children([...partyAB_children, { name: '', birthday: '' }]);
+    };
+
+    const handlePartyARemoveChild = (index) => {
+        const list = [...partyA_children];
+        list.splice(index, 1);
+        setPartyA_children(list);
+    };
+
+    const handlePartyBRemoveChild = (index) => {
+        const list = [...partyB_children];
+        list.splice(index, 1);
+        setPartyB_children(list);
+    };
+
+    const handlePartyABRemoveChild = (index) => {
+        const list = [...partyAB_children];
+        list.splice(index, 1);
+        setPartyAB_children(list);
+    };
+
+    const formatChildren = (children) => {
+        return children.map((child) => `${child.name}, ${child.birthday}`).join("; ");
+    }
+
+
+    const handlePartyAChildChange = (e, index, isDate = false) => {
+        const newChildren = partyA_children.map((child, childIndex) => {
+            if (index !== childIndex) return child;
+            if (isDate) {
+                return { ...child, birthday: e };
+            } else {
+                return { ...child, [e.target.name]: e.target.value };
+            }
+        });
+        setPartyA_children(newChildren);
+    };
+
+    const handlePartyBChildChange = (e, index, isDate = false) => {
+        const newChildren = partyB_children.map((child, childIndex) => {
+            if (index !== childIndex) return child;
+            if (isDate) {
+                return { ...child, birthday: e };
+            } else {
+                return { ...child, [e.target.name]: e.target.value };
+            }
+        });
+        setPartyB_children(newChildren);
+    };
+
+    const handlePartyABChildChange = (e, index, isDate = false) => {
+        const newChildren = partyAB_children.map((child, childIndex) => {
+            if (index !== childIndex) return child;
+            if (isDate) {
+                return { ...child, birthday: e };
+            } else {
+                return { ...child, [e.target.name]: e.target.value };
+            }
+        });
+        setPartyAB_children(newChildren);
+    };
+
+    const handleMaritalSplitChangeA = (e) => {
+        let value = parseInt(e.target.value);
+        if (isNaN(value)) value = 0;
+        if (value > 100) value = 100;
+        if (value < 0) value = 0;
+        setPartyA_MaritalSplit(value);
+        setPartyB_MaritalSplit(100 - value);
+    }
+
+    const handleMaritalSplitChangeB = (e) => {
+        let value = parseInt(e.target.value);
+        if (isNaN(value)) value = 0;
+        if (value > 100) value = 100;
+        if (value < 0) value = 0;
+        setPartyB_MaritalSplit(value);
+        setPartyA_MaritalSplit(100 - value);
+    }
+
+
 
 
     function generateContract() {
         let style = document.getElementById("style").value; //Formal or Informal
-        let landlord = document.getElementById("landlord").value; //Landlord's name
-        let landlordPhone = document.getElementById("landlordPhone").value; //Landlord's phone number
-        let landlordEmail = document.getElementById("landlordEmail").value; //Landlord's email
-        let renter = document.getElementById("renter").value; //Renter's name
-        let renterPhone = document.getElementById("renterPhone").value; //Renter's phone number
-        let renterEmail = document.getElementById("renterEmail").value; //Renter's email
+        let partyA = document.getElementById("partyA").value; //Party A's full name
+        let partyA_Phone = document.getElementById("partyA_Phone").value; //Party A's phone number
+        let partyA_Email = document.getElementById("partyA_Email").value; //Party A's email
+        let partyB = document.getElementById("partyB").value; //Party B's full name
+        let partyB_Phone = document.getElementById("partyB_Phone").value; //Party B's phone number
+        let partyB_Email = document.getElementById("partyB_Email").value; //Party B's email
         let agreementDate = document.getElementById("date-of-agreement").value; //Date of agreement
-        let startDuration = document.getElementById("start-date").value; //Start date of duration of contract
-        let endDuration = document.getElementById("end-date").value; //End date of duration of contract
-        let address = document.getElementById("address").value; //Address of rental property
-        let city = document.getElementById("city").value; //City of rental property
-        let province = document.getElementById("province").value;  //Province of rental property
-        let zipCode = document.getElementById("zipCode").value; //Zip code of rental property
-        let rentAmount = document.getElementById("rentAmount").value; //Amount of rent
-        let paymentInterval = document.getElementById("paymentInterval").value; //Payment interval
-        let securityDeposit = document.getElementById("securityDeposit").value; //Security deposit
-        let financialInfo = document.getElementById("financialInfo").value; //Other financial information
-        let landlordRights = document.getElementById("landlordRights").value; //Landlord rights
-        let utilities = document.getElementById("utilities").value; //Utilities
+        let partyA_FinancialInfo = document.getElementById("partyA_FinancialInfo").value; //Party A's financial information
+        let partyB_FinancialInfo = document.getElementById("partyB_FinancialInfo").value; //Party B's financial information
+        let partyA_MaritalSplit = document.getElementById("partyA_MaritalSplit").value; //Party A's marital split
+        let partyB_MaritalSplit = document.getElementById("partyB_MaritalSplit").value; //Party B's marital split
+        let supportAmount = document.getElementById("supportAmount").value; //Spousal support amount
+        let supportFrom = document.getElementById("supportFrom").value; //Spousal support from Party A to Party B or vice versa
+        let spousalPaymentInterval = document.getElementById("spousalPaymentInterval").value; //Spousal support payment interval
+        let partyA_childrenInfo = formatChildren(partyA_children); //Party A's children information
+        let partyB_childrenInfo = formatChildren(partyB_children); //Party B's children information
+        let partyAB_childrenInfo = formatChildren(partyAB_children); //Children of both parties information
         let additionalRules = document.getElementById("additionalRules").value; //Additional rules or specifications
+        let spousalSupport = ""; //Spousal support section of the contract
+        //If support fields are empty
+        if (supportAmount === "" || supportFrom === "" || spousalPaymentInterval === "") {
+            spousalSupport = "N/A";
+        }
+        else {
+            spousalSupport = `\$${supportAmount} from ${supportFrom} every ${spousalPaymentInterval}`;
+        }
 
 
         //If style or instructions are empty, display error message
-        if (style === "" || landlord === "" || landlordPhone === "" || landlordEmail === "" || renter === "" || renterPhone === "" || renterEmail === "" || agreementDate === "" || startDuration === "" || address === "" || city === "" || province === "" || zipCode === "" || rentAmount === "" || paymentInterval === "" || financialInfo === "" || landlordRights === "" || utilities === "") {
+        if (style === "" || partyA === "" || partyA_Phone === "" || partyA_Email === "" || partyB === "" || partyB_Phone === "" || partyB_Email === "" || agreementDate === "" || partyA_FinancialInfo === "" || partyB_FinancialInfo === "" || partyA_MaritalSplit === "" || partyB_MaritalSplit === "") {
             document.getElementById("error").innerHTML = "Please fill in all necessary entries.";
             return false;
         }
@@ -67,8 +159,11 @@ function ContractPrenupForm() {
             if (style === "Formal") {
                 styleString = "This is a formal contract. It should be written in a professional manner. It should be used for business purposes. \
                                 Legal language and formatting should be used. There should be a clear section for signatures at the bottom. \
-                                Include sections 'Parties', 'Consideration', 'Term', 'Premises', 'Use and Occupancy', 'Costs and Payment', 'Termination', \
-                                'Right to enter', 'Dispute Resolution', 'Governing Law', 'Severability', 'Amendments'. Be sure to include other regular boilerplate clauses/sections such that are necessary for a formal rental agreemnt contract.";
+                                Include the following sections: \n An opening preamble describing the parties. A 'Definitions' section explaining \
+                                the terms Asset, Separate Property, and Marital Property. A 'Financial Information' section. A 'Property' Section \
+                                explaining what occurs to Separate property and how the Marital property is split. A 'Debts' section. A 'Children' section. \
+                                A 'Spousal Support' section (only include if not N/A). A 'Death' section. Be sure to include other regular boilerplate clauses/sections such \
+                                that are necessary for a formal prenuptual agreemnt contract.";
             } else if (style === "Informal") {
                 styleString = "This is an informal contract. It should be used for personal purposes.";
             }
@@ -81,25 +176,25 @@ function ContractPrenupForm() {
                 withCredentials: true,
                 data:
                 {
-                    "context": `You are an AI contract generator. You are tasked with generating a rental agreement contract based on the given information. The given information should be naturally weaved into a standard rental agreement format. ${styleString}. Use markdown formatting for the contract.`,
-                    "message": `Landlord Name: ${landlord}, 
-                                Landlord Phone Number: ${landlordPhone},  
-                                Landlord Email: ${landlordEmail}, 
-                                Renter Name: ${renter}, 
-                                Renter Phone Number: ${renterPhone},
-                                Renter Email: ${renterEmail},
-                                Date of Agreement: ${agreementDate}, 
-                                Start date of duration of contract: ${startDuration}, 
-                                End date of duration of contract: ${endDuration} (if no end date specified, it's an indefinite contract), 
-                                Property Location: "${address}, ${city}, ${province} ${zipCode}", 
-                                Rent Amount: $${rentAmount} per ${paymentInterval}, 
-                                Security Deposit: $${securityDeposit} (if no value specified, there is no secrity deposit), 
-                                Other Financial Information: ${financialInfo}, 
-                                Landlord Rights: ${landlordRights}, 
-                                Utilities: ${utilities}, 
-                                Additional Rules or Specifications: ${additionalRules}`,
+                    "context": `You are an AI contract generator. You are tasked with generating a prenuptual agreement contract based on the given information. The given information should be naturally weaved into a standard prenuptual agreement format. ${styleString}. IMPORTANT: Use markdown formatting for the contract.`,
+                    "message": `Party A Name: ${partyA}
+                                Party A Phone: ${partyA_Phone}
+                                Party A Email: ${partyA_Email}
+                                Party B Name: ${partyB}
+                                Party B Phone: ${partyB_Phone}
+                                Party B Email: ${partyB_Email}
+                                Agreement Date: ${agreementDate}
+                                Party A Financial Info: ${partyA_FinancialInfo}
+                                Party B Financial Info: ${partyB_FinancialInfo}
+                                Party A Marital Split: ${partyA_MaritalSplit}%
+                                Party B Marital Split: ${partyB_MaritalSplit}%
+                                Spousal Support: ${spousalSupport}
+                                Party A Children Info: ${partyA_childrenInfo}
+                                Party B Children Info: ${partyB_childrenInfo}
+                                Children of Both Parties Info: ${partyAB_childrenInfo}
+                                Additional Rules: ${additionalRules}`
                 },
-            }) //
+            }) 
                 .then((res) => {
                     const contract = res.data.message[1].content;
                     setResponse(contract);
@@ -141,7 +236,7 @@ function ContractPrenupForm() {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                         </svg>
                     </button>
-                    <h1 className="text-4xl font-bold mb-2">Rental Agreement</h1>
+                    <h1 className="text-4xl font-bold mb-2">Prenuptual Agreement</h1>
                     <h2 className="text-2xl font-bold mb-6">Enter Information</h2>
                     <div className="mb-4">
                         <label className="block text-lg font-medium text-gray-700 mb-2" htmlFor="style">
@@ -161,14 +256,14 @@ function ContractPrenupForm() {
 
                     <div className="mb-2">
                         <label className="block text-base font-medium text-gray-700 mb-2">
-                            Landlord Information
+                            Party A Information
                         </label>
                         <label className="block text-base font-normal text-gray-700 mb-2">
                             Full Name:
                         </label>
                         <div className="flex items-center">
                             <input
-                                id="landlord"
+                                id="partyA"
                                 type="text"
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                             ></input>
@@ -181,31 +276,31 @@ function ContractPrenupForm() {
                                     Phone Number:
                                 </label>
                                 <input
-                                    id="landlordPhone"
+                                    id="partyA_Phone"
                                     type="text"
                                     placeholder="Eg. 1234567890"
                                     className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                                    value={landlordPhone}
+                                    value={partyA_Phone}
                                     onChange={(e) => {
                                         const value = e.target.value;
                                         const numericValue = value.replace(/\D/g, ''); // Remove all non-numeric characters
-                                        setLandlordPhone(numericValue);
+                                        setPartyA_Phone(numericValue);
                                         if (e.target.value.length !== 10) {
-                                            setIsValidLandlordPhone(false);
+                                            setIsValidPartyA_Phone(false);
                                         } else {
-                                            setIsValidLandlordPhone(true);
+                                            setIsValidPartyA_Phone(true);
                                         }
                                     }
                                     }
                                 ></input>
-                                {!isValidLandlordPhone && <p className="text-red-600">Please enter a valid phone number</p>}
+                                {!isValidPartyA_Phone && <p className="text-red-600">Please enter a valid phone number</p>}
                             </div>
                             <div className="flex flex-col">
                                 <label className="block text-base font-normal text-gray-700 mb-2">
                                     Email:
                                 </label>
                                 <input
-                                    id="landlordEmail"
+                                    id="partyA_Email"
                                     type="text"
                                     className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                                 ></input>
@@ -216,14 +311,14 @@ function ContractPrenupForm() {
 
                     <div className="mb-2">
                         <label className="block text-base font-medium text-gray-700 mb-2">
-                            Renter Information
+                            Party B Information
                         </label>
                         <label className="block text-base font-normal text-gray-700 mb-2">
                             Full Name:
                         </label>
                         <div className="flex items-center">
                             <input
-                                id="renter"
+                                id="partyB"
                                 type="text"
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                             ></input>
@@ -236,31 +331,31 @@ function ContractPrenupForm() {
                                     Phone Number:
                                 </label>
                                 <input
-                                    id="renterPhone"
+                                    id="partyB_Phone"
                                     type="text"
                                     placeholder="Eg. 1234567890"
                                     className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                                    value={renterPhone}
+                                    value={partyB_Phone}
                                     onChange={(e) => {
                                         const value = e.target.value;
                                         const numericValue = value.replace(/\D/g, ''); // Remove all non-numeric characters
-                                        setRenterPhone(numericValue);
+                                        setPartyB_Phone(numericValue);
                                         if (e.target.value.length !== 10) {
-                                            setIsValidRenterPhone(false);
+                                            setIsValidPartyB_Phone(false);
                                         } else {
-                                            setIsValidRenterPhone(true);
+                                            setIsValidPartyB_Phone(true);
                                         }
                                     }
                                     }
                                 ></input>
-                                {!isValidRenterPhone && <p className="text-red-600">Please enter a valid phone number</p>}
+                                {!isValidPartyB_Phone && <p className="text-red-600">Please enter a valid phone number</p>}
                             </div>
                             <div className="flex flex-col">
                                 <label className="block text-base font-normal text-gray-700 mb-2">
                                     Email:
                                 </label>
                                 <input
-                                    id="renterEmail"
+                                    id="partyB_Email"
                                     type="text"
                                     className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                                 ></input>
@@ -274,229 +369,298 @@ function ContractPrenupForm() {
                             Date of Agreement (MM/DD/YYYY):
                         </label>
                         <DatePicker
+                            className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
                             id="date-of-agreement"
-                            selected={date} onChange={handleStartChange}
+                            selected={date} onChange={(date) => setDate(date)}
                             label="Select Date">
                         </DatePicker>
                     </div>
 
-
-                    <div className="mb-4" >
-                        <label className="block text-base font-medium text-gray-700 mb-2">
-                            Duration of Rental (MM/DD/YYYY):
+                    <div className="mb-4">
+                        <label className="block text-base font-medium text-gray-700">
+                            Party A Financial Information:
                         </label>
-                        <DatePicker
-                            id="start-date"
-                            selected={startDate} onChange={(date) => setStartDate(date)}
-                            startDate={startDate}
-                            placeholderText="Start Date"
-                            className="mr-4"
-                        />
-                        –
-                        <DatePicker
-                            id="end-date"
-                            className="ml-4"
-                            selected={endDate} onChange={(date) => setEndDate(date)}
-                            endDate={endDate}
-                            startDate={startDate}
-                            minDate={startDate}
-                            placeholderText="End Date"
-                        />
-                        <div className="font-small text-slate-500 mb-2">
-                            Leave the 'End Date' blank if the duration is indefinite
+                        <div className="font-small text-slate-600 mb-2">
+                            List any financial information that is relevant to Party A. This includes net worth, assests, income, holdings, liabilities, and debts.
+                        </div>
+                        <div className="flex items-center">
+                            <textarea
+                                id="partyA_FinancialInfo"
+                                type="text"
+                                rows={4}
+                                placeholder="Enter Information Here"
+                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                            ></textarea>
                         </div>
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-base font-medium text-gray-700 mb-2">
-                            Location of Rental Property
+                        <label className="block text-base font-medium text-gray-700">
+                            Party B Financial Information:
                         </label>
+                        <div className="font-small text-slate-600 mb-2">
+                            List any financial information that is relevant to Party A. This includes net worth, assests, income, holdings, liabilities, and debts.
+                        </div>
+                        <div className="flex items-center">
+                            <textarea
+                                id="partyB_FinancialInfo"
+                                type="text"
+                                rows={4}
+                                placeholder="Enter Information Here"
+                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <div className="">
+                        <label className="block text-base font-medium text-gray-700 mb-2">
+                            Marital Property Split
+                        </label>
+                    </div>
+                    <div className="mb-4">
                         <div className="flex flex-row place-content-start flex-wrap gap-4">
                             <div className="flex flex-col">
                                 <label className="block text-base font-normal text-gray-700 mb-2">
-                                    Address:
+                                    Party A Split (%):
                                 </label>
                                 <input
-                                    id="address"
-                                    type="text"
-                                    placeholder="Eg. 123 Main St"
-                                    className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                    id="partyA_MaritalSplit"
+                                    type="number"
+                                    placeholder="Eg. 50"
+                                    className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                    value={partyA_MaritalSplit}
+                                    onChange={handleMaritalSplitChangeA}
+                                    min={0}
+                                    max={100}
                                 ></input>
                             </div>
                             <div className="flex flex-col">
                                 <label className="block text-base font-normal text-gray-700 mb-2">
-                                    City:
+                                    Party B Split (%):
                                 </label>
                                 <input
-                                    id="city"
-                                    type="text"
-                                    placeholder="Eg. Toronto"
-                                    className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                    id="partyB_MaritalSplit"
+                                    type="number"
+                                    placeholder="Eg. 50"
+                                    className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                    value={partyB_MaritalSplit}
+                                    onChange={handleMaritalSplitChangeB}
+                                    min={0}
+                                    max={100}
                                 ></input>
                             </div>
-                            <div className="flex flex-col">
-                                <label className="block text-base font-normal text-gray-700 mb-2">
-                                    Province:
-                                </label>
-                                <div className="relative">
-                                    <select
-                                        id="province"
-                                        className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
-                                    >
-                                        <option className="text-gray-500" value="">Select an option</option>
-                                        <option value="AB">Alberta</option>
-                                        <option value="BC">British Columbia</option>
-                                        <option value="MB">Manitoba</option>
-                                        <option value="NB">New Brunswick</option>
-                                        <option value="NL">Newfoundland and Labrador</option>
-                                        <option value="NS">Nova Scotia</option>
-                                        <option value="ON">Ontario</option>
-                                        <option value="PE">Prince Edward Island</option>
-                                        <option value="QC">Quebec</option>
-                                        <option value="SK">Saskatchewan</option>
-                                        <option value="NT">Northwest Territories</option>
-                                        <option value="NU">Nunavut</option>
-                                        <option value="YT">Yukon</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="flex flex-col">
-                                <label className="block text-base font-normal text-gray-700 mb-2">
-                                    Zip Code:
-                                </label>
-                                <input
-                                    id="zipCode"
-                                    type="text"
-                                    placeholder="Eg. A1B 2C3"
-                                    className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                                ></input>
-                            </div>
-
                         </div>
                     </div>
+
+                    <div className="">
+                        <label className="block text-base font-medium text-gray-700 mb-2">
+                            Spousal Support
+                        </label>
+                        <div className="font-small text-slate-600 mb-2">
+                            Include any spousal support that will be paid from one party to the other, leave blank if not applicable.
+                        </div>
+                    </div>
+                    <div className="mb-4">
+                        <div className="flex flex-row place-content-start flex-wrap gap-4">
+                            <div className="relative">
+                                <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">$</span>
+                                <input
+                                    type="number"
+                                    id="supportAmount"
+                                    step="1"
+                                    min="0"
+                                    className="pl-8 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 w-full"
+                                />
+                            </div>
+                            <label className="block text-base font-normal text-gray-700 mb-2 self-center">
+                                from
+                            </label>
+                            <div className="relative">
+                                <select
+                                    id="supportFrom"
+                                    className="w-44 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
+                                >
+                                    <option className="text-gray-500" value="">Select an option</option>
+                                    <option value="Party A to Party B">Party A to Party B</option>
+                                    <option value="party B to Party A">Party B to Party A</option>
+                                </select>
+                            </div>
+                            <label className="block text-base font-normal text-gray-700 mb-2 self-center">
+                                every
+                            </label>
+                            <div className="relative">
+                                <select
+                                    id="spousalPaymentInterval"
+                                    className="w-44 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
+                                >
+                                    <option className="text-gray-500" value="">Select an option</option>
+                                    <option value="Week">Week</option>
+                                    <option value="Month">Month</option>
+                                    <option value="Year">Year</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="mb-4">
                         <label className="block text-base font-medium text-gray-700 mb-2">
-                            Rent
+                            Party A Children Information
                         </label>
-                        <div className="flex flex-row flex-wrap place-content-start gap-4">
-                            <div className="flex flex-col w-1/4">
-                                <label className="block text-base font-normal text-gray-700 mb-2">
-                                    Amount:
-                                </label>
-                                <div className="relative">
-                                    <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">$</span>
+                        <div className="font-small text-slate-600 mb-2">
+                            Include the names and birthdays of any children that Party A has before the marriage.
+                        </div>
+                        {partyA_children.map((child, index) => (
+                            <div key={index} className="mb-4 flex flex-row place-content-start flex-wrap gap-4">
+                                <div className="flex flex-col">
+                                    <label className="block text-base font-normal text-gray-700 mb-2">
+                                        Name:
+                                    </label>
                                     <input
-                                        type="number"
-                                        id="rentAmount"
-                                        step="1"
-                                        min="0"
-                                        className="pl-8 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 w-full"
-                                    />
+                                        type="text"
+                                        name="name"
+                                        value={child.name}
+                                        onChange={(e) => handlePartyAChildChange(e, index)}
+                                        placeholder="Child's Name"
+                                        className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                    ></input>
                                 </div>
-                            </div>
-                            <div className="flex flex-col w-56">
-                                <label className="block text-base font-normal text-gray-700 mb-2">
-                                    Payment Interval:
-                                </label>
-                                <div className="relative">
-                                    <select
-                                        id="paymentInterval"
+                                <div className="flex flex-col">
+                                    <label className="block text-base font-normal text-gray-700 mb-2">
+                                        Birthday (MM/DD/YYYY):
+                                    </label>
+                                    <DatePicker
                                         className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
-                                    >
-                                        <option className="text-gray-500" value="">Select an option</option>
-                                        <option value="Day">Day</option>
-                                        <option value="Week">Week</option>
-                                        <option value="Month">Month</option>
-                                        <option value="Year">Year</option>
-                                    </select>
+                                        selected={child.birthday} onChange={(e) => handlePartyAChildChange(e, index, true)}
+                                        label="Select Date">
+                                    </DatePicker>
                                 </div>
+                                <button onClick={() => handlePartyARemoveChild(index)} className=" w-min self-end bg-red-500 text-white py-2 px-2 rounded-full font-black hover:bg-red-700 transition duration-300 hover:scale-105">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                    </svg>
+
+                                </button>
                             </div>
-                        </div>
-                    </div>
-                    <div className="mb-4">
-                        <label className="block text-base font-medium text-gray-700">
-                            Security Desposit:
-                        </label>
-                        <div className="font-small text-slate-600 mb-2">
-                            Leave blank if not applicable
-                        </div>
-                        <div className="relative">
-                            <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">$</span>
-                            <input
-                                type="number"
-                                id="securityDeposit"
-                                step="1"
-                                min="0"
-                                className="pl-8 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 w-1/4"
-                            />
-                        </div>
-                    </div>
-                    <div className="mb-4">
-                        <label className="block text-base font-medium text-gray-700">
-                            Other Financial Information:
-                        </label>
-                        <div className="font-small text-slate-600 mb-2">
-                            List any additional financial information, such as due dates, late fees, accepted payment methods, etc.
-                        </div>
-                        <div className="flex items-center">
-                            <textarea
-                                id="financialInfo"
-                                type="text"
-                                rows={4}
-                                placeholder="Eg. Due on the 1st of every month, $50 late fee, etc."
-                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                            ></textarea>
-                        </div>
-                    </div>
-                    <div className="mb-4">
-                        <label className="block text-base font-medium text-gray-700">
-                            Landlord Rights:
-                        </label>
-                        <div className="font-small text-slate-600 mb-2">
-                            List the rights that the landlord has over the property, such as inspection rights, eviction rights, etc.
-                        </div>
-                        <div className="flex items-center">
-                            <textarea
-                                id="landlordRights"
-                                type="text"
-                                rows={4}
-                                placeholder="Eg. Inspection rights, eviction rights, etc."
-                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                            ></textarea>
-                        </div>
-                    </div>
-                    <div className="mb-4">
-                        <label className="block text-base font-medium text-gray-700">
-                            Utilities:
-                        </label>
-                        <div className="font-small text-slate-600 mb-2">
-                            List the utilities that are included in the rental agreement
-                        </div>
-                        <div className="flex items-center">
-                            <textarea
-                                id="utilities"
-                                type="text"
-                                rows={4}
-                                placeholder="Eg. Water, Electricity, Gas, etc."
-                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                            ></textarea>
-                        </div>
+                        ))}
+                        <button
+                            type="button"
+                            onClick={handleAddPartyAChild}
+                            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                        >
+                            Add Child
+                        </button>
                     </div>
 
+                    <div className="mb-4">
+                        <label className="block text-base font-medium text-gray-700 mb-2">
+                            Party B Children Information
+                        </label>
+                        <div className="font-small text-slate-600 mb-2">
+                            Include the names and birthdays of any children that Party B has before the marriage.
+                        </div>
+                        {partyB_children.map((child, index) => (
+                            <div key={index} className="mb-4 flex flex-row place-content-start flex-wrap gap-4">
+                                <div className="flex flex-col">
+                                    <label className="block text-base font-normal text-gray-700 mb-2">
+                                        Name:
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={child.name}
+                                        onChange={(e) => handlePartyBChildChange(e, index)}
+                                        placeholder="Child's Name"
+                                        className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                    ></input>
+                                </div>
+                                <div className="flex flex-col">
+                                    <label className="block text-base font-normal text-gray-700 mb-2">
+                                        Birthday (MM/DD/YYYY):
+                                    </label>
+                                    <DatePicker
+                                        className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
+                                        selected={child.birthday} onChange={(e) => handlePartyBChildChange(e, index, true)}
+                                        label="Select Date">
+                                    </DatePicker>
+                                </div>
+                                <button onClick={() => handlePartyBRemoveChild(index)} className=" w-min self-end bg-red-500 text-white py-2 px-2 rounded-full font-black hover:bg-red-700 transition duration-300 hover:scale-105">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                    </svg>
+
+                                </button>
+                            </div>
+                        ))}
+                        <button
+                            type="button"
+                            onClick={handleAddPartyBChild}
+                            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                        >
+                            Add Child
+                        </button>
+                    </div>
+
+                    <div className="mb-4">
+                        <label className="block text-base font-medium text-gray-700 mb-2">
+                            Children of Both Parties Information
+                        </label>
+                        <div className="font-small text-slate-600 mb-2">
+                            Include the names and birthdays of any children that both parties have together.
+                        </div>
+                        {partyAB_children.map((child, index) => (
+                            <div key={index} className="mb-4 flex flex-row place-content-start flex-wrap gap-4">
+                                <div className="flex flex-col">
+                                    <label className="block text-base font-normal text-gray-700 mb-2">
+                                        Name:
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={child.name}
+                                        onChange={(e) => handlePartyABChildChange(e, index)}
+                                        placeholder="Child's Name"
+                                        className="w-64 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                    ></input>
+                                </div>
+                                <div className="flex flex-col">
+                                    <label className="block text-base font-normal text-gray-700 mb-2">
+                                        Birthday (MM/DD/YYYY):
+                                    </label>
+                                    <DatePicker
+                                        className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
+                                        selected={child.birthday} onChange={(e) => handlePartyABChildChange(e, index, true)}
+                                        label="Select Date">
+                                    </DatePicker>
+                                </div>
+                                <button onClick={() => handlePartyABRemoveChild(index)} className=" w-min self-end bg-red-500 text-white py-2 px-2 rounded-full font-black hover:bg-red-700 transition duration-300 hover:scale-105">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                    </svg>
+
+                                </button>
+                            </div>
+                        ))}
+                        <button
+                            type="button"
+                            onClick={handleAddPartyABChild}
+                            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                        >
+                            Add Child
+                        </button>
+                    </div>
 
                     <div className="mb-4">
                         <label className="block text-base font-medium text-gray-700">
-                            Any additional rules or specifications:
+                            Any additional information to include:
                         </label>
                         <div className="font-small text-slate-600 mb-2">
-                            List any additional rules or specifications that the tenant must follow. For example, occupancy limts, pet policy, etc. Leave blank if not applicable.
+                            Include any other information that is relevant to the prenuptual agreement you would like to include.
                         </div>
                         <div className="flex items-center">
                             <textarea
                                 id="additionalRules"
                                 type="text"
                                 rows={4}
-                                placeholder="Eg. Maximum 10 people allowed, no pets, etc."
+                                placeholder="Enter Information Here"
                                 className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                             ></textarea>
                         </div>

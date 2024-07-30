@@ -4,12 +4,16 @@ import NavBar from "./navBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { set } from "mongoose";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function ContractOtherForm() {
     const navigate = useNavigate();
     const [isResponseVisible, setIsResponseVisible] = useState(false);
     const [response, setResponse] = useState('');
     const [isloading, setLoading] = useState(false);
+    const [date, setDate] = useState('');
+
 
     const goBack = () => {
         navigate("/home");
@@ -18,16 +22,20 @@ function ContractOtherForm() {
     function generateContract() {
         let style = document.getElementById("style").value;
         let instructions = document.getElementById("instructions").value;
+        let agreementDate = document.getElementById("date-of-agreement").value; //Date of agreement
+
 
         //If style or instructions are empty, display error message
-        if (style === "" || instructions === "") {
+        if (style === "" || instructions === "" || agreementDate === "") {
             document.getElementById("error").innerHTML = "Please fill in all entries.";
             return false;
         }
         else {
             let styleString = "";
             if (style === "Formal") {
-                styleString = "This is a formal contract, meaning that it should be written in a professional manner. It should be used for business purposes.";
+                styleString = "This is a formal contract. It should be written in a professional manner. It should be used for business purposes. \
+                                Legal language and formatting should be used. There should be a clear section for signatures at the bottom. Be sure to include other regular boilerplate clauses/sections such \
+                                that are necessary for a formal contract of the specified type.";
             } else if (style === "Informal") {
                 styleString = "This is an informal contract, meaning that it should be written in a casual manner. It should be used for personal purposes.";
             }
@@ -40,8 +48,9 @@ function ContractOtherForm() {
                 withCredentials: true,
                 data:
                 {
-                    "context": `You are an AI contract generator. You are tasked with generating a contract based on the user's instructions. ${styleString}. Use markdown formatting for the contract.`,
-                    "message": instructions,
+                    "context": `You are an AI contract generator. You are tasked with generating a contract based on the user's instructions. ${styleString}. IMPORTANT: Use markdown formatting for the contract.`,
+                    "message": `Date of Agreement: ${agreementDate}.
+                                Instructions: ${instructions}`,
                 },
             }) //
                 .then((res) => {
@@ -103,11 +112,24 @@ function ContractOtherForm() {
                             </select>
                         </div>
                     </div>
-                    <div className="mb-4">
+                    <div className="mb-4" >
                         <label className="block text-base font-medium text-gray-700 mb-2">
-                            Please enter the specific instructions for the contract you would like to generate using natural language<br />
-                            (e.g. the names of the parties involved, the date of the contract, etc.)
+                            Date of Agreement (MM/DD/YYYY):
                         </label>
+                        <DatePicker
+                            className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
+                            id="date-of-agreement"
+                            selected={date} onChange={(date) => setDate(date)}
+                            label="Select Date">
+                        </DatePicker>
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-base font-medium text-gray-700">
+                            Contract Details:
+                        </label>
+                        <div className="font-small text-slate-600 mb-2">
+                        Please enter the specific instructions for the contract you would like to generate using natural language, e.g. the names of the parties involved, the terms of the agreement, etc.
+                        </div>
                         <div className="flex items-center">
                             <textarea
                                 id="instructions"
