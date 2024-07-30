@@ -86,15 +86,6 @@ function ContractNDAForm() {
         let startDuration = document.getElementById("start-date").value;
         let endDuration = document.getElementById("end-date").value;
         let instructions = document.getElementById("instructions").value;
-        // Provider
-        // Receiver
-        // Date of Agreement
-        // Definition of Confidentiality (What information is considered confidential, what's not)
-        // Obligations of parties
-        // Duration of Confidentiality/Agreement
-        // Handling Breach in confidentiality
-        // Other specifications
-        // Signatures
 
         //If style or instructions are empty, display error message
         if (style === "" || provider === "" || recipient === "" || agreementDate === "" || confidentialInfo === "" || startDuration === "" || province === "") {
@@ -179,7 +170,7 @@ function ContractNDAForm() {
         <div>
             <NavBar />
             <ReactNotifications />
-            <div className="min-h-screen flex flex-col justify-between place-items-center bg-orange-100 p-10">
+            <div className="min-h-screen flex flex-col justify-between place-items-center bg-slate-100 p-8">
                 <div className="flex flex-col w-5/12 p-8 rounded-lg mt-10">
                     <button onClick={goBack} className="mb-4 w-min mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-black hover:bg-red-700 transition duration-300 hover:scale-105">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -268,6 +259,7 @@ function ContractNDAForm() {
                             Date of Agreement (MM/DD/YYYY):
                         </label>
                         <DatePicker
+                            className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
                             id="date-of-agreement"
                             selected={date} onChange={handleStartChange}
                             label="Select Date">
@@ -278,23 +270,27 @@ function ContractNDAForm() {
                         <label className="block text-base font-medium text-gray-700 mb-2">
                             Duration of Agreement (MM/DD/YYYY):
                         </label>
-                        <DatePicker
-                            id="start-date"
-                            selected={startDate} onChange={(date) => setStartDate(date)}
-                            startDate={startDate}
-                            placeholderText="Start Date"
-                            className="mr-4"
-                        />
-                        –
-                        <DatePicker
-                            id="end-date"
-                            className="ml-4"
-                            selected={endDate} onChange={(date) => setEndDate(date)}
-                            endDate={endDate}
-                            startDate={startDate}
-                            minDate={startDate}
-                            placeholderText="End Date"
-                        />
+                        <div className="flex flex-row gap-4 items-center mb-2">
+                            <DatePicker
+                                id="start-date"
+                                selected={startDate} onChange={(date) => setStartDate(date)}
+                                startDate={startDate}
+                                placeholderText="Start Date"
+                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
+                            />
+                            <label className="block text-base font-normal text-gray-700 mb-2">
+                                to
+                            </label>
+                            <DatePicker
+                                id="end-date"
+                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
+                                selected={endDate} onChange={(date) => setEndDate(date)}
+                                endDate={endDate}
+                                startDate={startDate}
+                                minDate={startDate}
+                                placeholderText="End Date"
+                            />
+                        </div>
                         <div className="font-small text-slate-500 mb-2">
                             You may leave the 'End Date' blank if the duration is indefinite
                         </div>
@@ -377,7 +373,7 @@ function ContractNDAForm() {
                             ></textarea>
                             <button
                                 onClick={handleOpenSave}
-                                className="px-4 py-2 bg-blue-500 text-white rounded"
+                                className="px-4 py-2 w-3/6 self-center bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
                             >
                                 Save
                             </button>

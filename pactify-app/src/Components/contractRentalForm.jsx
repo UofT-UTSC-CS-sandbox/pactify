@@ -274,6 +274,7 @@ function ContractRentalForm() {
                             Date of Agreement (MM/DD/YYYY):
                         </label>
                         <DatePicker
+                            className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
                             id="date-of-agreement"
                             selected={date} onChange={handleStartChange}
                             label="Select Date">
@@ -285,23 +286,27 @@ function ContractRentalForm() {
                         <label className="block text-base font-medium text-gray-700 mb-2">
                             Duration of Rental (MM/DD/YYYY):
                         </label>
-                        <DatePicker
-                            id="start-date"
-                            selected={startDate} onChange={(date) => setStartDate(date)}
-                            startDate={startDate}
-                            placeholderText="Start Date"
-                            className="mr-4"
-                        />
-                        –
-                        <DatePicker
-                            id="end-date"
-                            className="ml-4"
-                            selected={endDate} onChange={(date) => setEndDate(date)}
-                            endDate={endDate}
-                            startDate={startDate}
-                            minDate={startDate}
-                            placeholderText="End Date"
-                        />
+                        <div className="flex flex-row gap-4 items-center mb-2">
+                            <DatePicker
+                                id="start-date"
+                                selected={startDate} onChange={(date) => setStartDate(date)}
+                                startDate={startDate}
+                                placeholderText="Start Date"
+                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
+                            />
+                            <label className="block text-base font-normal text-gray-700 mb-2">
+                                to
+                            </label>
+                            <DatePicker
+                                id="end-date"
+                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-500"
+                                selected={endDate} onChange={(date) => setEndDate(date)}
+                                endDate={endDate}
+                                startDate={startDate}
+                                minDate={startDate}
+                                placeholderText="End Date"
+                            />
+                        </div>
                         <div className="font-small text-slate-500 mb-2">
                             Leave the 'End Date' blank if the duration is indefinite
                         </div>
