@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { set } from "mongoose";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import RichEditor from "./richTextEditor";
 
 function ContractPrenupForm() {
     const navigate = useNavigate();
@@ -176,7 +177,10 @@ function ContractPrenupForm() {
                 withCredentials: true,
                 data:
                 {
-                    "context": `You are an AI contract generator. You are tasked with generating a prenuptual agreement contract based on the given information. The given information should be naturally weaved into a standard prenuptual agreement format. ${styleString}. IMPORTANT: Use markdown formatting for the contract.`,
+                    "context": `You are an AI contract generator. You are tasked with generating a prenuptual agreement contract based on the given information. \
+                                The given information should be naturally weaved into a standard prenuptual agreement format. ${styleString}.\
+                                IMPORTANT: Use <br> for line breaks between paragraphs. Before and after every header, use <br>. Use HTML formatting for the contract.\
+                                Use <h1> for headings, <h2> for subheadings, <p> for paragraphs, <ul> for lists, <li> for list items, <b> for bold text, <i> for italic text, <u> for underlined text.`,
                     "message": `Party A Name: ${partyA}
                                 Party A Phone: ${partyA_Phone}
                                 Party A Email: ${partyA_Email}
@@ -196,7 +200,9 @@ function ContractPrenupForm() {
                 },
             }) 
                 .then((res) => {
-                    const contract = res.data.message[1].content;
+                    let contract = res.data.message[1].content;
+                    contract = contract.replace("```html", ""); //Strip ```html from the beginning of the contract
+                    contract = contract.replace("```", ""); //Strip ``` from the end of the contract
                     setResponse(contract);
                     console.log("Contract Generated!");
                     setLoading(false);
@@ -669,26 +675,14 @@ function ContractPrenupForm() {
                     <p id="error" className="text-center my-4 text-red-600"></p>
                     <button
                         type="submit"
-                        className="w-1/2 self-center px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"
+                        className="w-1/2 mb-4 self-center px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"
                         onClick={generateContract}
                     >
                         Generate
                     </button>
-                    {isloading && (<div className="border-gray-300 my-4 h-14 w-14 animate-spin rounded-full border-8 border-t-red-500 self-center" />)}
+                    {isloading && (<div className="border-gray-300 mb-4 h-14 w-14 animate-spin rounded-full border-8 border-t-red-500 self-center" />)}
                     {isResponseVisible && (
-                        <div className="mt-10 flex flex-col">
-                            <label className="block text-lg font-medium text-gray-700 mb-2" htmlFor="style">
-                                Edit Contract Below
-                            </label>
-                            <textarea
-                                id="response"
-                                type="text"
-                                rows={20}
-                                value={response}
-                                onChange={(e) => setResponse(e.target.value)}
-                                className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                            ></textarea>
-                        </div>
+                        <RichEditor initialValue={response} onValueChange={setResponse} />
                     )}
 
                     <hr className="my-4 sm:mx-auto border-black lg:my-4" />

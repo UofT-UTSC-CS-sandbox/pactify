@@ -25,7 +25,7 @@ const buildConversation = (contextMessage, conversation) => {
 export const postChatGPTMessage = async (contextMessage, conversation) => {
     const messages = buildConversation(contextMessage, conversation);
     const chatGPTData = {
-        model: CHATGPT_MODEL_35,
+        model: CHATGPT_MODEL_4o_MINI,
         messages: messages,
     };
 
