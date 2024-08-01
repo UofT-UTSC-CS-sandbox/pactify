@@ -108,7 +108,7 @@ function LoginPage() {
                 </div>
             </div>
             <AboutUs />
-            <Footer />
+            <Footer signedIn={false} />
         </div>
     );
 }
