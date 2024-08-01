@@ -13,10 +13,6 @@ function NameChangeForm() {
         return emailRegex.test(email);
     }
 
-    function goBack() {
-        navigate("/accountInfo");
-    }
-
     function verifyEmail() {
         var email1 = document.getElementById("email").value;
         var email2 = document.getElementById("reenterEmail").value;
@@ -80,7 +76,7 @@ function NameChangeForm() {
             <NavBar />
             <div className="flex items-between justify-center flex-grow">
                 <div className="bg-slate-100 rounded-3xl p-8 w-full max-w-md m-16">
-                    <button onClick={goBack} className="mb-4 w-min mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-black hover:bg-red-700 transition duration-300 hover:scale-105">
+                    <button onClick={() => navigate(-1)} className="mb-4 w-min mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-black hover:bg-red-700 transition duration-300 hover:scale-105">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                         </svg>

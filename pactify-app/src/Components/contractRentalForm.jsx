@@ -3,10 +3,10 @@ import Footer from "./footer";
 import NavBar from "./navBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { set } from "mongoose";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import RichEditor from "./richTextEditor";
+import Saveform from "./Save";
 
 function ContractRentalForm() {
     const navigate = useNavigate();
@@ -20,6 +20,34 @@ function ContractRentalForm() {
     const [date, setDate] = useState('');
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
+    const [isSaveOpen, setIsSaveOpen] = useState(false);
+
+    const handleOpenSave = () => {
+        setIsSaveOpen(true);
+    };
+
+    const handleCloseSave = () => {
+        setIsSaveOpen(false);
+    };
+
+    const handleSubmit = async (name) => {
+        try {
+            const upload = await axios({
+                method: "post",
+                url: "http://localhost:5050/api/uploadFile",
+                withCredentials: true,
+                data:
+                {
+                    "fileName": name,
+                    "content": response
+                },
+            })
+            setIsSaveOpen(false);
+            navigate('/home');
+        } catch (error) {
+            console.error('Error saving file:', error);
+        }
+    };
 
     const handleStartChange = (date) => {
         setDate(date);
@@ -27,12 +55,6 @@ function ContractRentalForm() {
             setStartDate(date);
         }
     };
-
-    const goBack = () => {
-        navigate("/home");
-    }
-
-
 
     function generateContract() {
         let style = document.getElementById("style").value; //Formal or Informal
@@ -92,9 +114,9 @@ function ContractRentalForm() {
                                 Renter Name: ${renter}, 
                                 Renter Phone Number: ${renterPhone},
                                 Renter Email: ${renterEmail},
-                                Date of Agreement: ${agreementDate}, 
-                                Start date of duration of contract: ${startDuration}, 
-                                End date of duration of contract: ${endDuration} (if no end date specified, it's an indefinite contract), 
+                                Date of Agreement (MM/DD/YYYY): ${agreementDate}, 
+                                Start date of duration of contract (MM/DD/YYYY): ${startDuration}, 
+                                End date of duration of contract (MM/DD/YYYY): ${endDuration} (if no end date specified, it's an indefinite contract), 
                                 Property Location: "${address}, ${city}, ${province} ${zipCode}", 
                                 Rent Amount: $${rentAmount} per ${paymentInterval}, 
                                 Security Deposit: $${securityDeposit} (if no value specified, there is no secrity deposit), 
@@ -142,7 +164,7 @@ function ContractRentalForm() {
             <NavBar />
             <div className="min-h-screen flex flex-col justify-between place-items-center bg-slate-100 p-8">
                 <div className="flex flex-col w-5/12 p-8 rounded-lg mt-10">
-                    <button onClick={goBack} className="mb-4 w-min mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-black hover:bg-red-700 transition duration-300 hover:scale-105">
+                    <button onClick={() => navigate(-1)} className="mb-4 w-min mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-black hover:bg-red-700 transition duration-300 hover:scale-105">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                         </svg>
@@ -523,20 +545,20 @@ function ContractRentalForm() {
                     </button>
                     {isloading && (<div className="border-gray-300 mb-4 h-14 w-14 animate-spin rounded-full border-8 border-t-red-500 self-center" />)}
                     {isResponseVisible && (
-                        // <div className="mt-10 flex flex-col">
-                        //     <label className="block text-lg font-medium text-gray-700 mb-2" htmlFor="style">
-                        //         Edit Contract Below
-                        //     </label>
-                        //     <textarea
-                        //         id="response"
-                        //         type="text"
-                        //         rows={20}
-                        //         value={response}
-                        //         onChange={(e) => setResponse(e.target.value)}
-                        //         className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                        //     ></textarea>
-                        // </div>
-                        <RichEditor initialValue={response} onValueChange={setResponse} />
+                        <div className="mb-4 flex flex-col">
+                            <label className="block text-lg font-medium text-gray-700 mb-2" htmlFor="style">
+                                Edit Contract Below
+                            </label>
+                            <RichEditor initialValue={response} onValueChange={setResponse} />
+                            <button
+                                onClick={handleOpenSave}
+                                className=" mt-4 px-4 py-2 w-3/6 self-center bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                            >
+                                Save
+                            </button>
+                            {isSaveOpen && <Saveform handleClose={handleCloseSave}
+                                handleSubmit={handleSubmit} />}
+                        </div>
                     )}
 
                     <hr className="my-4 sm:mx-auto border-black lg:my-4" />

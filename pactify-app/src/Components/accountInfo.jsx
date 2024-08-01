@@ -140,6 +140,11 @@ function AccountInfoPage() {
             <NavBar />
             <div className="min-h-screen flex flex-col justify-between place-items-center bg-orange-100 p-8">
                 <div className="flex flex-col bg-beige-100 w-4/12 p-8 rounded-lg mt-20">
+                    <button onClick={() => navigate(-1)} className="mb-4 w-min mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-black hover:bg-red-700 transition duration-300 hover:scale-105">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                        </svg>
+                    </button>
                     <h2 className="text-3xl font-bold mb-6">My Account</h2>
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-700">
@@ -226,7 +231,7 @@ function AccountInfoPage() {
                     </div>
                     <hr className="my-4 sm:mx-auto border-black lg:my-4" />
                     <button className='w-4/12 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105' onClick={openLogOutModal}>
-                            Log Out
+                        Log Out
                     </button>
                     <button className="w-4/12 mt-4 bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105" onClick={openDeleteModal}>
                         Delete Account

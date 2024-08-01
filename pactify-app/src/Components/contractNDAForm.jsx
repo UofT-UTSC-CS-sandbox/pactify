@@ -5,8 +5,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {Buffer} from "buffer";
-import Saveform  from "./Save";
+import { Buffer } from "buffer";
+import Saveform from "./Save";
 import { ReactNotifications, Store } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 import SignaturePad from "./signaturePad";
@@ -32,7 +32,7 @@ function ContractNDAForm() {
     };
 
     const handleSubmit = async (name) => {
-        try{
+        try {
             const upload = await axios({
                 method: "post",
                 url: "http://localhost:5050/api/uploadFile",
@@ -45,7 +45,7 @@ function ContractNDAForm() {
             })
             setIsSaveOpen(false);
             navigate('/home');
-        }catch(error){
+        } catch (error) {
             console.error('Error saving file:', error);
         }
     };
@@ -58,17 +58,11 @@ function ContractNDAForm() {
         }
     };
 
- 
-
-    const goBack = () => {
-        navigate("/home");
-    }
-
     const goSign = () => {
         navigate("/signature");
     }
 
-    
+
 
 
     function generateContract() {
@@ -113,10 +107,10 @@ function ContractNDAForm() {
                     "message": `Provider: ${provider}, 
                     Recipient: ${recipient},
                     Province: ${province},
-                    Agreement date: ${agreementDate}, 
+                    Agreement date (MM/DD/YYYY): ${agreementDate}, 
                     Confidential Info: ${confidentialInfo}, 
-                    Start date of duration of contract: ${startDuration}, 
-                    End date of duration of contract: ${endDuration} (if no end date specified, then it's an indefinite contract), 
+                    Start date of duration of contract (MM/DD/YYYY): ${startDuration}, 
+                    End date of duration of contract (MM/DD/YYYY): ${endDuration} (if no end date specified, then it's an indefinite contract), 
                     Other instructions for the contract made by user: ${instructions}`,
                 },
             }) //
@@ -154,13 +148,13 @@ function ContractNDAForm() {
     }
 
 
-    function saveAndDirect(){
+    function saveAndDirect() {
         const contractContent = Buffer.from(response, 'utf8');
         axios({
             method: "post",
             url: "http://localhost:5050/api/uploadFile",
             withCredentials: true,
-            data: {"content": contractContent, "name": "filler"}
+            data: { "content": contractContent, "name": "filler" }
         }).then((res) => {
             navigate("/home");
         })
@@ -172,7 +166,7 @@ function ContractNDAForm() {
             <ReactNotifications />
             <div className="min-h-screen flex flex-col justify-between place-items-center bg-slate-100 p-8">
                 <div className="flex flex-col w-5/12 p-8 rounded-lg mt-10">
-                    <button onClick={goBack} className="mb-4 w-min mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-black hover:bg-red-700 transition duration-300 hover:scale-105">
+                    <button onClick={() => navigate(-1)} className="mb-4 w-min mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-black hover:bg-red-700 transition duration-300 hover:scale-105">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                         </svg>
@@ -366,13 +360,13 @@ function ContractNDAForm() {
                             <RichEditor initialValue={response} onValueChange={setResponse} />
                             <button
                                 onClick={handleOpenSave}
-                                className="px-4 py-2 w-3/6 self-center bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                                className=" mt-4 px-4 py-2 w-3/6 self-center bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
                             >
                                 Save
                             </button>
                             {isSaveOpen && <Saveform handleClose={handleCloseSave}
-                                                     handleSubmit={handleSubmit}/>}
-                            </div>
+                                handleSubmit={handleSubmit} />}
+                        </div>
                     )}
 
                     <hr className="my-4 sm:mx-auto border-black lg:my-4" />
