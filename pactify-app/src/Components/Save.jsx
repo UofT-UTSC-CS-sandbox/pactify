@@ -15,7 +15,7 @@ function Saveform({ handleClose, handleSubmit }) {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-violet-950 rounded-lg shadow-lg p-4">
+          <div className="bg-pactifyPurple rounded-lg shadow-lg p-4">
             <h2 className="text-xl mb-4 text-white">Enter file name</h2>
             <form onSubmit={onSubmit}>
               <input

@@ -19,6 +19,14 @@ function NavBar(){
         setIsLogOutModalOpen(false);
     }
 
+    const navigateSettings = () => {
+        navigate("/settings");
+    }
+
+    const navigateAccountInfo = () => {
+        navigate("/accountInfo");
+    }
+
     function handleLogout() {
         // clear cookies
         const cookies = new Cookies();
@@ -27,7 +35,7 @@ function NavBar(){
     }
 
     return (
-        <nav className="bg-violet-950 fixed w-full z-50 top-0 left-0">
+        <nav className="bg-pactifyPurple fixed w-full z-50 top-0 left-0">
             <div className="container mx-auto px-4 py-2 flex justify-between items-center">
                 <a href='home' className="text-red-500 text-2xl font-black">
                     Pactify
@@ -45,10 +53,10 @@ function NavBar(){
                             </div>}
                     menuVariant="dark"
                 >
-                    <NavDropdown.Item href="/accountInfo">
+                    <NavDropdown.Item onClick={navigateAccountInfo}>
                         Account Info
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="settings">
+                    <NavDropdown.Item onClick={navigateSettings}>
                         Settings
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
@@ -63,7 +71,7 @@ function NavBar(){
             {/* Log Out Modal */}
             {isLogOutModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-violet-950 rounded-lg shadow-lg w-1/4 ">
+                    <div className="bg-pactifyPurple rounded-lg shadow-lg w-1/4 ">
                         <div className="flex justify-between items-center p-4 border-b">
                             <h2 className="text-xl font-semibold text-white">
                                 Are you sure you want to log out?

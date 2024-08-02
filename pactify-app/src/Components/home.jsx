@@ -96,7 +96,7 @@ function HomePage() {
             {/* Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-violet-950 rounded-lg shadow-lg w-1/3 ">
+                    <div className="bg-pactifyPurple rounded-lg shadow-lg w-1/3 ">
                         <div className="flex justify-between items-center p-4 border-b">
                             <h2 className="text-3xl font-semibold text-white">
                                 Select Contract Type

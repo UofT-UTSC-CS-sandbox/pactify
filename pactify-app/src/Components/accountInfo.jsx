@@ -242,7 +242,7 @@ function AccountInfoPage() {
             {/* Log Out Modal */}
             {isLogOutModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-violet-950 rounded-lg shadow-lg w-1/4 ">
+                    <div className="bg-pactifyPurple rounded-lg shadow-lg w-1/4 ">
                         <div className="flex justify-between items-center p-4 border-b">
                             <h2 className="text-xl font-semibold text-white">
                                 Are you sure you want to log out?
@@ -267,7 +267,7 @@ function AccountInfoPage() {
             {/* Delete Account Modal */}
             {isDeleteModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-violet-950 rounded-lg shadow-lg w-1/4 ">
+                    <div className="bg-pactifyPurple rounded-lg shadow-lg w-1/4 ">
                         <div className="flex justify-between items-center p-4 border-b">
                             <h2 className="text-xl font-semibold text-white">
                                 Are you sure you want to delete your account?
