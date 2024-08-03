@@ -15,6 +15,9 @@ function EditContract() {
     const [content, setContent] = useState("");
     const [isSaveOpen, setIsSaveOpen] = useState(false);
     const [isloading, setLoading] = useState(false);
+    const [isResponseVisible, setIsResponseVisible] = useState(false);
+    const [suggestions, setSuggestions] = useState("");
+
 
 
     const handleOpenSave = () => {
@@ -46,20 +49,34 @@ function EditContract() {
 
     const suggestImprovements = async () => {
         if (content === "") {
-            document.getElementById("error").innerText = "Please enter some content before suggesting improvements";
-
+            document.getElementById("error").innerText = "Please enter some content to generate suggestions!";
+            return false;
         }
+        document.getElementById("error").innerText = "";
+        setLoading(true);
         axios({
             method: "post",
             url: "http://localhost:5050/api/chatGPT",
             withCredentials: true,
             data:
             {
-                "context": "You are an AI that suggests improvements for contracts. You will be provided with a contract written with HTML styling. In plain text,\
+                "context": "You are an AI that suggests improvements for contracts. You will be provided with a contract written with HTML styling.\
                 please suggest improvements to the contract. You can suggest changes to the wording, layout, or anything else you think would make the contract better.\
-                Changes should be clear and concise. Do not suggest changes that relate to the HTML styling. Do not rewrite parts of the contract, only suggest possible improvements.",
+                Changes should be clear and concise. Do not suggest changes that relate to the HTML styling. Do not rewrite parts of the contract, only suggest possible improvements.\
+                Suggestions should have a title followed by a short paragraph describing the suggestion. Limit to 5 suggestions.\n\n\
+                Your response should be strictly in the following format:\
+                *Suggestion Title 1*: \n *Suggestion Content 1* \n\n *Suggestion Title 2*: \n *Suggestion Content 2* \n\n ...",
                 "message": content
             },
+        })
+        .then((res)=> {
+            let suggestions = res.data.message[1].content;
+            //remove ** from suggestions
+            suggestions = suggestions.replace(/\*/g, "");
+            setSuggestions(suggestions);
+            console.log("Suggestions Generated!");
+            setLoading(false);
+            setIsResponseVisible(true);
         })
 
     };
@@ -78,7 +95,7 @@ function EditContract() {
                     <h1 className="text-4xl font-bold mb-2">Edit Contract</h1>
                     <h2 className="text-2xl font-bold mb-6">Make any changes you want below</h2>
                     <div className="mb-4 flex flex-col">
-                        <RichEditor initialValue='Wow' onValueChange={setContent} />
+                        <RichEditor initialValue='' onValueChange={setContent} />
                         <p id="error" className="text-center mb-4 text-red-600"></p>
                         <button
                             onClick={handleOpenSave}
@@ -88,7 +105,7 @@ function EditContract() {
                         </button>
                         <button
                             onClick={suggestImprovements}
-                            className="mt-4 px-4 w-64 self-center font-semibold bg-red-500 text-white rounded-full hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"
+                            className="my-4 px-4 w-64 self-center font-semibold bg-red-500 text-white rounded-full hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"
                         >
                             <div className="flex justify-center items-center space-x-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-6 w-6">
@@ -98,6 +115,23 @@ function EditContract() {
                             </div>
                         </button>
                         {isloading && (<div className="border-gray-300 mb-4 h-14 w-14 animate-spin rounded-full border-8 border-t-red-500 self-center" />)}
+                        {isResponseVisible && (
+                            <div className="mb-4">
+                            <label className="block text-base font-medium text-gray-700 mb-2">
+                                Suggested Improvements
+                            </label>
+                            <div className="flex items-center">
+                                <textarea
+                                    id="improvements"
+                                    value={suggestions}
+                                    type="text"
+                                    rows={15}
+                                    readOnly
+                                    className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                ></textarea>
+                            </div>
+                        </div>)
+                        }
 
                         {isSaveOpen && <Saveform handleClose={handleCloseSave}
                             handleSubmit={handleSubmit} />}
