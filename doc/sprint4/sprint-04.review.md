@@ -23,7 +23,7 @@ List process-related (i.e. team organization) decisions that, in retrospect, tur
  * Explain why (i.e. give a supporting argument) you consider a decision to be successful.
  * Feel free to refer/link to process artifact(s).
 
-Using a hooking up a S3 AWS bucket to Mongo to store pdfs is a lot easier to do than trying to store pdfs in google drive and then query from Mongo.
+Using an S3 AWS bucket to store PDFs and then connecting said bucket to Mongo is a lot easier to do than trying to store pdfs in google drive and then query from Mongo.
 
 We are still testing GPT’s results and observing its consistency on its answer. We deemed it to be not consistent early on, so to get consistent contract results we have now created templates and have done some prompt engineering to help guide GPT in the right direction. 
 
@@ -80,4 +80,4 @@ Going into the next iteration, our main insights are:
  * These concepts should help you decide on where to focus your efforts.
  * Can be related to product and/or process.
 
-This is the final interation!
+This is the final iteration!
