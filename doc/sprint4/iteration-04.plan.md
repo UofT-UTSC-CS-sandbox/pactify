@@ -100,10 +100,13 @@ _This entire section is mandatory._
  * Order the items from most to least important.
  * Feel free (but not obligated) to specify some/all tasks as user stories.
 
-- Implement rich text editing.
-- Clean up and polish the application for the upcoming demos. 
-- Have a successful sprint 4 demo.
-- Have a successful final demo. 
+Implement rich text editing.
+
+Clean up and polish the application for the upcoming demos. 
+
+Have a successful sprint 4 demo.
+
+Have a successful final demo. 
 
 #### Artifacts
 
@@ -114,4 +117,4 @@ List/describe the artifacts you will produce in order to present your project id
  * Be concise, yet precise.         
    For example: "Build the website" is not precise at all, but "Build a static home page and upload it somewhere, so that it is publicly accessible" is much clearer.
 
-- We must make slides for our final in class demo. 
+We must make slides for our final in class demo. 

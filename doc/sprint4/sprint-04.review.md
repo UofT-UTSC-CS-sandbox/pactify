@@ -23,9 +23,8 @@ List process-related (i.e. team organization) decisions that, in retrospect, tur
  * Explain why (i.e. give a supporting argument) you consider a decision to be successful.
  * Feel free to refer/link to process artifact(s).
 
-Getting thorough research on each type of contract (NDA, rental agreement etc.) on what components are needed/popular to have before coding in the format of each contract form. This saved us the hassle of reformatting and making sure we have accurate real-life representation of contracts.
-Creating different branches for features like feature/create-contract etc. instead of having everyone pushing onto one branch. 
-We are still testing the GPT’s results and observing its consistency on its answer. We deemed it to be not consistent early on which allows us to have time to start generating a template for it to follow, to get consistent contract results. We have stadarded creating templates. 
+Using a hooking up a S3 AWS bucket to Mongo to store pdfs is a lot easier to do than 
+We are still testing the GPT’s results and observing its consistency on its answer. We deemed it to be not consistent early on which allows us to have time to start generating a template for it to follow, to get consistent contract results. We have  creating templates. 
 
 #### Decisions that did not turn out as well as we hoped
 
