@@ -23,6 +23,10 @@ function HomePage() {
         setIsModalOpen(false);
     }
 
+    const navigateEdit = () => {
+        navigate("/edit");
+    }
+
     const selectOther = () => {
         navigate("/otherContract");
     }
@@ -84,6 +88,9 @@ function HomePage() {
                         <h1 className="text-3xl font-bold" id="welcome"> </h1>
                         <button onClick={openModal} className=" w-80 mt-4 inline-block bg-red-500 text-white py-2 px-4 rounded-full font-bold hover:bg-red-700 transition duration-300 hover:scale-105">
                             CREATE NEW +
+                        </button>
+                        <button onClick={navigateEdit} className=" w-80 mt-4 inline-block bg-red-500 text-white py-2 px-4 rounded-full font-bold hover:bg-red-700 transition duration-300 hover:scale-105">
+                            Edit (For testing)
                         </button>
                     </div>
                     <div className="mb-8">

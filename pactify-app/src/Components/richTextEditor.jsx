@@ -33,6 +33,7 @@ function RichEditor({ initialValue, onValueChange }) {
                         modules={modules}
                         value={value}
                         onChange={handleChange}
+                        style={{ width: '100%', display: 'flex', flexDirection: 'column' }}
                     />
                 </div>
             </div>
