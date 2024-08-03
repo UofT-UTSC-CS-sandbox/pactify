@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {Buffer} from "buffer";
 import Saveform  from "./Save";
+import { handleOpenSave, handleCloseSave, handleSubmit } from "../uploadUtils";
 
 function ContractNDAForm() {
     const navigate = useNavigate();
@@ -18,33 +19,9 @@ function ContractNDAForm() {
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
     const [isSaveOpen, setIsSaveOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const handleOpenSave = () => {
-        setIsSaveOpen(true);
-    };
 
-    const handleCloseSave = () => {
-        setIsSaveOpen(false);
-    };
-
-    const handleSubmit = async (name) => {
-        try{
-            const upload = await axios({
-                method: "post",
-                url: "http://localhost:5050/api/uploadFile",
-                withCredentials: true,
-                data:
-                {
-                    "fileName": name,
-                    "content": response
-                },
-            })
-            setIsSaveOpen(false);
-            navigate('/home');
-        }catch(error){
-            console.error('Error saving file:', error);
-        }
-    };
 
     const handleStartChange = (date) => {
         setDate(date);
@@ -145,18 +122,6 @@ function ContractNDAForm() {
         }
     }
 
-
-    function saveAndDirect(){
-        const contractContent = Buffer.from(response, 'utf8');
-        axios({
-            method: "post",
-            url: "http://localhost:5050/api/uploadFile",
-            withCredentials: true,
-            data: {"content": contractContent, "name": "filler"}
-        }).then((res) => {
-            navigate("/home");
-        })
-    }
 
     return (
         <div>
@@ -358,14 +323,20 @@ function ContractNDAForm() {
                                 className="w-full mb-4 p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
                             ></textarea>
                             <button
-                                onClick={handleOpenSave}
+                                onClick={() => handleOpenSave(setIsSaveOpen)}
                                 className="px-4 py-2 bg-blue-500 text-white rounded"
                             >
                                 Save
                             </button>
-                            {isSaveOpen && <Saveform handleClose={handleCloseSave}
-                                                     handleSubmit={handleSubmit}/>}
-                            </div>
+                            {isSaveOpen && (
+                                <Saveform
+                                    handleClose={() => handleCloseSave(setIsSaveOpen, setErrorMessage)}
+                                    handleSubmit={(name) => handleSubmit(name, response, setIsSaveOpen, navigate, setErrorMessage)}
+                                    errorMessage={errorMessage}
+                                    setErrorMessage={setErrorMessage}
+                                />
+                            )}
+                        </div>
                     )}
 
                     <hr className="my-4 sm:mx-auto border-black lg:my-4" />

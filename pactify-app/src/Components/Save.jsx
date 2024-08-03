@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Saveform({ handleClose, handleSubmit }) {
+function Saveform({ handleClose, handleSubmit, errorMessage, setErrorMessage}) {
     const [name, setName] = useState('');
 
     const handleChange = (e) => {
@@ -34,11 +34,19 @@ function Saveform({ handleClose, handleSubmit }) {
                 </button>
                 <button
                   type="button"
-                  onClick={handleClose}
+               onClick={handleClose}   
                   className="px-4 py-2 bg-gray-300 rounded"
                 >
                   Close
                 </button>
+                {errorMessage && (
+                <div className="error-message">
+                    <p>{errorMessage}</p>
+                    <button onClick={() => setErrorMessage('')} className="px-4 py-2 bg-gray-500 text-white rounded">
+                        Close
+                    </button>
+                </div>
+            )}
               </div>
             </form>
           </div>

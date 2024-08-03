@@ -21,6 +21,16 @@ router.post('/', async(req, res) => {
     try{
         const {fileName, content} = req.body;    
         const folderPrefix = req.user.id;
+        const existingContract = await Contract.findOne({
+            userId: new mongoose.Types.ObjectId(folderPrefix),
+            title: fileName
+        });
+
+        if (existingContract) {
+            return res.status(400).json({ message: 'Contract already exists' });
+        }
+
+
         const s3 = new AWS.S3();
         const params = {
             Bucket: process.env.AWS_BUCKET_NAME,
