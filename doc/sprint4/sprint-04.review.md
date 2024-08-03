@@ -7,7 +7,7 @@
 
 ## Iteration 04 - Review & Retrospect
 
- * When: Friday, July 18th
+ * When: Friday, August 2nd
  * Where: ONLINE on Discord
 
 ## Process - Reflection
@@ -23,8 +23,9 @@ List process-related (i.e. team organization) decisions that, in retrospect, tur
  * Explain why (i.e. give a supporting argument) you consider a decision to be successful.
  * Feel free to refer/link to process artifact(s).
 
-Using a hooking up a S3 AWS bucket to Mongo to store pdfs is a lot easier to do than 
-We are still testing the GPT’s results and observing its consistency on its answer. We deemed it to be not consistent early on which allows us to have time to start generating a template for it to follow, to get consistent contract results. We have  creating templates. 
+Using a hooking up a S3 AWS bucket to Mongo to store pdfs is a lot easier to do than trying to store pdfs in google drive and then query from Mongo.
+
+We are still testing GPT’s results and observing its consistency on its answer. We deemed it to be not consistent early on, so to get consistent contract results we have now created templates and have done some prompt engineering to help guide GPT in the right direction. 
 
 #### Decisions that did not turn out as well as we hoped
 
@@ -37,7 +38,7 @@ List process-related (i.e. team organization) decisions that, in retrospect, wer
 Focusing on coding and leaving documentation behind.
 Not researching further on GPT where we started having issues and errors when trying to generate contracts.
 We were also planning on using GCP for contract storage, but we instead pivoted to AWS as that seemed to be a better fit for us. 
-
+Not focusing on prompt engineering.
 
 #### Planned changes
 
@@ -56,9 +57,9 @@ We want to use JIRA more.
  * Refer/link to artifact(s) that show that a goal/task was met/completed.
  * If a goal/task was not part of the original iteration plan, please mention it.
 
-We can now store contracts!
+We can now store contracts better!
 
-We can now sign contracts!
+We can now edit contracts in rich text!
 
 #### Goals and/or tasks that were planned but not met/completed:
 
@@ -79,6 +80,4 @@ Going into the next iteration, our main insights are:
  * These concepts should help you decide on where to focus your efforts.
  * Can be related to product and/or process.
 
-Finish Contract Generation API: Finishing the API for our contract generation will allow us to implement generating the different types of contracts.
-
-Tie Everything Together: We have all the bits of our final project now working, we simply just have to integrate all out features together and create a final project that we would be confident in presenting.
+This is the final interation!
