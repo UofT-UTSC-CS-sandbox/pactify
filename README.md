@@ -7,7 +7,7 @@ Welcome to **Pactify**, a quick, easy, and affordable way to generate a contract
 Instructions to run the app
 
 1. Put the following lines into a file called config.env in the pactify-server directory
-
+    ```env
     ATLAS_URI="mongodb+srv://username:algoholics24@pactify.ru1ugju.mongodb.net/Pactify?retryWrites=true&w=majority&appName=Pactify"
 
     OPENAI_API_KEY="sk-proj-icrMOtIYZidC7uJG7iiGT3BlbkFJWuPY4HWXSDUDfj37Qy5L"
@@ -16,9 +16,14 @@ Instructions to run the app
 
     PORT=5050
 
-1. Put the following lines into a file called config.env 
-
+    AWS_ACCESS_KEY="AKIA5FTZDBBRJRDQCCHT"
+    AWS_SECRET_ACCESS_KEY="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"
+    AWS_REGION="us-east-2"
+    AWS_BUCKET_NAME="pactify"
+    ```
+   
 2. In a shell, run the following:
+   ```bash
 
     cd pactify-server
     
@@ -33,6 +38,7 @@ Instructions to run the app
     npm install
     
     npm start
+   ```
 
 ## Getting Started
 
