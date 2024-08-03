@@ -4,10 +4,10 @@
  > It does not really make sense for you to edit this document much (if at all) while working on the project - Instead, at the end of the planning phase, you can refer back to this document and decide which parts of your plan you are happy with and which parts you would like to change.
 
 
-## Iteration 04 (Sprint 3) 
+## Iteration 04 (Sprint 4) 
 
- * Start date: July 9, 2024
- * End date: July 19, 2024
+ * Start date: July 21, 2024
+ * End date: August 4, 2024
 
 ## Process
 
@@ -25,7 +25,7 @@ List the most significant changes you made to your process (if any).
  > *Note:* If you are not making any changes to your process, it means that you are happy with all of the decisions you made in the previous iterations.
  > In this case, list what you consider to be the most significant process decisions your team made. For each decision, explain why you consider it successful, and what success metric you are using (or could use) to assert that the decision is successful.
 
-We will be using the Jira board more actively in order to track our progress this sprint and assign people to tickets to achieve accountability. By actively using the Jira board, we aim to improve task visibility and streamline the workflow.  We will know we are successful if the burndown chart accurately represents the work we complete throughout the sprint.
+Even though there are no future spirnts we as group will try using the Jira board more actively for future projects as we have found it to be a very helpful it managing our workflow. By actively using the Jira board in the future, we aim to improve task visibility and streamline the workflow. In conclusion, we have learned that if the burndown chart accurately represents the work we complete throughout the sprint then we have used Jira correctly.
 
 
 
@@ -100,9 +100,10 @@ _This entire section is mandatory._
  * Order the items from most to least important.
  * Feel free (but not obligated) to specify some/all tasks as user stories.
 
-Implement storage system to store the contracts
-Extract/export a contract into a pdf file
-Add a signature pad that users can immediately sign their contracts and have the option to save their signature into their account
+- Implement rich text editing.
+- Clean up and polish the application for the upcoming demos. 
+- Have a successful sprint 4 demo.
+- Have a successful final demo. 
 
 #### Artifacts
 
@@ -113,7 +114,4 @@ List/describe the artifacts you will produce in order to present your project id
  * Be concise, yet precise.         
    For example: "Build the website" is not precise at all, but "Build a static home page and upload it somewhere, so that it is publicly accessible" is much clearer.
 
-Contract templates
-Contract storage mechanism
-Contract download mechanism
-Signatures
+- We must make slides for our final in class demo. 
