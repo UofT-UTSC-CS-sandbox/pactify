@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
+import DeleteButton from "./delete";
 
-function ContractCard({ contract }) {
+function ContractCard({ contract, onDelete }) {
   return (
 
     <div className="w-48 bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -16,12 +17,8 @@ function ContractCard({ contract }) {
         <p className="mt-2 text-sm text-gray-600">{new Date(contract.updatedAt).toLocaleDateString()}</p>
         <div className="mt-3 flex justify-between items-center">
           <a href="#" className="text-blue-600 hover:text-blue-800">Open</a>
+          <DeleteButton contractId = {contract._id} onDelete={onDelete} />
           <div>
-            <button className="ml-2 text-gray-600 hover:text-gray-900 focus:outline-none">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
           </div>
         </div>
       </div>

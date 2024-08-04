@@ -14,6 +14,41 @@ function HomePage() {
     const { user } = useContext(UserContext);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
+    const [userContracts, setUserContracts] = useState([]);
+
+    const handleDelete = (contractId) => {
+        axios.delete('http://localhost:5050/api/deleteFile', {
+          withCredentials: true,
+          params: { contractId }
+        })
+        .then(response => {
+          console.log('Delete response:', response.data); // Debugging log
+          
+          // Refresh contracts after successful deletion
+          loadUserContracts();
+          console.log("amongus");
+        })
+        .catch(error => {
+          console.error('Error deleting file:', error);
+        });
+      };
+  
+    const loadUserContracts = async () => {
+        console.log('Loading user contracts...'); // Debugging log
+      try {
+        const response = await axios.get('http://localhost:5050/api/user/getUserContracts', {
+          withCredentials: true,
+        });
+        console.log('Loaded contracts:', response.data.contracts); // Debugging log
+        setUserContracts(response.data.contracts);
+      } catch (error) {
+        console.error('Error loading contracts:', error);
+      }
+    };
+  
+    useEffect(() => {
+      loadUserContracts();
+    }, []);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -96,7 +131,11 @@ function HomePage() {
                     <div className="mb-8">
                         <h2 className="text-2xl font-bold">Recent Contracts</h2>
                     </div>
-                    <ContractHistory />
+                    <ContractHistory
+                        userContracts={userContracts}
+                        handleDelete={handleDelete}
+                        loadUserContracts={loadUserContracts}
+                    />
                 </div>
             </div>
             <Footer />

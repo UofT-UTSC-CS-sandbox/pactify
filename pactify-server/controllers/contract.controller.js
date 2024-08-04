@@ -17,7 +17,6 @@ export const getcontracts = async (req, res, next) => {
       .limit(limit);
 
     // Respond with the contracts
-    console.log(contracts);
     res.status(200).json({ contracts });
 
   } catch (error) {

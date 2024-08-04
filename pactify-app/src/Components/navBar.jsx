@@ -37,7 +37,7 @@ function NavBar(){
     return (
         <nav className="bg-pactifyPurple fixed w-full z-50 top-0 left-0">
             <div className="container mx-auto px-4 py-2 flex justify-between items-center">
-                <a href='home' className="text-red-500 text-2xl font-black">
+                <a href='/home' className="text-red-500 text-2xl font-black">
                     Pactify
                 </a>
                 <div className="flex items-center space-x-4 -translate-x-10">
