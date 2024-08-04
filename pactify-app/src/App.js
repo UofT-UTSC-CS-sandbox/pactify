@@ -36,6 +36,7 @@ function App() {
                 <Route path="/prenupContract" element={<ContractPrenupForm />} />
                 <Route path="/edit" element={<EditContract />} />
                 <Route path="*" element={<NotFoundPage />} />
+                <Route path ="/edit/:contractId" element = {<EditContract />} />
             </Routes>
         </UserProvider>
     );

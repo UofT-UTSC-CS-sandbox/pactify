@@ -17,16 +17,40 @@ const router = express.Router();
 
 router.use(userAuth);
 
-router.post('/', async(req, res) => {
-    try{
-        const {fileName, content} = req.body;    
+router.post('/', async (req, res) => {
+    try {
+        const { fileName, content } = req.body;
         const folderPrefix = req.user.id;
+        
+        if (!fileName || !content) {
+            return res.status(400).json({ message: 'File name and content are required' });
+        }
+
+        const existingContract = await Contract.findOne({
+            userId: new mongoose.Types.ObjectId(folderPrefix),
+            title: fileName
+        });
+
+        if (existingContract) {
+            return res.status(400).json({ message: 'Contract already exists' });
+        }
+
+        const createdContract = await Contract.create({
+            userId: new mongoose.Types.ObjectId(folderPrefix),
+            title: fileName,
+            status: 'draft',
+            thumbnail: 'https://via.placeholder.com/200'
+        });
+
+        const contract_id = createdContract._id;
+
         const s3 = new AWS.S3();
         const params = {
             Bucket: process.env.AWS_BUCKET_NAME,
-            Key:`${folderPrefix}/${fileName}`,
+            Key: `${folderPrefix}/${contract_id}`,
             Body: content
-        }; 
+        };
+
         const uploadPromise = () => {
             return new Promise((resolve, reject) => {
                 s3.upload(params, (error, data) => {
@@ -40,12 +64,6 @@ router.post('/', async(req, res) => {
         };
 
         const uploadResult = await uploadPromise();
-        const create = await Contract.create({
-                userId: new mongoose.Types.ObjectId(folderPrefix),
-                title: fileName,
-                status: 'draft',
-                thumbnail: 'https://via.placeholder.com/200'
-        });
 
         res.status(200).json({ message: 'File uploaded successfully', data: uploadResult });
     } catch (error) {

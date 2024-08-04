@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "./footer";
 import NavBar from "./navBar";
 import axios from "axios";
@@ -9,8 +9,11 @@ import { Buffer } from "buffer";
 import Saveform from "./Save";
 import 'react-notifications-component/dist/theme.css'
 import RichEditor from "./richTextEditor";
-
+import { useParams } from "react-router-dom";
+import { set } from "mongoose";
 function EditContract() {
+
+    const { contractId }  = useParams();
     const navigate = useNavigate();
     const [content, setContent] = useState("");
     const [isSaveOpen, setIsSaveOpen] = useState(false);
@@ -18,7 +21,33 @@ function EditContract() {
     const [isResponseVisible, setIsResponseVisible] = useState(false);
     const [suggestions, setSuggestions] = useState("");
 
-
+    const fetchFile = async () => {
+        try {
+          const response = await axios({
+            method: 'get',
+            url: 'http://localhost:5050/api/getFile',
+            withCredentials: true,
+            params: {
+              'contractId': contractId
+            }
+          })
+          .then((res) => {   
+            setContent(res.data.message.content);
+            console.log(content);
+          })
+          .catch((err) => {
+            console.error('Error getting file:', err);
+          });
+      } catch (error) {  
+            console.error('Error saving file:', error);
+      }
+    };
+    
+      useEffect(() => {
+        if (contractId) {
+          fetchFile();
+        }
+      }, []);
 
     const handleOpenSave = () => {
         setIsSaveOpen(true);
@@ -95,7 +124,7 @@ function EditContract() {
                     <h1 className="text-4xl font-bold mb-2">Edit Contract</h1>
                     <h2 className="text-2xl font-bold mb-6">Make any changes you want below</h2>
                     <div className="mb-4 flex flex-col">
-                        <RichEditor initialValue='' onValueChange={setContent} />
+                        <RichEditor initialValue={content} onValueChange={setContent} />
                         <p id="error" className="text-center mb-4 text-red-600"></p>
                         <button
                             onClick={handleOpenSave}

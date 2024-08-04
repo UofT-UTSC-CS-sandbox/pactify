@@ -13,7 +13,7 @@ import chatGPTRouter from './routes/chatGPTRoutes.js';
 import db from './db/connection.js'
 import process from 'process';
 import uploadFile from './routes/uploadFile.js';
-
+import getFile from './routes/getFile.js';
 
 
 axios.defaults.withCredentials = true;
@@ -37,6 +37,8 @@ app.use("/api/chatGPT", chatGPTRouter);
 app.use("/api/contracts", contractRouters);
 
 app.use("/api/uploadFile", uploadFile);
+
+app.use("/api/getFile", getFile);
 
 app.use('/', homeRoutes);
 

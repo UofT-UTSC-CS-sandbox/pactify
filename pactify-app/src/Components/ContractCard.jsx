@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 
 function ContractCard({ contract }) {
   return (
@@ -10,9 +10,9 @@ function ContractCard({ contract }) {
         </div>
       </a>
       <div className="px-2 pb-2">
-        <a href="#">
+        <Link to = {`/edit/${contract._id}`} target = "_blank" rel = "noopener noreferrer">
           <h5 className="text-xl font-semibold tracking-tight text-gray-900">{contract.title}</h5>
-        </a>
+        </Link>
         <p className="mt-2 text-sm text-gray-600">{new Date(contract.updatedAt).toLocaleDateString()}</p>
         <div className="mt-3 flex justify-between items-center">
           <a href="#" className="text-blue-600 hover:text-blue-800">Open</a>
