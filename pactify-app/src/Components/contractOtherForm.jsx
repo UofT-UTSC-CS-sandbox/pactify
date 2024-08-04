@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 import RichEditor from "./richTextEditor";
 import "react-datepicker/dist/react-datepicker.css";
 import Saveform from "./Save";
+import { handleOpenSave, handleCloseSave, handleSubmit } from "../uploadUtils";
 
 function ContractOtherForm() {
     const navigate = useNavigate();
@@ -15,33 +16,8 @@ function ContractOtherForm() {
     const [isloading, setLoading] = useState(false);
     const [date, setDate] = useState('');
     const [isSaveOpen, setIsSaveOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const handleOpenSave = () => {
-        setIsSaveOpen(true);
-    };
-
-    const handleCloseSave = () => {
-        setIsSaveOpen(false);
-    };
-
-    const handleSubmit = async (name) => {
-        try {
-            const upload = await axios({
-                method: "post",
-                url: "http://localhost:5050/api/uploadFile",
-                withCredentials: true,
-                data:
-                {
-                    "fileName": name,
-                    "content": response
-                },
-            })
-            setIsSaveOpen(false);
-            navigate('/home');
-        } catch (error) {
-            console.error('Error saving file:', error);
-        }
-    };
 
 
     function generateContract() {
@@ -191,8 +167,14 @@ function ContractOtherForm() {
                             >
                                 Save
                             </button>
-                            {isSaveOpen && <Saveform handleClose={handleCloseSave}
-                                handleSubmit={handleSubmit} />}
+                            {isSaveOpen && (
+                                <Saveform
+                                    handleClose={() => handleCloseSave(setIsSaveOpen, setErrorMessage)}
+                                    handleSubmit={(name) => handleSubmit(name, response, setIsSaveOpen, navigate, setErrorMessage)}
+                                    errorMessage={errorMessage}
+                                    setErrorMessage={setErrorMessage}
+                                />
+                            )}
                         </div>
                     )}
 
