@@ -9,9 +9,11 @@ import { Buffer } from "buffer";
 import Saveform from "./Save";
 import { ReactNotifications, Store } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
-import SignaturePad from "./signaturePad";
 import RichEditor from "./richTextEditor";
 import { handleOpenSave, handleCloseSave, handleSubmit } from "../uploadUtils";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { useRef } from "react";
 
 
 function ContractNDAForm() {
@@ -24,6 +26,7 @@ function ContractNDAForm() {
     const [endDate, setEndDate] = useState();
     const [isSaveOpen, setIsSaveOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const contentRef = useRef(null);
 
 
 
@@ -37,8 +40,6 @@ function ContractNDAForm() {
     const goSign = () => {
         navigate("/signature");
     }
-
-
 
 
     function generateContract() {
@@ -135,6 +136,63 @@ function ContractNDAForm() {
             navigate("/home");
         })
     }
+
+    const exportToPDF = () => {
+        if (contentRef.current) {
+          html2canvas(contentRef.current, { scale: 2 }).then((canvas) => {
+            const ctx = canvas.getContext('2d');
+            const imgWidth = canvas.width;
+            const imgHeight = canvas.height;
+      
+            // Define the cropping area (x, y, width, height)
+            const cropX = 20; // Adjust as needed
+            const cropY = 130; // Adjust to crop the top toolbar
+            const cropWidth = imgWidth - 50; // Adjust to crop from left and right
+            const cropHeight = imgHeight - 130; // Adjust to crop from bottom
+      
+            // Create a new canvas to draw the cropped image
+            const croppedCanvas = document.createElement('canvas');
+            croppedCanvas.width = cropWidth;
+            croppedCanvas.height = cropHeight;
+      
+            const croppedCtx = croppedCanvas.getContext('2d');
+            
+            // Draw the cropped image onto the new canvas
+            croppedCtx.drawImage(
+              canvas,
+              cropX, cropY, cropWidth, cropHeight, // Source rectangle
+              0, 0, cropWidth, cropHeight // Destination rectangle
+            );
+      
+            const imgData = croppedCanvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4');
+      
+            // Define margins and padding
+            const marginLeft = 10;
+            const marginTop = 10;
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+      
+            // Calculate image dimensions for the PDF
+            const pdfImgWidth = pdfWidth - marginLeft * 2;
+            const pdfImgHeight = (croppedCanvas.height * pdfImgWidth) / croppedCanvas.width;
+      
+            if (pdfImgHeight > pdfHeight - marginTop * 2) {
+              const adjustedHeight = pdfHeight - marginTop * 2;
+              const adjustedWidth = (croppedCanvas.width * adjustedHeight) / croppedCanvas.height;
+              pdf.addImage(imgData, 'PNG', marginLeft, marginTop, adjustedWidth, adjustedHeight);
+            } else {
+              pdf.addImage(imgData, 'PNG', marginLeft, marginTop, pdfImgWidth, pdfImgHeight);
+            }
+      
+            pdf.save('nda-contract.pdf');
+          }).catch((error) => {
+            console.error('Error capturing or cropping the content:', error);
+          });
+        } else {
+          console.error('Content container is not available.');
+        }
+      };
 
     return (
         <div>
@@ -318,7 +376,6 @@ function ContractNDAForm() {
                             ></textarea>
                         </div>
                     </div>
-                    <SignaturePad />
                     <p id="error" className="text-center mb-4 text-red-600"></p>
                     <button
                         type="submit"
@@ -333,12 +390,20 @@ function ContractNDAForm() {
                             <label className="block text-lg font-medium text-gray-700 mb-2" htmlFor="style">
                                 Edit Contract Below
                             </label>
-                            <RichEditor initialValue={response} onValueChange={setResponse} />
+                            <div ref={contentRef}>
+                                <RichEditor initialValue={response} onValueChange={setResponse} />
+                            </div>
                             <button
                                 onClick={() => handleOpenSave(setIsSaveOpen)}
                                 className=" mt-4 px-4 py-2 w-3/6 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
                             >
                                 Save
+                            </button>
+                            <button
+                                onClick={exportToPDF}
+                                className=" mt-4 px-4 py-2 w-3/6 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                            >
+                                Download
                             </button>
                             {isSaveOpen && (
                                 <Saveform
