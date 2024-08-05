@@ -21,11 +21,11 @@ function ContractCard({ contract, onDelete }) {
     <div className="w-48 bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-300 relative">
       <a href="#">
         <div className="pb-1">
-          <img className="lg mx-auto" src={contract.thumbnail} alt="Document Thumbnail" />
+          <img className="lg mx-auto" src={contract.thumbnail} alt="Document Thumbnail"/>
         </div>
       </a>
       <div className="px-2 pb-2">
-        <Link to={`/edit/${contract._id}`} target="_blank" rel="noopener noreferrer">
+        <Link to={`/edit/${contract._id}`}>
           <h5 className="text-xl font-semibold tracking-tight text-gray-900">{contract.title}</h5>
         </Link>
         <p className="mt-2 text-sm text-gray-600">{new Date(contract.updatedAt).toLocaleDateString()}</p>
@@ -39,26 +39,6 @@ function ContractCard({ contract, onDelete }) {
       </div>
 
       {showConfirm && (
-        // <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
-        //   <div className="bg-white p-4 rounded shadow-lg">
-        //     <p className="mb-4">Are you sure you want to delete this file?</p>
-        //     <div className="flex justify-end">
-        //       <button
-        //         className="bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-700 self-center text-center transition duration-300 hover:scale-105"
-        //         onClick={handleConfirm}>
-        //         Yes
-        //       </button>
-        //       <button
-        //         className="bg-gray-500 text-white px-4 py-2 rounded"
-        //         onClick={handleCancel}>
-        //         No
-        //       </button>
-        //     </div>
-        //   </div>
-        // </div>
-
-
-
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-pactifyPurple rounded-lg shadow-lg w-[28rem] ">
             <div className="flex justify-between items-center p-4 border-b">
