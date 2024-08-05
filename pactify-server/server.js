@@ -6,7 +6,6 @@ import authRouter from "./routes/auth/authroute.js";
 import userRouter from "./routes/user/userrouter.js"
 import cookieParser from "cookie-parser";
 import dotenv from 'dotenv';
-import contractRouters from './routes/contract.route.js';
 import axios from 'axios';
 import homeRoutes from './routes/homeRoutes.js';
 import chatGPTRouter from './routes/chatGPTRoutes.js';
@@ -33,8 +32,6 @@ app.use("/api/auth", authRouter); // assign the "auth" router to any path that b
 app.use("/api/user/", userRouter);
 
 app.use("/api/chatGPT", chatGPTRouter);
-
-app.use("/api/contracts", contractRouters);
 
 app.use("/api/uploadFile", uploadFile);
 

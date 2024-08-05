@@ -58,8 +58,8 @@ export const handleSubmit = async (name, response, setIsSaveOpen, navigate, setE
         });
 
         if (upload.status === 400) {
-            // console.log('Error saving file:', upload.toJSON());
-            // setErrorMessage(upload.data.message);
+            console.error('(2) Error saving file:', upload.data.message);
+            setErrorMessage(upload.data.message);
         } else if (upload.status === 200) {
             setIsSaveOpen(false);
             navigate('/home');

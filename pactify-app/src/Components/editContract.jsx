@@ -3,14 +3,11 @@ import Footer from "./footer";
 import NavBar from "./navBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Buffer } from "buffer";
 import Saveform from "./Save";
 import 'react-notifications-component/dist/theme.css'
 import RichEditor from "./richTextEditor";
 import { useParams } from "react-router-dom";
-import { set } from "mongoose";
 import { handleOpenSave, handleCloseSave, handleSubmit, overwriteSave } from "../uploadUtils";
 function EditContract() {
 
@@ -22,6 +19,15 @@ function EditContract() {
     const [isResponseVisible, setIsResponseVisible] = useState(false);
     const [suggestions, setSuggestions] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+
+    // const saveAsDocx = async (content) => {
+    //     try {
+    //         const docxBlob = await htmlToDocx(content);
+    //         saveAs(docxBlob, 'contract.docx');
+    //     } catch (error) {
+    //         console.error('Error converting to DOCX:', error);
+    //     }
+    // };
 
     const fetchFile = async () => {
         try {
@@ -114,6 +120,12 @@ function EditContract() {
                                 className=" mt-4 px-4 py-2 w-40 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
                             >
                                 Save as New
+                            </button>
+                            <button
+                                // onClick={() => saveAsDocx(content)}
+                                className=" mt-4 px-4 py-2 w-40 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                            >
+                                Download
                             </button>
                         </div>
                         <button
