@@ -14,6 +14,7 @@ import ContractRentalForm from './Components/contractRentalForm.jsx';
 import ContractPrenupForm from './Components/contractPrenupForm.jsx';
 import RichEditor from './Components/richTextEditor.jsx';
 import { UserProvider } from './UserContext.js';
+import EditContract from './Components/editContract.jsx';
 
 
 function App() {
@@ -33,7 +34,9 @@ function App() {
                 <Route path="/rentalContract" element={<ContractRentalForm />} />
                 <Route path="/richTextEditor" element={<RichEditor />} />
                 <Route path="/prenupContract" element={<ContractPrenupForm />} />
+                <Route path="/edit" element={<EditContract />} />
                 <Route path="*" element={<NotFoundPage />} />
+                <Route path ="/edit/:contractId" element = {<EditContract />} />
             </Routes>
         </UserProvider>
     );

@@ -37,41 +37,42 @@ const userAuth = async (req, res, next) => {
 
 
 const getUserContracts = async (req, res, next) => {
-        try {
-          // Fetch all contracts
-          const startIndex = parseInt(req.query.startIndex) || 0;
-          const limit = parseInt(req.query.limit) || 9;
-      
-          // Ensure userId is properly formatted and valid
-    
-          // Query contracts by userId
-          const contracts = await Contract.find({'userId' : new mongoose.Types.ObjectId(req.user.id)})
-            .skip(startIndex)
-            .limit(limit);
-      
-          // Respond with the contracts
-          console.log(contracts);
-          res.status(200).json({ contracts });
-      
-        } catch (error) {
-          console.error('Error fetching contracts:', error);
-          res.status(500).json({ message: error.message });
-        }
-    };
+    try {
+      // Fetch all contracts with pagination
+      const startIndex = parseInt(req.query.startIndex) || 0;
+      const limit = parseInt(req.query.limit) || 8;
+  
+      // Query contracts by userId and sort by updatedAt in descending order
+      const contracts = await Contract.find({ 'userId': new mongoose.Types.ObjectId(req.user.id) })
+        .sort({ updatedAt: -1 }) // Sort by updatedAt in descending order
+        .skip(startIndex)
+        .limit(limit);
+  
+      // Get total count for pagination purposes
+      const totalContracts = await Contract.countDocuments({ 'userId': new mongoose.Types.ObjectId(req.user.id) });
+  
+      // Respond with the contracts and total count
+      res.status(200).json({ contracts, totalContracts });
+  
+    } catch (error) {
+      console.error('Error fetching contracts:', error);
+      res.status(500).json({ message: error.message });
+    }
+  };
 
-const uploadContractUser = async(req, res) => {
-    try{
+const uploadContractUser = async (req, res) => {
+    try {
 
         const userId = req.user.id;
         const key = '${userId}/';
         const contract = await Contract.create({
-                'userId' : new mongoose.Types.ObjectId(req.user.id),
-                'title' : "filler",
-                'thumbnail' : "https://via.placeholder.com/200"
-            });
-    } catch (error){
+            'userId': new mongoose.Types.ObjectId(req.user.id),
+            'title': "filler",
+            'thumbnail': "https://via.placeholder.com/200"
+        });
+    } catch (error) {
         console.error('Error uploading file to DB', error);
-        res.status(500).json({message: error.message});
+        res.status(500).json({ message: error.message });
     }
 }
 

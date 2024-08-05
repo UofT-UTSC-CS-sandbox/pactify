@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import RichEditor from "./richTextEditor";
 import Saveform from "./Save";
+import { handleOpenSave, handleCloseSave, handleSubmit } from "../uploadUtils";
 
 function ContractRentalForm() {
     const navigate = useNavigate();
@@ -21,33 +22,8 @@ function ContractRentalForm() {
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
     const [isSaveOpen, setIsSaveOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const handleOpenSave = () => {
-        setIsSaveOpen(true);
-    };
-
-    const handleCloseSave = () => {
-        setIsSaveOpen(false);
-    };
-
-    const handleSubmit = async (name) => {
-        try {
-            const upload = await axios({
-                method: "post",
-                url: "http://localhost:5050/api/uploadFile",
-                withCredentials: true,
-                data:
-                {
-                    "fileName": name,
-                    "content": response
-                },
-            })
-            setIsSaveOpen(false);
-            navigate('/home');
-        } catch (error) {
-            console.error('Error saving file:', error);
-        }
-    };
 
     const handleStartChange = (date) => {
         setDate(date);
@@ -538,7 +514,7 @@ function ContractRentalForm() {
                     <p id="error" className="text-center my-4 text-red-600"></p>
                     <button
                         type="submit"
-                        className="w-1/2 mb-4 self-center px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"
+                        className="w-1/2 mb-4 self-center px-4 py-2 bg-red-500 text-white font-medium rounded-full hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"
                         onClick={generateContract}
                     >
                         Generate
@@ -551,13 +527,19 @@ function ContractRentalForm() {
                             </label>
                             <RichEditor initialValue={response} onValueChange={setResponse} />
                             <button
-                                onClick={handleOpenSave}
-                                className=" mt-4 px-4 py-2 w-3/6 self-center bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                                onClick={() => handleOpenSave(setIsSaveOpen)}
+                                className=" mt-4 px-4 py-2 w-3/6 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
                             >
                                 Save
                             </button>
-                            {isSaveOpen && <Saveform handleClose={handleCloseSave}
-                                handleSubmit={handleSubmit} />}
+                            {isSaveOpen && (
+                                <Saveform
+                                    handleClose={() => handleCloseSave(setIsSaveOpen, setErrorMessage)}
+                                    handleSubmit={(name) => handleSubmit(name, response, setIsSaveOpen, navigate, setErrorMessage)}
+                                    errorMessage={errorMessage}
+                                    setErrorMessage={setErrorMessage}
+                                />
+                            )}
                         </div>
                     )}
 
