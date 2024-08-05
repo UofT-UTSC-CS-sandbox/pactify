@@ -21,7 +21,7 @@ router.get('/', async(req, res) => {
 
         const {contractId} = req.query;
         const folderPrefix = req.user.id;
-        console.log(contractId);
+     
         const s3 = new AWS.S3();
         const params = {
             Bucket: process.env.AWS_BUCKET_NAME,

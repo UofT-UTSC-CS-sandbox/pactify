@@ -8,6 +8,7 @@ function Saveform({ handleClose, handleSubmit, errorMessage, setErrorMessage }) 
     }
 
     const onSubmit = (e) => {
+        console.log(e);
         e.preventDefault();
         handleSubmit(name);
     }

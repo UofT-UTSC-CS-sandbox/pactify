@@ -11,7 +11,7 @@ function ContractCard({ contract, onDelete }) {
         </div>
       </a>
       <div className="px-2 pb-2">
-        <Link to = {`/edit/${contract._id}`} target = "_blank" rel = "noopener noreferrer">
+        <Link to = {`/edit/${contract._id}`}>
           <h5 className="text-xl font-semibold tracking-tight text-gray-900">{contract.title}</h5>
         </Link>
         <p className="mt-2 text-sm text-gray-600">{new Date(contract.updatedAt).toLocaleDateString()}</p>

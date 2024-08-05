@@ -11,6 +11,7 @@ import 'react-notifications-component/dist/theme.css'
 import RichEditor from "./richTextEditor";
 import { useParams } from "react-router-dom";
 import { set } from "mongoose";
+import { handleOpenSave, handleCloseSave, handleSubmit, overwriteSave } from "../uploadUtils";
 function EditContract() {
 
     const { contractId }  = useParams();
@@ -20,6 +21,7 @@ function EditContract() {
     const [isloading, setLoading] = useState(false);
     const [isResponseVisible, setIsResponseVisible] = useState(false);
     const [suggestions, setSuggestions] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const fetchFile = async () => {
         try {
@@ -49,32 +51,6 @@ function EditContract() {
         }
       }, []);
 
-    const handleOpenSave = () => {
-        setIsSaveOpen(true);
-    };
-
-    const handleCloseSave = () => {
-        setIsSaveOpen(false);
-    };
-
-    const handleSubmit = async (name) => {
-        try {
-            const upload = await axios({
-                method: "post",
-                url: "http://localhost:5050/api/uploadFile",
-                withCredentials: true,
-                data:
-                {
-                    "fileName": name,
-                    "content": content
-                },
-            })
-            setIsSaveOpen(false);
-            navigate('/home');
-        } catch (error) {
-            console.error('Error saving file:', error);
-        }
-    };
 
     const suggestImprovements = async () => {
         if (content === "") {
@@ -116,7 +92,7 @@ function EditContract() {
             <NavBar />
             <div className="min-h-screen flex flex-col justify-between place-items-center bg-slate-100 p-8">
                 <div className="flex flex-col w-7/12 p-8 rounded-lg mt-10">
-                    <button onClick={() => navigate("/home")} className="mb-4 w-min mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-black hover:bg-red-700 transition duration-300 hover:scale-105">
+                    <button onClick={() => navigate(-1)} className="mb-4 w-min mt-4 inline-block bg-red-500 text-white py-2 px-2 rounded-full font-black hover:bg-red-700 transition duration-300 hover:scale-105">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                         </svg>
@@ -127,13 +103,13 @@ function EditContract() {
                         <RichEditor initialValue={content} onValueChange={setContent} />
                         <p id="error" className="text-center mb-4 text-red-600"></p>
                         <button
-                            onClick={handleOpenSave}
+                            onClick={() => overwriteSave(content, navigate, contractId)}
                             className=" mt-4 px-4 py-2 w-40 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
                         >
                             Save
                         </button>
                         <button
-                            onClick={handleOpenSave}
+                            onClick={() => handleOpenSave(setIsSaveOpen)}
                             className=" mt-4 px-4 py-2 w-40 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
                         >
                             Save as New
@@ -168,8 +144,14 @@ function EditContract() {
                         </div>)
                         }
 
-                        {isSaveOpen && <Saveform handleClose={handleCloseSave}
-                            handleSubmit={handleSubmit} />}
+                        {isSaveOpen && (
+                                <Saveform
+                                    handleClose={() => handleCloseSave(setIsSaveOpen, setErrorMessage)}
+                                    handleSubmit={(name) => handleSubmit(name, content, setIsSaveOpen, navigate, setErrorMessage)}
+                                    errorMessage={errorMessage}
+                                    setErrorMessage={setErrorMessage}
+                                />
+                         )}
 
                     </div>
                 </div>

@@ -72,5 +72,42 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.post('/aws', async (req, res) => {
+    try {
+        const { fileName, content } = req.body;
+        const folderPrefix = req.user.id;
+        
+        if (!fileName || !content) {
+            return res.status(400).json({ message: 'File name and content are required' });
+        }
+
+        const s3 = new AWS.S3();
+        const params = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: `${folderPrefix}/${fileName}`,
+            Body: content
+        };
+
+        const uploadPromise = () => {
+            return new Promise((resolve, reject) => {
+                s3.upload(params, (error, data) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(data);
+                    }
+                });
+            });
+        };
+
+        const uploadResult = await uploadPromise();
+
+        res.status(200).json({ message: 'File uploaded successfully', data: uploadResult });
+    } catch (error) {
+        console.log('Error uploading file:', error);
+        res.status(500).json({ message: 'Error uploading file', error: error.message });
+    }
+});
+
 
 export default router;
