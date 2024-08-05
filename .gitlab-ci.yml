@@ -1,0 +1,20 @@
+stages:
+  - build
+
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+
+build-docker:
+  stage: build
+  script:
+    - export DOCKER_PASSWORD=$(echo "$DOCKER_PASSWORD_ENCODED" | base64 --decode)
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker build -t $DOCKER_USERNAME/pactify:latest .
+    - docker push $DOCKER_USERNAME/pactify:latest
+  only:
+    - master
+
