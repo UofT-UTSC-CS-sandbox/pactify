@@ -16,10 +16,7 @@ function ContractCard({ contract, onDelete }) {
         </Link>
         <p className="mt-2 text-sm text-gray-600">{new Date(contract.updatedAt).toLocaleDateString()}</p>
         <div className="mt-3 flex justify-between items-center">
-          <a href="#" className="text-blue-600 hover:text-blue-800">Open</a>
           <DeleteButton contractId = {contract._id} onDelete={onDelete} />
-          <div>
-          </div>
         </div>
       </div>
     </div>

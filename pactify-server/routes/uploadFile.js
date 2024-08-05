@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
         });
 
         if (existingContract) {
-            return res.status(400).json({ message: 'Contract already exists' });
+            return res.status(400).json({ message: 'Already exists, choose a different name' });
         }
 
         const createdContract = await Contract.create({

@@ -514,7 +514,7 @@ function ContractRentalForm() {
                     <p id="error" className="text-center my-4 text-red-600"></p>
                     <button
                         type="submit"
-                        className="w-1/2 mb-4 self-center px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"
+                        className="w-1/2 mb-4 self-center px-4 py-2 bg-red-500 text-white font-medium rounded-full hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"
                         onClick={generateContract}
                     >
                         Generate
@@ -528,7 +528,7 @@ function ContractRentalForm() {
                             <RichEditor initialValue={response} onValueChange={setResponse} />
                             <button
                                 onClick={() => handleOpenSave(setIsSaveOpen)}
-                                className="px-4 py-2 bg-blue-500 text-white rounded"
+                                className=" mt-4 px-4 py-2 w-3/6 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
                             >
                                 Save
                             </button>
