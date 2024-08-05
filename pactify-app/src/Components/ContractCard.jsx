@@ -39,11 +39,11 @@ function ContractCard({ contract, onDelete }) {
       </div>
 
       {showConfirm && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed z-50 inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-pactifyPurple rounded-lg shadow-lg w-[28rem] ">
             <div className="flex justify-between items-center p-4 border-b">
               <h2 className="text-lg font-normal text-white">
-                Are you sure you want to delete this file?
+                Are you sure you want to delete "{contract.title}"?
               </h2>
               <button onClick={handleCancel} className="text-gray-500 hover:text-gray-700 text-4xl font-black">
                 &times;

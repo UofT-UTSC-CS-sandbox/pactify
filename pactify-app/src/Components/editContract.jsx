@@ -102,18 +102,20 @@ function EditContract() {
                     <div className="mb-4 flex flex-col">
                         <RichEditor initialValue={content} onValueChange={setContent} />
                         <p id="error" className="text-center mb-4 text-red-600"></p>
-                        <button
-                            onClick={() => overwriteSave(content, navigate, contractId)}
-                            className=" mt-4 px-4 py-2 w-40 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
-                        >
-                            Save
-                        </button>
-                        <button
-                            onClick={() => handleOpenSave(setIsSaveOpen)}
-                            className=" mt-4 px-4 py-2 w-40 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
-                        >
-                            Save as New
-                        </button>
+                        <div className="flex flex-row self-center space-x-4">
+                            <button
+                                onClick={() => overwriteSave(content, navigate, contractId)}
+                                className=" mt-4 px-4 py-2 w-40 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                            >
+                                Save
+                            </button>
+                            <button
+                                onClick={() => handleOpenSave(setIsSaveOpen)}
+                                className=" mt-4 px-4 py-2 w-40 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                            >
+                                Save as New
+                            </button>
+                        </div>
                         <button
                             onClick={suggestImprovements}
                             className="my-4 px-4 w-64 self-center font-semibold bg-red-500 text-white rounded-full hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"

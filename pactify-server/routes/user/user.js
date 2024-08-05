@@ -40,7 +40,7 @@ const getUserContracts = async (req, res, next) => {
         try {
           // Fetch all contracts
           const startIndex = parseInt(req.query.startIndex) || 0;
-          const limit = parseInt(req.query.limit) || 9;
+          const limit = parseInt(req.query.limit) || 12;
       
           // Ensure userId is properly formatted and valid
     
