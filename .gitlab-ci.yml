@@ -27,4 +27,4 @@ build-docker:
     - docker push $DOCKER_USERNAME/pactify:latest
 
   rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
