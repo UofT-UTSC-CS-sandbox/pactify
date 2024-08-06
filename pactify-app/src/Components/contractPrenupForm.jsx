@@ -240,60 +240,60 @@ function ContractPrenupForm() {
 
     const exportToPDF = () => {
         if (contentRef.current) {
-          html2canvas(contentRef.current, { scale: 2 }).then((canvas) => {
-            const ctx = canvas.getContext('2d');
-            const imgWidth = canvas.width;
-            const imgHeight = canvas.height;
-      
-            // Define the cropping area (x, y, width, height)
-            const cropX = 20; // Adjust as needed
-            const cropY = 130; // Adjust to crop the top toolbar
-            const cropWidth = imgWidth - 50; // Adjust to crop from left and right
-            const cropHeight = imgHeight - 130; // Adjust to crop from bottom
-      
-            // Create a new canvas to draw the cropped image
-            const croppedCanvas = document.createElement('canvas');
-            croppedCanvas.width = cropWidth;
-            croppedCanvas.height = cropHeight;
-      
-            const croppedCtx = croppedCanvas.getContext('2d');
-            
-            // Draw the cropped image onto the new canvas
-            croppedCtx.drawImage(
-              canvas,
-              cropX, cropY, cropWidth, cropHeight, // Source rectangle
-              0, 0, cropWidth, cropHeight // Destination rectangle
-            );
-      
-            const imgData = croppedCanvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'mm', 'a4');
-      
-            // Define margins and padding
-            const marginLeft = 10;
-            const marginTop = 10;
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = pdf.internal.pageSize.getHeight();
-      
-            // Calculate image dimensions for the PDF
-            const pdfImgWidth = pdfWidth - marginLeft * 2;
-            const pdfImgHeight = (croppedCanvas.height * pdfImgWidth) / croppedCanvas.width;
-      
-            if (pdfImgHeight > pdfHeight - marginTop * 2) {
-              const adjustedHeight = pdfHeight - marginTop * 2;
-              const adjustedWidth = (croppedCanvas.width * adjustedHeight) / croppedCanvas.height;
-              pdf.addImage(imgData, 'PNG', marginLeft, marginTop, adjustedWidth, adjustedHeight);
-            } else {
-              pdf.addImage(imgData, 'PNG', marginLeft, marginTop, pdfImgWidth, pdfImgHeight);
-            }
-      
-            pdf.save('prenup-contract.pdf');
-          }).catch((error) => {
-            console.error('Error capturing or cropping the content:', error);
-          });
+            html2canvas(contentRef.current, { scale: 2 }).then((canvas) => {
+                const ctx = canvas.getContext('2d');
+                const imgWidth = canvas.width;
+                const imgHeight = canvas.height;
+
+                // Define the cropping area (x, y, width, height)
+                const cropX = 20; // Adjust as needed
+                const cropY = 130; // Adjust to crop the top toolbar
+                const cropWidth = imgWidth - 50; // Adjust to crop from left and right
+                const cropHeight = imgHeight - 130; // Adjust to crop from bottom
+
+                // Create a new canvas to draw the cropped image
+                const croppedCanvas = document.createElement('canvas');
+                croppedCanvas.width = cropWidth;
+                croppedCanvas.height = cropHeight;
+
+                const croppedCtx = croppedCanvas.getContext('2d');
+
+                // Draw the cropped image onto the new canvas
+                croppedCtx.drawImage(
+                    canvas,
+                    cropX, cropY, cropWidth, cropHeight, // Source rectangle
+                    0, 0, cropWidth, cropHeight // Destination rectangle
+                );
+
+                const imgData = croppedCanvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+
+                // Define margins and padding
+                const marginLeft = 10;
+                const marginTop = 10;
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+
+                // Calculate image dimensions for the PDF
+                const pdfImgWidth = pdfWidth - marginLeft * 2;
+                const pdfImgHeight = (croppedCanvas.height * pdfImgWidth) / croppedCanvas.width;
+
+                if (pdfImgHeight > pdfHeight - marginTop * 2) {
+                    const adjustedHeight = pdfHeight - marginTop * 2;
+                    const adjustedWidth = (croppedCanvas.width * adjustedHeight) / croppedCanvas.height;
+                    pdf.addImage(imgData, 'PNG', marginLeft, marginTop, adjustedWidth, adjustedHeight);
+                } else {
+                    pdf.addImage(imgData, 'PNG', marginLeft, marginTop, pdfImgWidth, pdfImgHeight);
+                }
+
+                pdf.save('prenup-contract.pdf');
+            }).catch((error) => {
+                console.error('Error capturing or cropping the content:', error);
+            });
         } else {
-          console.error('Content container is not available.');
+            console.error('Content container is not available.');
         }
-      };
+    };
 
     return (
         <div>
@@ -613,8 +613,11 @@ function ContractPrenupForm() {
                         <button
                             type="button"
                             onClick={handleAddPartyAChild}
-                            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                            className=" flex items-center justify-center px-3 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
                         >
+                            <svg class="w-5 h-5 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
                             Add Child
                         </button>
                     </div>
@@ -662,8 +665,11 @@ function ContractPrenupForm() {
                         <button
                             type="button"
                             onClick={handleAddPartyBChild}
-                            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                            className=" flex items-center justify-center px-3 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
                         >
+                            <svg class="w-5 h-5 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
                             Add Child
                         </button>
                     </div>
@@ -711,8 +717,11 @@ function ContractPrenupForm() {
                         <button
                             type="button"
                             onClick={handleAddPartyABChild}
-                            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                            className=" flex items-center justify-center px-3 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
                         >
+                            <svg class="w-5 h-5 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
                             Add Child
                         </button>
                     </div>
@@ -738,9 +747,13 @@ function ContractPrenupForm() {
                     <p id="error" className="text-center my-4 text-red-600"></p>
                     <button
                         type="submit"
-                        className=" mb-4 w-1/2 self-center px-4 py-2 bg-red-500 text-white font-medium rounded-full hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"
+                        className=" flex items-center justify-center self-center mb-4 w-52 px-2 py-2 bg-red-500 text-white text-xl font-medium rounded-full hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"
                         onClick={generateContract}
                     >
+                        <svg class="w-7 h-7 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 5V4a1 1 0 0 0-1-1H8.914a1 1 0 0 0-.707.293L4.293 7.207A1 1 0 0 0 4 7.914V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5M9 3v4a1 1 0 0 1-1 1H4m11.383.772 2.745 2.746m1.215-3.906a2.089 2.089 0 0 1 0 2.953l-6.65 6.646L9 17.95l.739-3.692 6.646-6.646a2.087 2.087 0 0 1 2.958 0Z" />
+                        </svg>
+
                         Generate
                     </button>
                     {isloading && (<div className="border-gray-300 mb-4 h-14 w-14 animate-spin rounded-full border-8 border-t-red-500 self-center" />)}
@@ -752,18 +765,28 @@ function ContractPrenupForm() {
                             <div ref={contentRef}>
                                 <RichEditor initialValue={response} onValueChange={setResponse} />
                             </div>
-                            <button
-                                onClick={() => handleOpenSave(setIsSaveOpen)}
-                                className=" mt-4 px-4 py-2 w-3/6 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
-                            >
-                                Save
-                            </button>
-                            <button
-                                onClick={exportToPDF}
-                                className=" mt-4 px-4 py-2 w-3/6 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
-                            >
-                                Download
-                            </button>
+                            <div className="flex flex-row self-center space-x-4">
+                                <button
+                                    onClick={() => handleOpenSave(setIsSaveOpen)}
+                                    className="flex items-center justify-center mt-4 px-4 py-2 w-40 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                                >
+                                    <svg class="w-6 h-6 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M11 16h2m6.707-9.293-2.414-2.414A1 1 0 0 0 16.586 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7.414a1 1 0 0 0-.293-.707ZM16 20v-6a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v6h8ZM9 4h6v3a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V4Z" />
+                                    </svg>
+                                    Save
+                                </button>
+
+                                <button
+                                    onClick={exportToPDF}
+                                    className="flex items-center justify-center mt-4 px-4 py-2 w-40 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                                >
+                                    <svg class="w-6 h-6 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2m-8 1V4m0 12-4-4m4 4 4-4" />
+                                    </svg>
+
+                                    Download
+                                </button>
+                            </div>
                             {isSaveOpen && (
                                 <Saveform
                                     handleClose={() => handleCloseSave(setIsSaveOpen, setErrorMessage)}

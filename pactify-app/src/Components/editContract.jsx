@@ -16,7 +16,7 @@ import { useRef } from "react";
 
 function EditContract() {
 
-    const { contractId }  = useParams();
+    const { contractId } = useParams();
     const navigate = useNavigate();
     const [content, setContent] = useState("");
     const [isSaveOpen, setIsSaveOpen] = useState(false);
@@ -29,31 +29,31 @@ function EditContract() {
 
     const fetchFile = async () => {
         try {
-          const response = await axios({
-            method: 'get',
-            url: 'http://localhost:5050/api/getFile',
-            withCredentials: true,
-            params: {
-              'contractId': contractId
-            }
-          })
-          .then((res) => {   
-            setContent(res.data.message.content);
-            console.log(content);
-          })
-          .catch((err) => {
-            console.error('Error getting file:', err);
-          });
-      } catch (error) {  
+            const response = await axios({
+                method: 'get',
+                url: 'http://localhost:5050/api/getFile',
+                withCredentials: true,
+                params: {
+                    'contractId': contractId
+                }
+            })
+                .then((res) => {
+                    setContent(res.data.message.content);
+                    console.log(content);
+                })
+                .catch((err) => {
+                    console.error('Error getting file:', err);
+                });
+        } catch (error) {
             console.error('Error saving file:', error);
-      }
-    };
-    
-      useEffect(() => {
-        if (contractId) {
-          fetchFile();
         }
-      }, []);
+    };
+
+    useEffect(() => {
+        if (contractId) {
+            fetchFile();
+        }
+    }, []);
 
 
     const suggestImprovements = async () => {
@@ -78,74 +78,74 @@ function EditContract() {
                 "message": content
             },
         })
-        .then((res)=> {
-            let suggestions = res.data.message[1].content;
-            //remove ** from suggestions
-            suggestions = suggestions.replace(/\*/g, "");
-            setSuggestions(suggestions);
-            console.log("Suggestions Generated!");
-            setLoading(false);
-            setIsResponseVisible(true);
-        })
+            .then((res) => {
+                let suggestions = res.data.message[1].content;
+                //remove ** from suggestions
+                suggestions = suggestions.replace(/\*/g, "");
+                setSuggestions(suggestions);
+                console.log("Suggestions Generated!");
+                setLoading(false);
+                setIsResponseVisible(true);
+            })
 
     };
 
     const exportToPDF = () => {
         if (contentRef.current) {
-          html2canvas(contentRef.current, { scale: 2 }).then((canvas) => {
-            const ctx = canvas.getContext('2d');
-            const imgWidth = canvas.width;
-            const imgHeight = canvas.height;
-      
-            // Define the cropping area (x, y, width, height)
-            const cropX = 20; // Adjust as needed
-            const cropY = 130; // Adjust to crop the top toolbar
-            const cropWidth = imgWidth - 50; // Adjust to crop from left and right
-            const cropHeight = imgHeight - 130; // Adjust to crop from bottom
-      
-            // Create a new canvas to draw the cropped image
-            const croppedCanvas = document.createElement('canvas');
-            croppedCanvas.width = cropWidth;
-            croppedCanvas.height = cropHeight;
-      
-            const croppedCtx = croppedCanvas.getContext('2d');
-            
-            // Draw the cropped image onto the new canvas
-            croppedCtx.drawImage(
-              canvas,
-              cropX, cropY, cropWidth, cropHeight, // Source rectangle
-              0, 0, cropWidth, cropHeight // Destination rectangle
-            );
-      
-            const imgData = croppedCanvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'mm', 'a4');
-      
-            // Define margins and padding
-            const marginLeft = 10;
-            const marginTop = 10;
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = pdf.internal.pageSize.getHeight();
-      
-            // Calculate image dimensions for the PDF
-            const pdfImgWidth = pdfWidth - marginLeft * 2;
-            const pdfImgHeight = (croppedCanvas.height * pdfImgWidth) / croppedCanvas.width;
-      
-            if (pdfImgHeight > pdfHeight - marginTop * 2) {
-              const adjustedHeight = pdfHeight - marginTop * 2;
-              const adjustedWidth = (croppedCanvas.width * adjustedHeight) / croppedCanvas.height;
-              pdf.addImage(imgData, 'PNG', marginLeft, marginTop, adjustedWidth, adjustedHeight);
-            } else {
-              pdf.addImage(imgData, 'PNG', marginLeft, marginTop, pdfImgWidth, pdfImgHeight);
-            }
-      
-            pdf.save('contract.pdf');
-          }).catch((error) => {
-            console.error('Error capturing or cropping the content:', error);
-          });
+            html2canvas(contentRef.current, { scale: 2 }).then((canvas) => {
+                const ctx = canvas.getContext('2d');
+                const imgWidth = canvas.width;
+                const imgHeight = canvas.height;
+
+                // Define the cropping area (x, y, width, height)
+                const cropX = 20; // Adjust as needed
+                const cropY = 130; // Adjust to crop the top toolbar
+                const cropWidth = imgWidth - 50; // Adjust to crop from left and right
+                const cropHeight = imgHeight - 130; // Adjust to crop from bottom
+
+                // Create a new canvas to draw the cropped image
+                const croppedCanvas = document.createElement('canvas');
+                croppedCanvas.width = cropWidth;
+                croppedCanvas.height = cropHeight;
+
+                const croppedCtx = croppedCanvas.getContext('2d');
+
+                // Draw the cropped image onto the new canvas
+                croppedCtx.drawImage(
+                    canvas,
+                    cropX, cropY, cropWidth, cropHeight, // Source rectangle
+                    0, 0, cropWidth, cropHeight // Destination rectangle
+                );
+
+                const imgData = croppedCanvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+
+                // Define margins and padding
+                const marginLeft = 10;
+                const marginTop = 10;
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+
+                // Calculate image dimensions for the PDF
+                const pdfImgWidth = pdfWidth - marginLeft * 2;
+                const pdfImgHeight = (croppedCanvas.height * pdfImgWidth) / croppedCanvas.width;
+
+                if (pdfImgHeight > pdfHeight - marginTop * 2) {
+                    const adjustedHeight = pdfHeight - marginTop * 2;
+                    const adjustedWidth = (croppedCanvas.width * adjustedHeight) / croppedCanvas.height;
+                    pdf.addImage(imgData, 'PNG', marginLeft, marginTop, adjustedWidth, adjustedHeight);
+                } else {
+                    pdf.addImage(imgData, 'PNG', marginLeft, marginTop, pdfImgWidth, pdfImgHeight);
+                }
+
+                pdf.save('contract.pdf');
+            }).catch((error) => {
+                console.error('Error capturing or cropping the content:', error);
+            });
         } else {
-          console.error('Content container is not available.');
+            console.error('Content container is not available.');
         }
-      };
+    };
 
     return (
         <div>
@@ -163,67 +163,75 @@ function EditContract() {
                         <div ref={contentRef}>
                             <RichEditor initialValue={content} onValueChange={setContent} />
                         </div>
-                        
+
                         <p id="error" className="text-center mb-4 text-red-600"></p>
                         <div className="flex flex-row self-center space-x-4">
                             <button
                                 onClick={() => overwriteSave(content, navigate, contractId)}
-                                className=" mt-4 px-4 py-2 w-40 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                                className="flex items-center justify-center mt-4 px-4 py-2 w-40 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
                             >
+                                <svg class="w-6 h-6 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M11 16h2m6.707-9.293-2.414-2.414A1 1 0 0 0 16.586 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7.414a1 1 0 0 0-.293-.707ZM16 20v-6a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v6h8ZM9 4h6v3a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V4Z" />
+                                </svg>
                                 Save
                             </button>
                             <button
                                 onClick={() => handleOpenSave(setIsSaveOpen)}
-                                className=" mt-4 px-4 py-2 w-40 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                                className="flex items-center justify-center mt-4 px-4 py-2 w-44 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
                             >
+                                <svg class="w-6 h-6 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M14 4v3a1 1 0 0 1-1 1h-3m4 10v1a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h2m11-3v10a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1V7.87a1 1 0 0 1 .24-.65l2.46-2.87a1 1 0 0 1 .76-.35H18a1 1 0 0 1 1 1Z" />
+                                </svg>
                                 Save as New
                             </button>
                             <button
                                 onClick={exportToPDF}
-                                className=" mt-4 px-4 py-2 w-3/6 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                                className="flex items-center justify-center mt-4 px-4 py-2 w-40 self-center bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
                             >
+                                <svg class="w-6 h-6 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2m-8 1V4m0 12-4-4m4 4 4-4" />
+                                </svg>
+
                                 Download
                             </button>
 
                         </div>
                         <button
                             onClick={suggestImprovements}
-                            className="my-4 px-4 w-64 self-center font-semibold bg-red-500 text-white rounded-full hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"
+                            className="flex items-center justify-center m-4 px-4 py-2 w-64 self-center bg-red-500 text-white rounded-full hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:scale-105"
                         >
-                            <div className="flex justify-center items-center space-x-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-6 w-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
-                                </svg>
-                                <p className="self-center align-middle pt-2">Suggest Improvements</p>
-                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-white mr-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+                            </svg>
+                            Suggest Improvements
                         </button>
                         {isloading && (<div className="border-gray-300 mb-4 h-14 w-14 animate-spin rounded-full border-8 border-t-red-500 self-center" />)}
                         {isResponseVisible && (
                             <div className="mb-4">
-                            <label className="block text-base font-medium text-gray-700 mb-2">
-                                Suggested Improvements
-                            </label>
-                            <div className="flex items-center">
-                                <textarea
-                                    id="improvements"
-                                    value={suggestions}
-                                    type="text"
-                                    rows={15}
-                                    readOnly
-                                    className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
-                                ></textarea>
-                            </div>
-                        </div>)
+                                <label className="block text-base font-medium text-gray-700 mb-2">
+                                    Suggested Improvements
+                                </label>
+                                <div className="flex items-center">
+                                    <textarea
+                                        id="improvements"
+                                        value={suggestions}
+                                        type="text"
+                                        rows={15}
+                                        readOnly
+                                        className="w-full p-2 border border-gray-300 rounded-md shadow-sm overflow-y-auto resize-y focus:outline-none focus:ring-4 focus:ring-red-500"
+                                    ></textarea>
+                                </div>
+                            </div>)
                         }
 
                         {isSaveOpen && (
-                                <Saveform
-                                    handleClose={() => handleCloseSave(setIsSaveOpen, setErrorMessage)}
-                                    handleSubmit={(name) => handleSubmit(name, content, setIsSaveOpen, navigate, setErrorMessage)}
-                                    errorMessage={errorMessage}
-                                    setErrorMessage={setErrorMessage}
-                                />
-                         )}
+                            <Saveform
+                                handleClose={() => handleCloseSave(setIsSaveOpen, setErrorMessage)}
+                                handleSubmit={(name) => handleSubmit(name, content, setIsSaveOpen, navigate, setErrorMessage)}
+                                errorMessage={errorMessage}
+                                setErrorMessage={setErrorMessage}
+                            />
+                        )}
 
                     </div>
                 </div>

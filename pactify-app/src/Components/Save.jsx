@@ -30,14 +30,14 @@ function Saveform({ handleClose, handleSubmit, errorMessage, setErrorMessage }) 
                         <div className='flex flex-row space-x-4'>
                             <button
                                 type="submit"
-                                className=" w-36 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
+                                className=" w-36 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 hover:scale-105"
                             >
                                 Submit
                             </button>
                             <button
                                 type="button"
                                 onClick={handleClose}
-                                className=" w-36 px-4 py-2 bg-gray-300 rounded hover:bg-slate-400 focus:outline-none transition duration-300 hover:scale-105"
+                                className=" w-36 px-4 py-2 bg-gray-300 rounded-full hover:bg-slate-400 focus:outline-none transition duration-300 hover:scale-105"
                             >
                                 Close
                             </button>
