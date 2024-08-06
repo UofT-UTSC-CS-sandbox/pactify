@@ -21,10 +21,16 @@ build-docker:
     DOCKER_HOST: tcp://docker:2375/
     DOCKER_TLS_CERTDIR: ""
 
+  before_script:
+    - apk add --no-cache docker-cli
+
   script:
     - export DOCKER_PASSWORD=$(echo "$DOCKER_PASSWORD_ENCODED" | base64 --decode)
-    - echo -n "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - echo "Logging into Docker..."
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - echo "Building Docker image..."
     - docker build -t $DOCKER_USERNAME/pactify:latest .
+    - echo "Pushing Docker image..."
     - docker push $DOCKER_USERNAME/pactify:latest
 
   rules:
