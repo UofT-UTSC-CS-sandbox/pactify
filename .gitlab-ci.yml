@@ -11,21 +11,21 @@
 #     - if: '$CI_COMMIT_BRANCH == "main"'
 
 build-docker:
-  image: docker:19.03.12
+  image: docker:latest
   stage: build
 
   services:
-    - docker:19.03.12-dind
+    - docker:dind
 
   variables:
-    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375/
     DOCKER_TLS_CERTDIR: ""
 
   before_script:
-    - apk update && apk add docker
+    - apk update
+    - apk add --no-cache docker-cli
 
   script:
-    - export DOCKER_PASSWORD=$(echo "$DOCKER_PASSWORD_ENCODED" | base64 --decode)
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker build -t $DOCKER_USERNAME/pactify:latest .
     - docker push $DOCKER_USERNAME/pactify:latest
