@@ -1,4 +1,4 @@
-# Stage 1: Build the client application
+# Build client
 FROM node:16 AS client-build
 WORKDIR /app
 COPY pactify-app/package*.json ./
@@ -6,7 +6,7 @@ RUN npm install
 COPY pactify-app/ ./
 RUN npm run build
 
-# Stage 2: Build the server application
+# Build server
 FROM node:16 AS server-build
 WORKDIR /app
 COPY pactify-server/package*.json ./
@@ -16,12 +16,12 @@ COPY pactify-server/ ./
 # Copy the client build to the server's public directory
 COPY --from=client-build /app/build /app/public
 
-# Ensure the entire project is copied
+# MaKing Sure the entire project is copied
 COPY pactify-server/models /app/models
 COPY pactify-server/routes /app/routes
 
-# Expose the port on which the server will run
+
 EXPOSE 5000
 
-# Command to run the server
+
 CMD ["node", "server.js"]
