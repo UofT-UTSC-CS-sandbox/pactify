@@ -1,3 +1,32 @@
+# build-docker:
+#   image: docker:latest
+#   stage: build
+
+#   services:
+#     - docker:dind
+
+#   variables:
+#     DOCKER_HOST: tcp://docker:2375/
+#     DOCKER_TLS_CERTDIR: ""
+
+#   before_script:
+#     - apk update
+#     - apk add --no-cache docker-cli
+
+#   script:
+#     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#     - docker build -t $DOCKER_USERNAME/pactify:latest .
+#     - docker push $DOCKER_USERNAME/pactify:latest
+
+#   rules:
+#     - if: '$CI_COMMIT_BRANCH == "main"'
+
+
+stages:
+  - build
+  - deploy
+  - test
+
 build-docker:
   image: docker:latest
   stage: build
@@ -15,8 +44,37 @@ build-docker:
 
   script:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker build -t $DOCKER_USERNAME/pactify:latest .
+    - docker build -t $DOCKER_USERNAME/pactify:latest -t $DOCKER_USERNAME/pactify:v1.0.0 .
     - docker push $DOCKER_USERNAME/pactify:latest
+    - docker push $DOCKER_USERNAME/pactify:v1.0.0
+
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+
+deploy-container:
+  image: docker/compose:latest
+  stage: deploy
+
+  services:
+    - docker:dind
+
+  script:
+    - docker-compose up -d
+
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+
+test-container:
+  image: alpine:latest
+  stage: test
+
+  before_script:
+    - apk update
+    - apk add curl
+
+  script:
+    - chmod +x test.sh
+    - ./test.sh
 
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
