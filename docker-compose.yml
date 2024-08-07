@@ -6,3 +6,9 @@ services:
       - "5000:5000"
     environment:
       - NODE_ENV=production
+
+  tester:
+    image: alpine:latest
+    depends_on:
+      - pactify
+    entrypoint: ["sh", "-c", "apk add --no-cache curl && sleep 60 && curl -f http://pactify:5000 || exit 1"]

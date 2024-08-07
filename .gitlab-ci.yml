@@ -27,7 +27,7 @@ build-docker:
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
 
-deploy-container:
+deploy-and-test:
   image: docker/compose:latest
   stage: deploy
 
@@ -42,22 +42,7 @@ deploy-container:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
   script:
-    - docker-compose up -d
-
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
-
-test-container:
-  image: alpine:latest
-  stage: test
-
-  before_script:
-    - apk update
-    - apk add curl
-
-  script:
-    - chmod +x test.sh
-    - ./test.sh
+    - docker-compose up --abort-on-container-exit --exit-code-from tester
 
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
