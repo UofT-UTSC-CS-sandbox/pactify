@@ -1,17 +1,22 @@
-stages:
-  - build
-
-before_script:
-  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-  - eval $(ssh-agent -s)
-  - mkdir -p ~/.ssh
-  - chmod 700 ~/.ssh
-
 build-docker:
+  image: docker:latest
   stage: build
+
+  services:
+    - docker:dind
+
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_TLS_CERTDIR: ""
+
+  before_script:
+    - apk update
+    - apk add --no-cache docker-cli
+
   script:
-    - export DOCKER_PASSWORD=$(echo "$DOCKER_PASSWORD_ENCODED" | base64 --decode)
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker build -t $DOCKER_USERNAME/pactify:latest .
     - docker push $DOCKER_USERNAME/pactify:latest
 
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
