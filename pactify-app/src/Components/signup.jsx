@@ -77,7 +77,7 @@ function SignupPage() {
     }
 
     return (
-        <div className="min-h-screen flex flex-col justify-between bg-violet-950">
+        <div className="min-h-screen flex flex-col justify-between bg-pactifyPurple">
             <div className="flex items-center justify-center flex-grow">
                 <div className="bg-slate-100 rounded-3xl shadow-lg p-8 w-full max-w-md m-16">
                     <h2 className="text-3xl font-bold text-center mb-2">

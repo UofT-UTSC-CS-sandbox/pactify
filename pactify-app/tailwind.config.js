@@ -6,7 +6,12 @@ module.exports = {
   ],
   theme: {
     
-    extend: {},
+    extend: {
+      colors: {
+        pactifyPurple: '#1C133F',
+        pactifyRed: '#EC5F59',
+      }
+    },
   },
   plugins: [require('flowbite/plugin')],
 }

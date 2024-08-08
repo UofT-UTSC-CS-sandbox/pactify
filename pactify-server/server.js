@@ -6,15 +6,14 @@ import authRouter from "./routes/auth/authroute.js";
 import userRouter from "./routes/user/userrouter.js"
 import cookieParser from "cookie-parser";
 import dotenv from 'dotenv';
-import contractRouters from './routes/contract.route.js';
 import axios from 'axios';
 import homeRoutes from './routes/homeRoutes.js';
 import chatGPTRouter from './routes/chatGPTRoutes.js';
 import db from './db/connection.js'
 import process from 'process';
 import uploadFile from './routes/uploadFile.js';
-
-
+import getFile from './routes/getFile.js';
+import deleteFile from './routes/deleteFile.js';
 
 axios.defaults.withCredentials = true;
 dotenv.config();
@@ -34,9 +33,11 @@ app.use("/api/user/", userRouter);
 
 app.use("/api/chatGPT", chatGPTRouter);
 
-app.use("/api/contracts", contractRouters);
-
 app.use("/api/uploadFile", uploadFile);
+
+app.use("/api/getFile", getFile);
+
+app.use("/api/deleteFile", deleteFile);
 
 app.use('/', homeRoutes);
 
